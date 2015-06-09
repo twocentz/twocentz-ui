@@ -36,7 +36,6 @@ $ gulp serve
 * need to write test and implement Jasmine and Karma
 
 
-**Free Software**
 
 [mongodb]:https://www.mongodb.org/
 [mongoose]:http://mongoosejs.com/
