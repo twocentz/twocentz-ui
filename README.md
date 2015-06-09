@@ -29,6 +29,12 @@ $ gulp serve
 
 ```
 
+launch browser and run url
+
+```sh
+http://localhost:3000
+
+```
 
 ### Todo's
 * Modify this app for twocentz-ui.
