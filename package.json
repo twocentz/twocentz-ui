@@ -1,8 +1,15 @@
 {
-  "name": "showtrackr",
-  "version": "0.0.0",
+  "name": "TwoCentz",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.10.x"
+  },
+  "main": "server/server.js",
   "scripts": {
-    "test": "karma start public/test/karma.conf.js"
+    "start": "node server/server.js",
+    "test": "grunt test",
+    "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
   "dependencies": {
     "agenda": "^0.6.10",
