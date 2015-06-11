@@ -45,10 +45,13 @@ $ npm install
 
 ```
 
-start local server, launch browser and run url
+### Running
 
 ```sh
+Start local server:
 $ gulp serve
+
+Launch browser and run url:
 http://localhost:3000
 
 ```
