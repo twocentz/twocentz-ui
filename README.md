@@ -45,7 +45,7 @@ $ npm install
 
 ```
 
-launch browser and run url
+start local server, launch browser and run url
 
 ```sh
 $ gulp serve
