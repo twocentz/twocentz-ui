@@ -28,3 +28,4 @@ dist
 node_modules
 public/bower_components
 .idea
+server/config/local.env.js
