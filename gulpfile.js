@@ -17,7 +17,7 @@ var bases = {
 
 var paths = {
  scripts: ['scripts/**/*.js'],
- bower_libs: ['bower_modules/jquery/dist/jquery.js'],
+ bower_libs: ['bower_components/'],
  vendor: ['vendor/*.js'],
  minified: ['*.min.js','templates.js'],
  style: ['style/']

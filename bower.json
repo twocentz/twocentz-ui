@@ -1,0 +1,21 @@
+{
+  "name": "twocentz-ui",
+  "version": "0.0.0",
+  "homepage": "https://github.com/twocentz/twocentz-ui",
+  "authors": [
+    "Ilyas Khawaja"
+  ],
+  "keywords": [
+    "twocentz-ui"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-strap": "~2.2.4",
+    "angular-messages": "~1.4.1",
+    "angular-resource": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "angular-animate": "~1.4.1",
+    "moment": "~2.10.3",
+    "angular-mocks": "~1.4.1"
+  }
+}

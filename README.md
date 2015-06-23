@@ -27,13 +27,13 @@ $ cd twocentz-ui
 Install curl if not already installed
 sudo apt-get install curl
 
-Install nodejs and npm
+Install nodejs, npm and bower
 curl -sL https://deb.nodesource.com/setup | sudo bash -
 sudo apt-get update
 sudo apt-get install nodejs bundle-essential
 sudo npm install -g gulp
 sudo npm install
-
+sudo bower install
 ```
 
 ### Installation (Mac)
@@ -42,6 +42,7 @@ you need to have nodejs and gulp installed
 $ git clone [git-repo-url] twocentz-ui
 $ cd twocentz-ui
 $ npm install
+$ bower install
 
 ```
 
