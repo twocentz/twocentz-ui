@@ -16,6 +16,7 @@
     "angular-route": "~1.4.1",
     "angular-animate": "~1.4.1",
     "moment": "~2.10.3",
-    "angular-mocks": "~1.4.1"
+    "angular-mocks": "~1.4.1",
+    "stormpath-sdk-angularjs": "~0.5.1"
   }
 }

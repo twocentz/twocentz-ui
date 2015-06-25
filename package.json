@@ -7,6 +7,7 @@
   },
   "main": "server/server.js",
   "scripts": {
+    "postinstall": "bower install",
     "start": "node server/server.js",
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
@@ -15,6 +16,7 @@
     "async": "^0.8.0",
     "bcryptjs": "^0.7.12",
     "body-parser": "^1.0.0",
+    "bower": "1.4.x",
     "express": "^4.12.4",
     "jwt-simple": "^0.2.0",
     "lodash": "^2.4.1",
@@ -23,6 +25,7 @@
     "mongoose": "3.8",
     "morgan": "^1.0.0",
     "request": "^2.58.0",
+    "stormpath-sdk-express": "^0.4.8",
     "xml2js": "^0.4.2"
   },
   "devDependencies": {
