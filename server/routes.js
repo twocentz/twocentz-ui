@@ -3,6 +3,7 @@
  */
 
 'use strict';
+var stormpathExpressSdk = require('stormpath-sdk-express');
 var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -18,7 +19,9 @@ var async = require('async');
 var request = require('request');
 var xml2js = require('xml2js');
 
+
 var _ = require('lodash');
+var spMiddleware = stormpathExpressSdk.createMiddleware();
 
 module.exports = function(app) {
 
@@ -114,6 +117,9 @@ module.exports = function(app) {
     return jwt.encode(payload, tokenSecret);
   }
 
+  //attaching stormpath middleware
+  spMiddleware.attachDefaults(app);
+
   // Insert routes below
   app.post('/auth/signup', function(req, res, next) {
     var user = new User({
@@ -208,7 +214,7 @@ module.exports = function(app) {
 
 
 
-  app.get('/api/shows', function(req, res, next) {
+  app.get('/api/shows',  function(req, res, next) {
     var query = Show.find();
     if (req.query.genre) {
       query.where({ genre: req.query.genre });
@@ -223,7 +229,8 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/shows/:id', function(req, res, next) {
+  //app.get('/api/shows/:id', spMiddleware.authenticate, function(req, res, next) {
+  app.get('/api/shows/:id',  function(req, res, next) {
     Show.findById(req.params.id, function(err, show) {
       if (err) return next(err);
       res.send(show);

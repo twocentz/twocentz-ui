@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
 var csso = require('gulp-csso');
+var env = require('gulp-env');
 var ngAnnotate = require('gulp-ng-annotate');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -22,6 +23,16 @@ var paths = {
  minified: ['*.min.js','templates.js'],
  style: ['style/']
 };
+
+
+gulp.task('set-env', function () {
+    env({
+        file: "./server/config/local.env",
+        vars: {
+            //any vars you want to overwrite
+        }
+    });
+});
 
 // Delete the dist directory
 gulp.task('clean', function() {
@@ -80,5 +91,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
 gulp.task('build', ['less', 'compress', 'templates', 'copy']);
-gulp.task('serve', ['less', 'compress', 'templates', 'copy', 'server','watch']);
+gulp.task('serve', ['set-env', 'less', 'compress', 'templates', 'copy', 'server','watch']);
 

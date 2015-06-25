@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'public')));
 
-console.log("***** App Path *********" + path.join( path.normalize(__dirname + '/..'), 'public'));
+// console.log("***** App Path *********" + path.join( path.normalize(__dirname + '/..'), 'public'));
+// console.log("***** ENV *********" + process.env.STORMPATH_API_KEY_ID);
 
 
 require('./routes')(app);
