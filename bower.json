@@ -9,6 +9,7 @@
     "twocentz-ui"
   ],
   "dependencies": {
+    "jquery": "~2.1.4",
     "angular": "~1.4.1",
     "angular-strap": "~2.2.4",
     "angular-messages": "~1.4.1",
@@ -17,6 +18,8 @@
     "angular-animate": "~1.4.1",
     "moment": "~2.10.3",
     "angular-mocks": "~1.4.1",
-    "stormpath-sdk-angularjs": "~0.5.1"
+    "stormpath-sdk-angularjs": "~0.5.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-cookies": "~1.4.1"
   }
 }

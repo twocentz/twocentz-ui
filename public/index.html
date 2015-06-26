@@ -21,27 +21,44 @@
     <li data-match-route="/$"><a href="/">Home</a></li>
     <li data-match-route="/add"><a href="/add">Add</a></li>
   </ul>
-  <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
+  <ul class="nav navbar-nav navbar-right">
+    <li if-user ng-class="{active: isActive('/profile')}">
+      <a ui-sref="profile">Profile</a>
+    </li>
+    <li if-not-user ng-class="{active: isActive('/signup')}">
+        <a ui-sref="signup">Sign up</a>
+    </li>
+    <li if-not-user ng-class="{active: isActive('/login')}">
+        <a ui-sref="login">Login</a>
+    </li>
+    <li if-user ng-class="{active: isActive('/logout')}">
+        <a ui-sref="main" sp-logout>Logout</a>
+    </li>
+  </ul>
+  <!-- <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
     <li data-match-route="/login"><a href="/login">Login</a></li>
     <li data-match-route="/signup"><a href="/signup">Sign up</a></li>
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="currentUser">
     <li class="navbar-text" ng-bind="currentUser.email"></li>
     <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
-  </ul>
+  </ul> -->
 </div>
 
 <div ng-view class="{{pageClass}}"></div>
 
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="bower_components/angular-messages/angular-messages.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
-<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/moment/min/moment.min.js"></script>
-
+<script src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js"></script>
+<script src="bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js"></script>
 
 <!-- <script src="scripts/app.js"></script>
 <script src="scripts/filters/fromNow.js"></script>
