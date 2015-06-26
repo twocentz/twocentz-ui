@@ -1,6 +1,5 @@
 angular.module('MyApp')
   .controller('LoginCtrl', function($scope, Auth) {
-    console.log("&&&&&&&&&&");
     $scope.login = function() {
       Auth.login({ email: $scope.email, password: $scope.password });
     };

@@ -13,15 +13,15 @@
 <body>
 <div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-static-top" role="navigation" bs-navbar>
   <div class="navbar-header">
-    <a class="navbar-brand" href="/">
+    <a class="navbar-brand" ui-sref="home">
       <span>Two<strong>Centz</strong></span>
     </a>
   </div>
   <ul class="nav navbar-nav">
-    <li data-match-route="/$"><a href="/">Home</a></li>
-    <li data-match-route="/add"><a href="/add">Add</a></li>
+    <li ><a ui-sref="home">Home</a></li>
+    <li ><a ui-sref="add">Add</a></li>
   </ul>
-  <ul class="nav navbar-nav navbar-right">
+  <ul class="nav navbar-nav pull-right">
     <li if-user ng-class="{active: isActive('/profile')}">
       <a ui-sref="profile">Profile</a>
     </li>
@@ -45,7 +45,7 @@
   </ul> -->
 </div>
 
-<div ng-view class="{{pageClass}}"></div>
+<div ui-view class="{{pageClass}}"></div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>

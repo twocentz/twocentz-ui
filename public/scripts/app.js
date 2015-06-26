@@ -15,6 +15,7 @@ angular.module('MyApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+    
     $stateProvider
       .state('home', {
         url:'/',
