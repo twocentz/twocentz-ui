@@ -45,6 +45,11 @@ $ npm install
 $ bower install
 
 ```
+### Stormpath setting
+
+You will need to setup a local.env.js file to export stormpath account keys and href.
+There is a sample local.env.js.sample file in the repo which you can copy over and replace with actual values
+
 
 ### Running
 
