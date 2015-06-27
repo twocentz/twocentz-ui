@@ -15,7 +15,7 @@ angular.module('MyApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-    
+
     $stateProvider
       .state('home', {
         url:'/',
@@ -35,12 +35,20 @@ angular.module('MyApp', [
       .state('add', {
         url:'/add',
         templateUrl: 'views/add.html',
-        controller: 'AddCtrl'
+        controller: 'AddCtrl',
+        sp: {
+          authenticate: true
+        }
       })
       .state('signup', {
         url:'/signup',
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
+      })
+      .state('verify', {
+        url:'/emailVerification?sptoken',
+        templateUrl: 'views/emailVerification.html',
+        controller: 'VerifyCtrl'
       })
 
   })
@@ -48,6 +56,6 @@ angular.module('MyApp', [
   .run(function($stormpath){
     $stormpath.uiRouter({
       loginState: 'login',
-      defaultPostLoginState: 'main'
+      defaultPostLoginState: 'home'
     });
   });

@@ -25,6 +25,9 @@ var spMiddleware = stormpathExpressSdk.createMiddleware();
 
 module.exports = function(app) {
 
+   //attaching stormpath middleware
+  spMiddleware.attachDefaults(app);
+  
   var showSchema = new mongoose.Schema({
     _id: Number,
     name: String,
@@ -117,8 +120,7 @@ module.exports = function(app) {
     return jwt.encode(payload, tokenSecret);
   }
 
-  //attaching stormpath middleware
-  spMiddleware.attachDefaults(app);
+ 
 
   // Insert routes below
   app.post('/auth/signup', function(req, res, next) {
@@ -201,16 +203,16 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/users', function(req, res, next) {
-    if (!req.query.email) {
-      return res.send(400, { message: 'Email parameter is required.' });
-    }
+  // app.get('/api/users', function(req, res, next) {
+  //   if (!req.query.email) {
+  //     return res.send(400, { message: 'Email parameter is required.' });
+  //   }
 
-    User.findOne({ email: req.query.email }, function(err, user) {
-      if (err) return next(err);
-      res.send({ available: !user });
-    });
-  });
+  //   User.findOne({ email: req.query.email }, function(err, user) {
+  //     if (err) return next(err);
+  //     res.send({ available: !user });
+  //   });
+  // });
 
 
 
