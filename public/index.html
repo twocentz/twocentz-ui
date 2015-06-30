@@ -32,20 +32,12 @@
         <a ui-sref="login">Login</a>
     </li>
     <li if-user ng-class="{active: isActive('/logout')}">
-        <a ui-sref="main" sp-logout>Logout</a>
+        <a ui-sref="home" sp-logout>Logout</a>
     </li>
   </ul>
-  <!-- <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
-    <li data-match-route="/login"><a href="/login">Login</a></li>
-    <li data-match-route="/signup"><a href="/signup">Sign up</a></li>
-  </ul>
-  <ul class="nav navbar-nav pull-right" ng-if="currentUser">
-    <li class="navbar-text" ng-bind="currentUser.email"></li>
-    <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
-  </ul> -->
 </div>
 
-<div ui-view class="{{pageClass}}"></div>
+<div ui-view ></div>
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
