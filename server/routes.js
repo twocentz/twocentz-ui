@@ -36,7 +36,7 @@ module.exports = function(app) {
         "Content-Type": "application/json"
       },
     }, function(error, response, body) {
-      res.status(200).json(JSON.parse(body));
+      res.status(200).json(JSON.parse(body)["content"]);
     });
   });
 
@@ -45,9 +45,9 @@ module.exports = function(app) {
     res.send(500, { message: err.message });
   });
 
-  app.get('/api/topics/slug/:slug',  function(req, res, next) {
+  app.get('/api/topics/:id',  function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/" + "s" + "/" + req.params.slug,
+      url: API_URL + "topics" + "/" + req.params.id,
       method: "GET",
       headers: {
         "Content-Type": "application/json"
