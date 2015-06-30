@@ -20,10 +20,10 @@ angular.module('MyApp', [
       .state('home', {
         url:'/',
         templateUrl: 'views/home.html',
-        controller: 'MainCtrl'
+        controller: 'HomeCtrl'
       })
-      .state('shows', {
-        url:'/shows/:id',
+      .state('topics', {
+        url:'/topics/:slug',
         templateUrl: 'views/detail.html',
         controller: 'DetailCtrl'
       })
