@@ -15,7 +15,7 @@ angular.module('MyApp')
      * @param category
      */
     $scope.filterByCategory = function(category) {
-      $scope.topics = Topic.query({ category: category });
+      $scope.categoryFilter = category.substring(0,category.length-1);
       $scope.headingTitle = category;
     };
   });
