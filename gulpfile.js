@@ -8,6 +8,7 @@ var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var clean = require('gulp-clean');
 var server = require('gulp-express');
+var nodemon = require('gulp-nodemon')
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -83,6 +84,15 @@ gulp.task('server', function() {
   server.run(['server/server.js']);
 });
 
+gulp.task('start', function () {
+  nodemon({
+    script: 'server/server.js'
+    , ext: 'js html'
+    , env: { 'NODE_ENV': 'development' }
+  })
+});
+
+
 gulp.task('watch', function() {
   gulp.watch('public/stylesheets/*.less', ['less','copy']);
   gulp.watch('public/views/**/*.html', ['templates','copy']);
@@ -93,3 +103,5 @@ gulp.task('default', ['less', 'compress', 'templates', 'copy']);
 gulp.task('build', ['less', 'compress', 'templates', 'copy']);
 gulp.task('serve', ['set-env', 'less', 'compress', 'templates', 'copy', 'server','watch']);
 
+/* Added an additional start mechanism to ensure HTML and JS files are watched using nodemon */
+gulp.task('nodemon', ['set-env', 'start']);
