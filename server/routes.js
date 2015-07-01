@@ -57,6 +57,18 @@ module.exports = function(app) {
     });
   });
 
+  app.get('/api/topics/s/:slug',  function(req, res, next) {
+    request({
+      url: API_URL + "topics" + "/" + "s" + "/" + req.params.slug,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }, function(error, response, body) {
+      res.status(200).json(JSON.parse(body));
+    });
+  });
+
   /*
    * Ensure this route is last.
    */

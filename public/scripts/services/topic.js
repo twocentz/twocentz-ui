@@ -5,6 +5,11 @@ angular.module('MyApp')
         return $http.get('/api/topics').then(function(result) {
           return result.data;
         });
+      },
+      getTopicBySlug: function(slug) {
+        return $http.get('/api/topics/s/' + slug).then(function(result) {
+          return result.data;
+        });
       }
     }
   });
