@@ -1,5 +1,8 @@
 angular.module('MyApp')
   .controller('HomeCtrl', function($scope, Topic) {
+    //for debugging
+    window.$scope = $scope;
+    
     $scope.categories = ['MOVIES', 'PRODUCTS'];
     $scope.headingTitle = 'Top TwoCentz Topics';
 

@@ -19,22 +19,22 @@ angular.module('MyApp', [
     $stateProvider
       .state('home', {
         url:'/',
-        templateUrl: 'views/home.html',
+        templateUrl: 'html/home.html',
         controller: 'HomeCtrl'
       })
       .state('topics', {
         url:'/topics/:slug',
-        templateUrl: 'views/detail.html',
+        templateUrl: 'html/detail.html',
         controller: 'DetailCtrl'
       })
       .state('login', {
         url:'/login',
-        templateUrl: 'views/login.html',
+        templateUrl: 'html/login.html',
         controller: 'LoginCtrl'
       })
       .state('add', {
         url:'/add',
-        templateUrl: 'views/add.html',
+        templateUrl: 'html/add.html',
         controller: 'AddCtrl',
         sp: {
           authenticate: true
@@ -42,14 +42,32 @@ angular.module('MyApp', [
       })
       .state('signup', {
         url:'/signup',
-        templateUrl: 'views/signup.html',
+        templateUrl: 'html/signup.html',
         controller: 'SignupCtrl'
+      })
+      .state('profile', {
+        url: '/profile',
+        templateUrl: 'html/profile.html',
+        controller: 'ProfileCtrl',
+        sp: {
+          authenticate: true
+        }
       })
       .state('verify', {
         url:'/emailVerification?sptoken',
-        templateUrl: 'views/emailVerification.html',
+        templateUrl: 'html/emailVerification.html',
         controller: 'VerifyCtrl'
       })
+      .state('passwordResetRequest', {
+        url:'/password/requestReset',
+        templateUrl: 'html/passwordResetRequest.html',
+        controller: 'ResetCtrl'
+      })
+      .state('reset', {
+        url:'/password/reset?sptoken',
+        templateUrl: 'html/passwordReset.html',
+        controller: 'ResetCtrl'
+      });
 
   })
  
