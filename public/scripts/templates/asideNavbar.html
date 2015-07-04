@@ -1,0 +1,25 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="aside-dialog">
+    <div class="aside-content">
+      <div class="aside-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="aside-title"><span>Two<strong>Centz</strong></span></h4>
+      </div>
+      <div class="aside-body">
+    	  <div class="list-group">
+          <a ui-sref="home" class="list-group-item" ng-click="$hide()">Home</a>
+          <a ui-sref="add" class="list-group-item" ng-click="$hide()">Add</a>
+        </div>
+        <div class="list-group">
+          <a ui-sref="profile" if-user class="list-group-item" ng-click="$hide()"  ng-class="{active: isActive('/profile')}">Profile</a>
+          <a ui-sref="signup" if-not-user class="list-group-item" ng-click="$hide()"  ng-class="{active: isActive('/profile')}">Sign up</a>
+          <a ui-sref="login" if-not-user class="list-group-item" ng-click="$hide()"  ng-class="{active: isActive('/login')}">Login</a>
+          <a ui-sref="home" if-user class="list-group-item" ng-click="$hide()"  ng-class="{active: isActive('/logout')}" sp-logout>Logout</a>
+        </div>
+      </div>
+      <div class="aside-footer">
+        <button type="button" class="btn btn-default btn-lg btn-block" ng-click="$hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

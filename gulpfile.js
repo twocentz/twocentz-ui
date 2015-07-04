@@ -84,8 +84,8 @@ gulp.task('server', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/stylesheets/*.less', ['less','copy']);
-  gulp.watch('public/templates/**/*.html', ['templates','copy']);
+  gulp.watch('public/style/*.less', ['less','copy']);
+  gulp.watch('public/scripts/templates/**/*.html', ['templates','copy']);
   gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/vendor'], ['compress','copy']);
 });
 

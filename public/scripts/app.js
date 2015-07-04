@@ -7,6 +7,8 @@ angular.module('MyApp', [
   'ngAnimate',
   'ui.router',
   'mgcrea.ngStrap',
+  'mgcrea.ngStrap.modal',
+  'mgcrea.ngStrap.aside',
   'stormpath',
   'stormpath.templates'
   ])

@@ -3,38 +3,50 @@
 <head>
   <base href="/">
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TwoCentz</title>
   <link href="favicon.png" rel="icon" type="image/png">
   <link href='http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
   <link href="//cdn.jsdelivr.net/ionicons/1.4.1/css/ionicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.css">
+
   <link href="style/animate.css" rel="stylesheet">
   <link href="style/style.css" rel="stylesheet">
+
 </head>
 <body>
-<div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-static-top" role="navigation" bs-navbar>
+<div ng-app="myApp"  ng-controller="NavbarCtrl" class="navbar navbar-default" role="navigation" bs-navbar>
+  <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-animation="am-slide-right" ng-click="showMenu()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span> 
+    </button>
   <div class="navbar-header">
     <a class="navbar-brand" ui-sref="home">
       <span>Two<strong>Centz</strong></span>
     </a>
   </div>
-  <ul class="nav navbar-nav">
-    <li ><a ui-sref="home">Home</a></li>
-    <li ><a ui-sref="add">Add</a></li>
-  </ul>
-  <ul class="nav navbar-nav pull-right">
-    <li if-user ng-class="{active: isActive('/profile')}">
-      <a ui-sref="profile">Profile</a>
-    </li>
-    <li if-not-user ng-class="{active: isActive('/signup')}">
-        <a ui-sref="signup">Sign up</a>
-    </li>
-    <li if-not-user ng-class="{active: isActive('/login')}">
-        <a ui-sref="login">Login</a>
-    </li>
-    <li if-user ng-class="{active: isActive('/logout')}">
-        <a ui-sref="home" sp-logout>Logout</a>
-    </li>
-  </ul>
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li ><a ui-sref="home">Home</a></li>
+      <li ><a ui-sref="add">Add</a></li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li if-user ng-class="{active: isActive('/profile')}">
+        <a ui-sref="profile">Profile</a>
+      </li>
+      <li if-not-user ng-class="{active: isActive('/signup')}">
+          <a ui-sref="signup">Sign up</a>
+      </li>
+      <li if-not-user ng-class="{active: isActive('/login')}">
+          <a ui-sref="login">Login</a>
+      </li>
+      <li if-user ng-class="{active: isActive('/logout')}">
+          <a ui-sref="home" sp-logout>Logout</a>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div ui-view ></div>
@@ -43,6 +55,7 @@
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="bower_components/angular-messages/angular-messages.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
