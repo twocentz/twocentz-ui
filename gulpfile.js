@@ -116,4 +116,4 @@ gulp.task('watch', function() {
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
 gulp.task('build', ['copy']);
 gulp.task('serve', ['set-env', 'copy', 'server','watch']);
-gulp.task('prod', ['set-env', 'copy', 'server']);
+gulp.task('prod', ['copy', 'server']);
