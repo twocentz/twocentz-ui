@@ -13,15 +13,33 @@ var templateCache = require('gulp-angular-templatecache');
 
 var bases = {
  app: 'public/',
- dist: 'dist/',
+ dist: 'dist/'
 };
 
 var paths = {
- scripts: ['scripts/**/*.js'],
- bower_libs: ['bower_components/'],
- vendor: ['vendor/*.js'],
- minified: ['*.min.js','templates.js'],
- style: ['style/']
+  scripts: ['scripts/**/*.js'],
+  bower_libs: [
+    "bower_components/jquery/dist/jquery.js",
+    "bower_components/angular/angular.js",
+    "bower_components/angular-strap/dist/angular-strap.js",
+    "bower_components/angular-strap/dist/angular-strap.tpl.js",
+    "bower_components/angular-animate/angular-animate.js",
+    "bower_components/angular-cookies/angular-cookies.js",
+    "bower_components/angular-messages/angular-messages.js",
+    "bower_components/angular-resource/angular-resource.js",
+    "bower_components/angular-ui-router/release/angular-ui-router.js",
+    "bower_components/angular-animate/angular-animate.js",
+    "bower_components/moment/min/moment.min.js",
+    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js",
+    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js"
+  ],
+  bower_css:  [
+    "bower_components/angular-motion/dist/angular-motion.min.css",
+    "bower_components/bootstrap-additions/dist/bootstrap-additions.css"
+  ],
+  vendor: ['vendor/*.js'],
+  minified: ['*.min.js','templates.js'],
+  style: ['style/']
 };
 
 
@@ -41,7 +59,7 @@ gulp.task('clean', function() {
 });
 
 gulp.task('less', function() {
-  gulp.src(paths.style + '*.less', {cwd: bases.app})
+  return gulp.src(paths.style + '*.less', {cwd: bases.app})
     .pipe(plumber())
     .pipe(less())
     .pipe(csso())
@@ -49,7 +67,7 @@ gulp.task('less', function() {
 });
 
 gulp.task('compress', function() {
-  gulp.src(paths.scripts, {cwd: bases.app})
+  return gulp.src(paths.scripts, {cwd: bases.app})
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
@@ -57,26 +75,32 @@ gulp.task('compress', function() {
 });
 
 gulp.task('templates', function() {
-  gulp.src('public/scripts/templates/**/*.html')
+  return gulp.src('public/scripts/templates/**/*.html')
     .pipe(templateCache({ root: 'html', module: 'MyApp' }))
     .pipe(gulp.dest(bases.app));
 });
 
 // Copy all other files to dist directly
-gulp.task('copy', ['clean'], function() {
+gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
  
  // Copy styles
- gulp.src(paths.style + "*.css", {cwd: bases.app})
- .pipe(gulp.dest(bases.dist + 'css'));
+  gulp.src(paths.style + "*.css", {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist + 'css'));
  
- // Copy lib scripts, maintaining the original directory structure
- //gulp.src(paths.libs, {cwd: bases.app +'vendor**'})
- gulp.src(paths.vendor, {cwd: bases.app +'**'})
- .pipe(gulp.dest(bases.dist));
- 
+  gulp.src(paths.minified, {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
 
- gulp.src(paths.minified, {cwd: bases.app})
- .pipe(gulp.dest(bases.dist));
+  gulp.src(paths.bower_libs,  {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist + 'libs'));
+
+  gulp.src(paths.bower_css,  {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist + 'css'));
+    
+  gulp.src('*.png', {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
+
+  gulp.src('index.html',  {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
 });
 
 gulp.task('server', function() {
@@ -84,11 +108,12 @@ gulp.task('server', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/style/*.less', ['less','copy']);
-  gulp.watch('public/scripts/templates/**/*.html', ['templates','copy']);
-  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/vendor'], ['compress','copy']);
+  gulp.watch('public/style/*.less', ['copy']);
+  gulp.watch('public/scripts/templates/**/*.html', ['copy']);
+  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['copy']);
 });
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
-gulp.task('build', ['less', 'compress', 'templates', 'copy']);
-gulp.task('serve', ['set-env', 'less', 'compress', 'templates', 'copy', 'server','watch']);
+gulp.task('build', ['copy']);
+gulp.task('serve', ['set-env', 'copy', 'server','watch']);
+gulp.task('prod', ['set-env', 'copy', 'server']);

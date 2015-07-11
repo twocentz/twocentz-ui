@@ -29,3 +29,5 @@ node_modules
 public/bower_components
 .idea
 server/config/local.env.js
+public/app.min.js
+public/templates.js
