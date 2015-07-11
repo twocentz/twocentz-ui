@@ -8,7 +8,7 @@
   "main": "server/server.js",
   "scripts": {
     "postinstall": "bower install",
-    "start": "node server/server.js",
+    "start": "node node_modules/gulp/bin/gulp prod",
     "test": "grunt test",
     "update-webdriver": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
   },
@@ -38,7 +38,7 @@
     "gulp-less": "^3.0.3",
     "gulp-ng-annotate": "^0.2.0",
     "gulp-plumber": "^0.6.1",
-    "gulp-uglify": "^0.3.0",
+    "gulp-uglify": "^0.3.0"
   },
   "devDependencies": {
     "karma": "^0.12.19",
