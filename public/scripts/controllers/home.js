@@ -2,9 +2,10 @@ angular.module('MyApp')
   .controller('HomeCtrl', function($scope, Topic) {
     //for debugging
     window.$scope = $scope;
-    
+    document.title =  "TwoCentz - let the world know";
+
     $scope.categories = ['MOVIES', 'PRODUCTS'];
-    $scope.headingTitle = 'Top TwoCentz Topics';
+    $scope.headingTitle = 'Topics';
 
     /**
      * Retrieve all topics from topic factory.
