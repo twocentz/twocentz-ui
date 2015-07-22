@@ -9,6 +9,15 @@ angular.module('MyApp')
       getTopicBySlug: function(slug) {
         return $http.get('/api/topics/s/' + slug).then(function(result) {
           return result.data;
+        }, function(reason){
+          return reason.data;
+        });
+      },
+      getMovieBySlug: function(slug) {
+        return $http.get('/api/movies/s/' + slug).then(function(result) {
+          return result.data;
+        }, function(reason){
+          return reason.data;
         });
       }
     }

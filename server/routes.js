@@ -40,26 +40,26 @@ module.exports = function(app) {
     });
   });
 
-  app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.send(500, { message: err.message });
-  });
-
-  app.get('/api/topics/:id',  function(req, res, next) {
+  app.get('/api/movies/s/:slug',  function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/" + req.params.id,
+      url: API_URL + "topics" + "/movies/" + "s" + "/" + req.params.slug,
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       },
     }, function(error, response, body) {
-      res.status(200).json(JSON.parse(body));
+      if(body){
+        res.status(200).json(JSON.parse(body));
+      }else{
+        res.status(404).json({error:"movie not found"});
+        console.error("movie not found");
+      }
     });
   });
 
-  app.get('/api/topics/s/:slug',  function(req, res, next) {
+  app.get('/api/movies/entries/:id',  function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/" + "s" + "/" + req.params.slug,
+      url: API_URL + "topics" + "/movies/" + req.params.id + "/entries",
       method: "GET",
       headers: {
         "Content-Type": "application/json"

@@ -24,10 +24,10 @@ angular.module('MyApp', [
         templateUrl: 'html/home.html',
         controller: 'HomeCtrl'
       })
-      .state('topics', {
-        url:'/topics/:slug',
-        templateUrl: 'html/detail.html',
-        controller: 'DetailCtrl'
+      .state('movies', {
+        url:'/movies/:slug',
+        templateUrl: 'html/movies.html',
+        controller: 'MovieCtrl'
       })
       .state('login', {
         url:'/login',

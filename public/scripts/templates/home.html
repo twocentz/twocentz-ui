@@ -19,8 +19,12 @@
         <div class="panel-body">
             <div class="row show-list">
                 <div class="fade-repeat col-xs-4 col-md-3" ng-repeat="topic in topics | filter:categoryFilter">
-                    <div class="text-center">
-                        <a href="/topics/{{topic.slug}}">{{topic.title}}</a>
+                    <div class="text-center" ng-if="topic.category == 'MOVIES'">
+                        <a ui-sref="movies({slug: topic.slug})">{{topic.title}}</a>
+                        <p class="text-muted">Category: {{topic.category}}</p>
+                    </div>
+                    <div class="text-center" ng-if="topic.category == 'OTHERS'">
+                        <a ui-sref="others({slug: topic.slug})">{{topic.title}}</a>
                         <p class="text-muted">Category: {{topic.category}}</p>
                     </div>
                 </div>
