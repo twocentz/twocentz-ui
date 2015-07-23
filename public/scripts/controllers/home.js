@@ -4,7 +4,7 @@ angular.module('MyApp')
     window.$scope = $scope;
     document.title =  "TwoCentz - let the world know";
 
-    $scope.categories = ['MOVIES', 'PRODUCTS'];
+    $scope.categories = ['ALL', 'MOVIES', 'PRODUCTS', 'OTHERS'];
     $scope.headingTitle = 'Topics';
 
     /**
@@ -19,7 +19,13 @@ angular.module('MyApp')
      * @param category
      */
     $scope.filterByCategory = function(category) {
-      $scope.categoryFilter = category.substring(0,category.length-1);
-      $scope.headingTitle = category;
+      if(category === "ALL"){
+        $scope.categoryFilter = "";
+         $scope.headingTitle = "Topics";
+      }else{
+        $scope.categoryFilter = category;
+        $scope.headingTitle = category;
+      }
+      
     };
   });
