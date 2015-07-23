@@ -10,7 +10,8 @@ angular.module('MyApp', [
   'mgcrea.ngStrap.modal',
   'mgcrea.ngStrap.aside',
   'stormpath',
-  'stormpath.templates'
+  'stormpath.templates',
+  'angular-jqcloud'
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

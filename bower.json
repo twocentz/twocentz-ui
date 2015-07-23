@@ -22,6 +22,7 @@
     "angular-ui-router": "~0.2.15",
     "angular-cookies": "~1.4.1",
     "bootstrap-additions": "~0.3.1",
-    "angular-motion": "~0.4.2"
+    "angular-motion": "~0.4.2",
+    "angular-jqcloud": "~1.0.1"
   }
 }

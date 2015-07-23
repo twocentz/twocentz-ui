@@ -15,9 +15,12 @@ angular.module('MyApp')
         Entries.getMovieEntryById($scope.topic.id).then(function(data){
           if(!data.error){
             $scope.entries = data.content;
+            $scope.words = [];
+            _.each($scope.entries, function(entry){
+              $scope.words.push({text: entry.text, weight: entry.votes});
+            });
           }
         });
       }
     });
-
   });

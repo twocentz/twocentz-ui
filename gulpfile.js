@@ -31,11 +31,14 @@ var paths = {
     "bower_components/angular-animate/angular-animate.js",
     "bower_components/moment/min/moment.min.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js",
-    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js"
+    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js",
+    "bower_components/jqcloud2/dist/jqcloud.min.js",
+    "bower_components/angular-jqcloud/angular-jqcloud.js"
   ],
   bower_css:  [
     "bower_components/angular-motion/dist/angular-motion.min.css",
-    "bower_components/bootstrap-additions/dist/bootstrap-additions.css"
+    "bower_components/bootstrap-additions/dist/bootstrap-additions.css",
+    "bower_components/jqcloud2/dist/jqcloud.min.css"
   ],
   vendor: ['vendor/*.js'],
   minified: ['*.min.js','templates.js'],
