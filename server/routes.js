@@ -30,7 +30,7 @@ module.exports = function(app) {
 
   app.get('/api/topics',  function(req, res, next) {
     request({
-      url: API_URL + "topics",
+      url: API_URL + "topics" + "/movies/",
       method: "GET",
       headers: {
         "Content-Type": "application/json"
