@@ -52,6 +52,13 @@
             </ul>
           </div>
         </div>
+        <div if-user class="panel panel-default">
+          <form class="form-inline" role="form">
+            <span ng-show="tc.submited" style="font-size: 1.5em" class="label label-success">entry submited!</span>
+            <input ng-hide="tc.submited" class="search" type="text" ng-model="tc.text" placeholder="Add your two centz" id="twocentz-input" >
+            <a ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-primary pull-right" role="button">Submit</a>
+          </form>
+        </div>
       </div>
       <div class="col-md-6 top-buffer">
         <div class="panel panel-default">

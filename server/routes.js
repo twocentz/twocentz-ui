@@ -69,6 +69,26 @@ module.exports = function(app) {
     });
   });
 
+  app.post('/api/entries/movies',  function(req, res, next) {
+    
+    var formObj = {
+      text: req.body.text,
+      topicId: req.body.topicId,
+      userId: req.body.userId
+    }
+    
+    request({
+      url: API_URL + "entries/movies",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formObj)
+    }, function(error, response, body) {
+      res.status(200).json(JSON.parse(body));
+    });
+  });
+
   /*
    * Ensure this route is last.
    */
