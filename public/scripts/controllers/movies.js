@@ -73,37 +73,10 @@ angular.module('MyApp')
         {
             "text": "stupid action",
             "votes": 2
-        },
-        {
-            "text": "superb movie1",
-            "votes": 25
-        },
-        {
-            "text": "great acting2",
-            "votes": 12
-        },
-        {
-            "text": "nonsense storyline3",
-            "votes": 9
-        },
-        {
-            "text": "lazy director4",
-            "votes": 6
-        },
-        {
-            "text": "just wow5",
-            "votes": 3
-        },
-        {
-            "text": "stupid action6",
-            "votes": 2
         }
     ];
-    $scope.words = [];
     
-    _.each($scope.entries, function(entry){
-      $scope.words.push({text: entry.text, weight: entry.votes});
-    });
+    $scope.words = populateWordCloud($scope.entries);
 
     $scope.postTwoCentz = function(){
       
@@ -111,9 +84,22 @@ angular.module('MyApp')
       Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id).then(function(data){
         if(data.status !== 200){
           console.log(data.status + " " + data.error);
+
+          //remove after dev
+          addEntryLocally($scope.tc.text, $scope.entries);
+          $scope.entries = sortEntries($scope.entries);
+          $scope.words = populateWordCloud($scope.entries);
+          
+
           $scope.tc.submited = false;
           $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+
         }else{
+
+          addEntryLocally($scope.tc.text, $scope.entries);
+          $scope.entries = sortEntries($scope.entries);
+          $scope.words = populateWordCloud($scope.entries);
+
           $scope.tc.submited = true;
           $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
         }
@@ -135,6 +121,35 @@ angular.module('MyApp')
       }
       //angular.element(".list-group").addClass('animated pulse');
     };
+
+    // Helper functions which will be moved to a service class
+    function populateWordCloud(entries){
+      var wordCloud = [];
+    
+      _.each(entries, function(entry){
+        wordCloud.push({text: entry.text, weight: entry.votes});
+      });
+
+      return wordCloud;
+    }
+
+    function sortEntries(entries){
+      return _.sortBy(entries, function(entry) {
+          return entry.votes * -1; // desc sorting
+        });
+    }
+
+    function addEntryLocally(text, entries){
+      var index = _.findIndex(entries, function(entry) {
+                        return entry.text == text;
+                      });
+
+      if(index !== -1){
+        entries[index].votes = entries[index].votes + 1;
+      } else {
+        entries.push({"text":text, votes: 1});
+      }
+    }
 
 
   });
