@@ -26,7 +26,18 @@ angular.module('MyApp')
     // });
     $scope.tc = {
       text: "",
-      submited: false,
+      submited: false
+    }
+
+    // no of entries to show
+    $scope.list = {
+      text: "show all",
+      text_all: "show all",
+      text_less: "show less",
+      limit: 5,
+      default: 5,
+      max: 100,
+      isMax: false
     }
 
     $scope.topic = {
@@ -49,11 +60,43 @@ angular.module('MyApp')
         },
         {
             "text": "nonsense storyline",
-            "votes": 5
+            "votes": 9
         },
         {
             "text": "lazy director",
-            "votes": 1
+            "votes": 6
+        },
+        {
+            "text": "just wow",
+            "votes": 3
+        },
+        {
+            "text": "stupid action",
+            "votes": 2
+        },
+        {
+            "text": "superb movie1",
+            "votes": 25
+        },
+        {
+            "text": "great acting2",
+            "votes": 12
+        },
+        {
+            "text": "nonsense storyline3",
+            "votes": 9
+        },
+        {
+            "text": "lazy director4",
+            "votes": 6
+        },
+        {
+            "text": "just wow5",
+            "votes": 3
+        },
+        {
+            "text": "stupid action6",
+            "votes": 2
         }
     ];
     $scope.words = [];
@@ -63,18 +106,35 @@ angular.module('MyApp')
     });
 
     $scope.postTwoCentz = function(){
-      $scope.tc.submited = true;
+      
 
       Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id).then(function(data){
-        console.log(data);
+        if(data.status !== 200){
+          console.log(data.status + " " + data.error);
+          $scope.tc.submited = false;
+          $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+        }else{
+          $scope.tc.submited = true;
+          $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
+        }
+
         $scope.tc.text = "";
-        $scope.tc.submited = false; 
       });
+    };
 
-      $timeout(function(){
-        $scope.tc.text = "";
-        $scope.tc.submited = false; 
-      }, 3000);
+    $scope.toggleEntries = function(){
 
-    }
+      if(!$scope.isMax){
+        $scope.list.limit = $scope.list.max;
+        $scope.list.text = $scope.list.text_less; 
+        $scope.isMax = true;
+      } else {
+        $scope.list.limit = $scope.list.default;
+        $scope.list.text = $scope.list.text_all; 
+        $scope.isMax = false;
+      }
+      //angular.element(".list-group").addClass('animated pulse');
+    };
+
+
   });

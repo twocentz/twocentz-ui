@@ -40,33 +40,30 @@
     <div class="row">
       <div class="col-md-6 top-buffer">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">TwoCentz</h3>
-          </div>
           <div class="panel-body">
             <ul class="list-group">
-              <li class="list-group-item"  ng-repeat="entry in entries">
+              <li class="list-group-item"  ng-repeat="entry in entries | limitTo:list.limit">
                 <span class="badge">{{entry.votes}}</span>
                 {{entry.text}}
               </li>
             </ul>
+            <a ng-click="toggleEntries()" ng-if="entries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
           </div>
         </div>
         <div if-user class="panel panel-default">
           <form class="form-inline" role="form">
-            <span ng-show="tc.submited" style="font-size: 1.5em" class="label label-success">entry submited!</span>
-            <input ng-hide="tc.submited" class="search" type="text" ng-model="tc.text" placeholder="Add your two centz" id="twocentz-input" >
+            <input class="search" type="text" ng-model="tc.text" placeholder="Add your two centz" id="twocentz-input" >
             <a ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-primary pull-right" role="button">Submit</a>
           </form>
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
+          
         </div>
       </div>
       <div class="col-md-6 top-buffer">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Word Cloud</h3>
-          </div>
           <div class="panel-body">
-            <jqcloud words="words" width="300" height="350" delay="10" steps="7" shape="rectangular" font-size="{from:0.12, to:0.04}" autoResize="true" ></jqcloud>
+            <jqcloud words="words" width="300" height="320" delay="10" steps="7" shape="rectangular" font-size="{from:0.12, to:0.04}" autoResize="true" ></jqcloud>
           </div>
         </div>
 

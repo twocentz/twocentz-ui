@@ -8,6 +8,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var _ = require('lodash');
 
 var crypto = require('crypto');
 var bcrypt = require('bcryptjs');
@@ -69,24 +70,46 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/api/entries/movies',  function(req, res, next) {
+  app.post('/api/entries/movies', spMiddleware.authenticate,  function(req, res, next) {
     
-    var formObj = {
-      text: req.body.text,
-      topicId: req.body.topicId,
-      userId: req.body.userId
+    //console.log(req.user);
+    var entry, error;
+    if(req.body.text){
+
+      // check that entry has two words and each word is max 20 letters
+      entry = _.words(_.trim(req.body.text), /[^, ]+/g);
+      if(entry.length > 2){
+        error = "only two words allowed";
+      }
+      if(_.some(entry, function(n){ return n.length > 20;})){
+        error = "max length per word is 20";
+      }
+      if(error){
+        return res.status(200).send({'error': error, 'status': 400});
+      }
+
+      // after entry has passed checks
+      var formObj = {
+        text: entry,
+        topicId: req.body.topicId,
+        userId: req.user.href
+      }
+      
+      request({
+        url: API_URL + "entries/movies",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formObj)
+      }, function(error, response, body) {
+        res.status(200).json(JSON.parse(body));
+      });
+
+    } else {
+      return res.status(200).send({'error': 'twocentz missing', 'status': 400});
     }
     
-    request({
-      url: API_URL + "entries/movies",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formObj)
-    }, function(error, response, body) {
-      res.status(200).json(JSON.parse(body));
-    });
   });
 
   /*
