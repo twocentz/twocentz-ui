@@ -8,6 +8,7 @@ var concat = require('gulp-concat');
 var plumber = require('gulp-plumber');
 var clean = require('gulp-clean');
 var server = require('gulp-express');
+var sourcemaps = require('gulp-sourcemaps');
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -71,9 +72,11 @@ gulp.task('less', function() {
 
 gulp.task('compress', function() {
   return gulp.src(paths.scripts, {cwd: bases.app})
+    .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
     .pipe(uglify())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(bases.app));
 });
 
