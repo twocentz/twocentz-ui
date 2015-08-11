@@ -40,6 +40,8 @@ angular.module('MyApp')
       isMax: false
     }
 
+    $scope.userVoted = ["nonsense storyline", "just wow"];
+
     $scope.topic = {
           "id"  : "ABC123", 
           "title" : "The Running Man",
@@ -84,6 +86,18 @@ angular.module('MyApp')
       }   
     }
 
+    $scope.upVote = function(entryText){
+      $scope.userVoted.push(entryText);
+    }
+
+    $scope.isVoted = function(entryText) {
+      if(_.indexOf($scope.userVoted, entryText) > -1){
+        return true;
+      }else{
+        return false;
+      }
+    }
+
     $scope.postTwoCentz = function(){
       
       if($scope.tc.text !== null && $scope.tc.text.length>0){
@@ -92,7 +106,7 @@ angular.module('MyApp')
             console.log(data.status + " " + data.error);
 
             //remove after dev
-            addEntryLocally($scope.tc.text, $scope.entries);
+            addEntryLocally($scope.tc.text, $scope.entries, $scope.userVoted);
             $scope.entries = sortEntries($scope.entries);
             $scope.words = populateWordCloud($scope.entries);
             $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
@@ -103,7 +117,7 @@ angular.module('MyApp')
 
           }else{
 
-            addEntryLocally($scope.tc.text, $scope.entries);
+            addEntryLocally($scope.tc.text, $scope.entries, $scope.userVoted);
             $scope.entries = sortEntries($scope.entries);
             $scope.words = populateWordCloud($scope.entries);
 
@@ -146,7 +160,7 @@ angular.module('MyApp')
         });
     }
 
-    function addEntryLocally(text, entries){
+    function addEntryLocally(text, entries, userVoted){
       var index = _.findIndex(entries, function(entry) {
                         return entry.text == text;
                       });
@@ -156,6 +170,7 @@ angular.module('MyApp')
       } else {
         entries.push({"text":text, votes: 1});
       }
+      userVoted.push(text);
     }
 
 
