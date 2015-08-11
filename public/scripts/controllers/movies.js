@@ -78,34 +78,41 @@ angular.module('MyApp')
     
     $scope.words = populateWordCloud($scope.entries);
 
+    $scope.keySubmit = function(keyEvent){
+      if (keyEvent.which === 13){
+         $scope.postTwoCentz();
+      }   
+    }
+
     $scope.postTwoCentz = function(){
       
+      if($scope.tc.text !== null && $scope.tc.text.length>0){
+        Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id).then(function(data){
+          if(data.status !== 200){
+            console.log(data.status + " " + data.error);
 
-      Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id).then(function(data){
-        if(data.status !== 200){
-          console.log(data.status + " " + data.error);
+            //remove after dev
+            addEntryLocally($scope.tc.text, $scope.entries);
+            $scope.entries = sortEntries($scope.entries);
+            $scope.words = populateWordCloud($scope.entries);
+            $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
 
-          //remove after dev
-          addEntryLocally($scope.tc.text, $scope.entries);
-          $scope.entries = sortEntries($scope.entries);
-          $scope.words = populateWordCloud($scope.entries);
-          
+            //$scope.tc.submited = false;
+            //$('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+            
 
-          $scope.tc.submited = false;
-          $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+          }else{
 
-        }else{
+            addEntryLocally($scope.tc.text, $scope.entries);
+            $scope.entries = sortEntries($scope.entries);
+            $scope.words = populateWordCloud($scope.entries);
 
-          addEntryLocally($scope.tc.text, $scope.entries);
-          $scope.entries = sortEntries($scope.entries);
-          $scope.words = populateWordCloud($scope.entries);
-
-          $scope.tc.submited = true;
-          $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
-        }
-
-        $scope.tc.text = "";
-      });
+            $scope.tc.submited = true;
+            $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
+          }
+          $scope.tc.text = "";
+        });
+      }
     };
 
     $scope.toggleEntries = function(){

@@ -31,3 +31,4 @@ public/bower_components
 server/config/local.env.js
 public/app.min.js
 public/templates.js
+public/style/style.css
