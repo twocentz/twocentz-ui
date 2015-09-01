@@ -23,6 +23,9 @@
     "angular-cookies": "~1.4.1",
     "bootstrap-additions": "~0.3.1",
     "angular-motion": "~0.4.2",
-    "angular-jqcloud": "~1.0.1"
+    "angular-jqcloud": "~1.0.1",
+    "api-check": "~7.5.0",
+    "angular-formly": "~6.24.23",
+    "angular-formly-templates-bootstrap": "~6.0.0"
   }
 }

@@ -9,6 +9,8 @@ var plumber = require('gulp-plumber');
 var clean = require('gulp-clean');
 var server = require('gulp-express');
 var sourcemaps = require('gulp-sourcemaps');
+var inject = require('gulp-inject');
+var angularFilesort = require('gulp-angular-filesort');
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -104,8 +106,19 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
     
   gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
-
+  
   gulp.src('index.html',  {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
+});
+
+
+
+gulp.task('index', function () {
+  var target = gulp.src('index.html',  {cwd: bases.dist});
+  target
+    .pipe(inject(
+      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+    ))
     .pipe(gulp.dest(bases.dist));
 });
 
@@ -121,5 +134,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
 gulp.task('build', ['copy']);
-gulp.task('serve', ['set-env', 'copy', 'server','watch']);
+gulp.task('serve', ['set-env', 'copy','server','watch']);
 gulp.task('prod', ['copy', 'server']);
