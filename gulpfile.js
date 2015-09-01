@@ -11,6 +11,7 @@ var server = require('gulp-express');
 var sourcemaps = require('gulp-sourcemaps');
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
+var merge = require('merge-stream');
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -22,8 +23,6 @@ var bases = {
 var paths = {
   scripts: ['scripts/**/*.js'],
   bower_libs: [
-    "bower_components/jquery/dist/jquery.js",
-    "bower_components/angular/angular.js",
     "bower_components/angular-strap/dist/angular-strap.js",
     "bower_components/angular-strap/dist/angular-strap.tpl.js",
     "bower_components/angular-animate/angular-animate.js",
@@ -92,35 +91,28 @@ gulp.task('templates', function() {
 gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
  
  // Copy styles
-  gulp.src(paths.style + "*.css", {cwd: bases.app})
+  var style = gulp.src(paths.style + "*.css", {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
  
-  gulp.src(paths.minified, {cwd: bases.app})
+  var min = gulp.src(paths.minified, {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
-  gulp.src(paths.bower_libs,  {cwd: bases.app})
+  var libs = gulp.src(paths.bower_libs,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'libs'));
 
-  gulp.src(paths.bower_css,  {cwd: bases.app})
+  var css = gulp.src(paths.bower_css,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
     
-  gulp.src('*.png', {cwd: bases.app})
+  var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
   
-  gulp.src('index.html',  {cwd: bases.app})
+  var html = gulp.src('index.html',  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
+
+  return merge(style, min, libs, css, img, html);
 });
 
 
-
-gulp.task('index', function () {
-  var target = gulp.src('index.html',  {cwd: bases.dist});
-  target
-    .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
-    ))
-    .pipe(gulp.dest(bases.dist));
-});
 
 gulp.task('server', function() {
   server.run(['server/server.js']);
@@ -133,6 +125,30 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
-gulp.task('build', ['copy']);
-gulp.task('serve', ['set-env', 'copy','server','watch']);
-gulp.task('prod', ['copy', 'server']);
+
+gulp.task('serve', ['set-env', 'copy', 'server','watch'], function(){
+  var target = gulp.src('index.html',  {cwd: bases.dist});
+  return target
+    .pipe(inject(
+      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+    ))
+    .pipe(gulp.dest(bases.dist));
+});
+
+gulp.task('prod', ['copy', 'server'], function(){
+  var target = gulp.src('index.html',  {cwd: bases.dist});
+  return target
+    .pipe(inject(
+      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+    ))
+    .pipe(gulp.dest(bases.dist));
+});
+
+gulp.task('build', ['copy'], function(){
+  var target = gulp.src('index.html',  {cwd: bases.dist});
+  return target
+    .pipe(inject(
+      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+    ))
+    .pipe(gulp.dest(bases.dist));
+})
