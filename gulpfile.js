@@ -76,7 +76,7 @@ gulp.task('compress', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    .pipe(uglify({compress: {sequences: false, join_vars: false}}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(bases.app));
 });
