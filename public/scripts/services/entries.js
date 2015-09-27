@@ -11,8 +11,7 @@ angular.module('MyApp')
       postEntriesByTopicId: function(text, topicId){
         var postObj = {
                         text: text,
-                        topicId: topicId,
-                        userId: "1234ABC"
+                        topicId: topicId
                       };
 
         return $http.post('/api/entries/movies', postObj).then(function(result) {
