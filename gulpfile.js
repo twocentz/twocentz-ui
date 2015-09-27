@@ -9,6 +9,9 @@ var plumber = require('gulp-plumber');
 var clean = require('gulp-clean');
 var server = require('gulp-express');
 var sourcemaps = require('gulp-sourcemaps');
+var inject = require('gulp-inject');
+var angularFilesort = require('gulp-angular-filesort');
+var merge = require('merge-stream');
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -75,7 +78,7 @@ gulp.task('compress', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
-    .pipe(uglify())
+    .pipe(uglify({compress: {sequences: false, join_vars: false}}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(bases.app));
 });
@@ -90,24 +93,28 @@ gulp.task('templates', function() {
 gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
  
  // Copy styles
-  gulp.src(paths.style + "*.css", {cwd: bases.app})
+  var style = gulp.src(paths.style + "*.css", {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
  
-  gulp.src(paths.minified, {cwd: bases.app})
+  var min = gulp.src(paths.minified, {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
-  gulp.src(paths.bower_libs,  {cwd: bases.app})
+  var libs = gulp.src(paths.bower_libs,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'libs'));
 
-  gulp.src(paths.bower_css,  {cwd: bases.app})
+  var css = gulp.src(paths.bower_css,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
     
-  gulp.src('*.png', {cwd: bases.app})
+  var img = gulp.src('*.png', {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
+  
+  var html = gulp.src('index.html',  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
-  gulp.src('index.html',  {cwd: bases.app})
-    .pipe(gulp.dest(bases.dist));
+  return merge(style, min, libs, css, img, html);
 });
+
+
 
 gulp.task('server', function() {
   server.run(['server/server.js']);
@@ -120,6 +127,36 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
+
+// gulp.task('serve', ['set-env', 'copy', 'server','watch'], function(){
+//   var target = gulp.src('index.html',  {cwd: bases.dist});
+//   return target
+//     .pipe(inject(
+//       gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+//     ))
+//     .pipe(gulp.dest(bases.dist));
+// });
+
+// gulp.task('prod', ['copy', 'server'], function(){
+//   var target = gulp.src('index.html',  {cwd: bases.dist});
+//   return target
+//     .pipe(inject(
+//       gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+//     ))
+//     .pipe(gulp.dest(bases.dist));
+// });
+
+// gulp.task('build', ['copy'], function(){
+//   var target = gulp.src('index.html',  {cwd: bases.dist});
+//   return target
+//     .pipe(inject(
+//       gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+//     ))
+//     .pipe(gulp.dest(bases.dist));
+// })
+
 gulp.task('build', ['copy']);
 gulp.task('serve', ['set-env', 'copy', 'server','watch']);
 gulp.task('prod', ['copy', 'server']);
+
+
