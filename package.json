@@ -41,6 +41,7 @@
     "mongoose": "3.8",
     "morgan": "^1.0.0",
     "request": "^2.58.0",
+    "request-promise": "^0.4.3",
     "stormpath-sdk-express": "^0.4.8",
     "xml2js": "^0.4.2"
   },

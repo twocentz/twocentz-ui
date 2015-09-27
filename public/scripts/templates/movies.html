@@ -5,8 +5,8 @@
   <div ng-if="!error">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-4">
-        <!-- <img class="media-object" ng-src="{{topic.images.med}}" alt="{{topic.title}}"> -->
-        <img data-src="holder.js/300x220" bs-holder />
+        <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}">
+        <!-- <img data-src="holder.js/300x220" bs-holder /> -->
       </div>
       <div class="col-xs-12 col-sm-12 col-md-8 top-buffer">
         <h2 class="media-heading">
@@ -14,16 +14,16 @@
         </h2>
         <table class="table table-condensed">
           <tr>
-            <th>Release Date</th><td>{{topic.releaseDate}}</td>
+            <th>Release Date</th><td>{{topic.props.releaseDate}}</td>
           </tr>
           <tr>
-            <th>Duration</th><td>{{topic.duration}}</td>
+            <th>Duration</th><td>{{topic.props.duration}}</td>
           </tr>
           <tr>
-            <th>Rating</th><td>{{topic.rating}}</td>
+            <th>Rating</th><td>{{topic.props.rating}}</td>
           </tr>
           <tr>
-            <th>Director</th><td>{{topic.director}}</td>
+            <th>Director</th><td>{{topic.props.director}}</td>
           </tr>
           <tr>
             <th>Cast</th><td>...</td>

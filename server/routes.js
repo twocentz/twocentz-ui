@@ -17,6 +17,7 @@ var moment = require('moment');
 
 var async = require('async');
 var request = require('request');
+var rp = require('request-promise');
 var xml2js = require('xml2js');
 
 var API_VERSION = "1.0";
@@ -30,15 +31,14 @@ module.exports = function(app) {
   spMiddleware.attachDefaults(app);
 
   app.get('/api/topics',  function(req, res, next) {
-    request({
-      url: API_URL + "topics" + "/movies/",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    }, function(error, response, body) {
-      res.status(200).json(JSON.parse(body)["content"]);
-    });
+    rp(API_URL + "topics" + "/movies/")
+      .then(function(resp){
+        res.status(200).json(JSON.parse(resp));
+      })
+      .catch(function(error){
+        res.status(404).json({error:"failed to get topics"});
+        console.error(error);
+      })
   });
 
   app.get('/api/movies/s/:slug',  function(req, res, next) {
@@ -85,29 +85,32 @@ module.exports = function(app) {
         error = "max length per word is 20";
       }
       if(error){
-        return res.status(200).send({'error': error, 'status': 400});
+        return res.status(400).send({'error': error, 'status': 400});
       }
 
-      // after entry has passed checks
+      
       var formObj = {
-        text: entry,
+        text: entry.join(" "),
         topicId: req.body.topicId,
         userId: req.user.href
       }
+
+      var options = {
+          uri : API_URL + "entries/movies",
+          method : 'POST',
+          json: true,
+          body: formObj
+      };
+       
+      rp(options)
+          .then(function(resp){
+            res.status(200).json(resp);
+          })
+          .catch(console.error);
       
-      request({
-        url: API_URL + "entries/movies",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formObj)
-      }, function(error, response, body) {
-        res.status(200).json(JSON.parse(body));
-      });
 
     } else {
-      return res.status(200).send({'error': 'twocentz missing', 'status': 400});
+      return res.status(400).send({'error': 'twocentz missing', 'status': 400});
     }
     
   });

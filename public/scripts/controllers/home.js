@@ -11,7 +11,7 @@ angular.module('MyApp')
      * Retrieve all topics from topic factory.
      */
     Topic.getAll().then(function(data) {
-      $scope.topics = data;
+      $scope.topics = data.content;
     });
 
     /**
