@@ -144,6 +144,8 @@ gulp.task('prod', ['copy', 'server'], function(){
     .pipe(gulp.dest(bases.dist));
 });
 
+gulp.task('prod', ['copy', 'server']);
+
 gulp.task('build', ['copy'], function(){
   var target = gulp.src('index.html',  {cwd: bases.dist});
   return target
