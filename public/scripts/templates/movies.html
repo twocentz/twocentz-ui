@@ -42,7 +42,7 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <ul if-user class="list-group">
-              <li class="list-group-item" ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in entries | limitTo:list.limit">
+              <li class="list-group-item" ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                 {{entry.text}}
                 <button ng-hide="isVoted(entry.text)" type="button" ng-click="upVote(entry.text)" style="padding:2px" class="btn btn-info pull-right">
                   <span class="badge">{{entry.votes}}</span> vote 
@@ -56,12 +56,12 @@
               </li>
             </ul>
             <ul if-not-user class="list-group">
-              <li class="list-group-item"  ng-repeat="entry in entries | limitTo:list.limit">
+              <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                 {{entry.text}}
                   <span class="badge">{{entry.votes}}</span> 
               </li>
             </ul>
-            <a ng-click="toggleEntries()" ng-if="entries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
+            <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
           </div>
         </div>
         <div if-user class="panel panel-default">
