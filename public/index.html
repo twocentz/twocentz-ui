@@ -1,92 +1,73 @@
 <!DOCTYPE html>
 <html ng-app="MyApp">
-<head>
-  <base href="/">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TwoCentz</title>
-  <link href="favicon.png" rel="icon" type="image/png">
-  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,700'  type='text/css'>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  
-  <link rel="stylesheet" href="css/angular-motion.min.css">
-  <link rel="stylesheet" href="css/jqcloud.min.css">
-  <link rel="stylesheet" href="css/bootstrap-additions.css">
-  <link rel="stylesheet" href="css/animate.css" >
-  <link rel="stylesheet" href="css/style.css" >
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TwoCentz</title>
+    <link href="favicon.png" rel="icon" type="image/png">
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,700'  type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="css/angular-motion.min.css">
+    <link rel="stylesheet" href="css/jqcloud.min.css">
+    <link rel="stylesheet" href="css/bootstrap-additions.css">
+    <link rel="stylesheet" href="css/animate.css" >
+    <link rel="stylesheet" href="css/style.css" >
 
-</head>
-<body>
-<div ng-app="myApp"  ng-controller="NavbarCtrl" class="navbar navbar-default" role="navigation" bs-navbar>
-  <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-animation="am-slide-right" ng-click="showMenu()">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span> 
-    </button>
-  <div class="navbar-header">
-    <a class="navbar-brand" ui-sref="home">
-      <span>Two<strong>Centz</strong></span>
-    </a>
-  </div>
-  <div class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li ><a ui-sref="home">Home</a></li>
-      <li ><a ui-sref="add">Add</a></li>
-    </ul>
-    <ul class="nav navbar-nav pull-right">
-      <li if-user ng-class="{active: isActive('/profile')}">
-        <a ui-sref="profile">Profile</a>
-      </li>
-      <li if-not-user ng-class="{active: isActive('/signup')}">
-          <a ui-sref="signup">Sign up</a>
-      </li>
-      <li if-not-user ng-class="{active: isActive('/login')}">
-          <a ui-sref="login">Login</a>
-      </li>
-      <li if-user ng-class="{active: isActive('/logout')}">
-          <a ui-sref="home" sp-logout>Logout</a>
-      </li>
-    </ul>
-  </div>
-</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-app="myApp"  ng-controller="NavbarCtrl" class="navbar navbar-default ng-cloak" role="navigation" bs-navbar>
+      <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-animation="am-slide-right" ng-click="showMenu()">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span> 
+        </button>
+      <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">
+          <span>Two<strong>Centz</strong></span>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li ><a ui-sref="home">Home</a></li>
+          <li ><a ui-sref="add">Add</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li if-user ng-class="{active: isActive('/profile')}">
+            <a ui-sref="profile">Profile</a>
+          </li>
+          <li if-not-user ng-class="{active: isActive('/signup')}">
+              <a ui-sref="signup">Sign up</a>
+          </li>
+          <li if-not-user ng-class="{active: isActive('/login')}">
+              <a ui-sref="login">Login</a>
+          </li>
+          <li if-user ng-class="{active: isActive('/logout')}">
+              <a ui-sref="home" sp-logout>Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-<div ui-view ></div>
+    <div ui-view ng-cloak></div>
 
-<!-- CDN sources -->
+    <!-- CDN sources -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.8.1/holder.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" type="text/javascript"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.8.1/holder.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js" type="text/javascript"></script>
+    
+    <!-- <script src="libs/jquery.js"></script>
+    <script src="libs/angular.js"></script> -->
 
-<!-- inject:js -->
-<!-- endinject -->
+    <!-- inject:js -->
+    <!-- endinject -->
 
-<script src="libs/jquery.js"></script>
-<script src="libs/angular.js"></script>
+    <script src="app.min.js"></script>
+    <script src="templates.js"></script>
 
-<script src="libs/angular-strap.js"></script>
-<script src="libs/angular-strap.tpl.js"></script>
-<script src="libs/angular-animate.js"></script>
-<script src="libs/angular-cookies.js"></script>
-<script src="libs/angular-messages.js"></script>
-<script src="libs/angular-resource.js"></script>
-<script src="libs/angular-ui-router.js"></script>
-<script src="libs/angular-animate.js"></script>
-<script src="libs/moment.min.js"></script>
-<script src="libs/stormpath-sdk-angularjs.js"></script>
-<script src="libs/stormpath-sdk-angularjs.tpls.js"></script>
-<script src="libs/jqcloud.min.js"></script>
-<script src="libs/angular-jqcloud.js"></script>
-
-
-<script src="app.min.js"></script>
-<script src="templates.js"></script>
-
-
-
-
-
-</body>
+  </body>
 </html>
