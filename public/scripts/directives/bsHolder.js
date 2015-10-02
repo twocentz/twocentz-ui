@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
 	.directive('bsHolder', function() {
 	   return {
 	      link: function (scope, element, attrs) {
@@ -6,3 +8,4 @@ angular.module('MyApp')
 	      }
 	  };
 	});
+})();

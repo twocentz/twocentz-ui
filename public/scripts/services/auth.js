@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
   .factory('Auth', function($http, $location, $rootScope, $alert, $window) {
     var token = $window.localStorage.token;
     if (token) {
@@ -149,3 +151,4 @@ angular.module('MyApp')
       }
     };
   });
+})();

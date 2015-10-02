@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
   .directive('passwordStrength', function() {
     return {
       restrict: 'A',
@@ -31,3 +33,4 @@ angular.module('MyApp')
       template: '<span class="password-strength-indicator"><span></span><span></span><span></span><span></span></span>'
     };
   });
+})();

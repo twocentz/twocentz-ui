@@ -24,7 +24,7 @@ var paths = {
   scripts: ['scripts/**/*.js'],
   bower_libs: [
     // "bower_components/jquery/dist/jquery.js",
-    // "bower_components/angular/angular.js",
+    "bower_components/angular/angular.js",
     "bower_components/angular-strap/dist/angular-strap.js",
     "bower_components/angular-strap/dist/angular-strap.tpl.js",
     "bower_components/angular-animate/angular-animate.js",
@@ -132,7 +132,7 @@ gulp.task('serve', ['set-env', 'copy', 'server','watch'], function(){
   var target = gulp.src('index.html',  {cwd: bases.dist});
   return target
     .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.js']).pipe(angularFilesort()), {relative: true}
     ))
     .pipe(gulp.dest(bases.dist));
 });
@@ -141,7 +141,7 @@ gulp.task('prod', ['copy', 'server'], function(){
   var target = gulp.src('index.html',  {cwd: bases.dist});
   return target
     .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.js']).pipe(angularFilesort()), {relative: true}
     ))
     .pipe(gulp.dest(bases.dist));
 });
@@ -150,7 +150,7 @@ gulp.task('build', ['copy'], function(){
   var target = gulp.src('index.html',  {cwd: bases.dist});
   return target
     .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js']).pipe(angularFilesort()), {relative: true}
+      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.js']).pipe(angularFilesort()), {relative: true}
     ))
     .pipe(gulp.dest(bases.dist));
 })

@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
   .factory('Topic', function($http) {
     return {
       getAll: function() {
@@ -22,3 +24,4 @@ angular.module('MyApp')
       }
     }
   });
+})();

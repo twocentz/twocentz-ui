@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
   .controller('SignupCtrl', function($scope, Auth) {
     $scope.signup = function() {
       Auth.signup({
@@ -9,3 +11,4 @@ angular.module('MyApp')
     };
     $scope.pageClass = 'fadeZoom'
   });
+})();

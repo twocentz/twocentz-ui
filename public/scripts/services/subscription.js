@@ -1,4 +1,6 @@
-angular.module('MyApp')
+(function() {
+  'use strict';
+  angular.module('MyApp')
   .factory('Subscription', function($http) {
     return {
       subscribe: function(show) {
@@ -9,3 +11,4 @@ angular.module('MyApp')
       }
     };
   });
+})();
