@@ -1,7 +1,10 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
-    .factory('Entries', function($http) {
+  angular
+    .module('MyApp')
+    .factory('Entries', Entries);
+    
+    function Entries($http) {
       return {
         getMovieEntryById: function(id) {
           return $http.get('/api/movies/entries/' + id).then(function(result) {
@@ -23,5 +26,5 @@
           });
         }
       }
-    });
+    }
 })();

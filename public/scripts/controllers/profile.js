@@ -1,7 +1,10 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
-  .controller('ProfileCtrl', function($scope, $stateParams, Topic) {
+  angular
+  .module('MyApp')
+  .controller('ProfileCtrl', ProfileController);
+
+  function ProfileController($scope, $stateParams, Topic) {
 	 
-	});
+	}
 })();

@@ -63,7 +63,7 @@
           controller: 'VerifyCtrl'
         })
         .state('passwordResetRequest', {
-          url:'/password/requestReset',
+          url:'/password/requestReset?sptoken',
           templateUrl: 'html/passwordResetRequest.html',
           controller: 'ResetCtrl'
         })

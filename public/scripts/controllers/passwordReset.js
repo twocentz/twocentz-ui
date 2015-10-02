@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular.module('MyApp')
-  .controller('ResetCtrl', function($scope, $stateParams, Topic) {
+  .controller('ResetCtrl', function($scope) {
 	 
 	});
 })();

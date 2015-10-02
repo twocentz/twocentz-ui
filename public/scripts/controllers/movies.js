@@ -1,7 +1,10 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
-    .controller('MovieCtrl', function($scope, $stateParams, $timeout, Topic, Entries) {
+  angular
+    .module('MyApp')
+    .controller('MovieCtrl', MoviesController);
+
+    function MoviesController($scope, $stateParams, $timeout, Topic, Entries) {
       window.$scope = $scope;
       $scope.error = false;
       
@@ -145,6 +148,5 @@
         userVoted.push(text);
       }
 
-
-    });
+    }
 })();

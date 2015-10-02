@@ -1,10 +1,12 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
-    .controller('HomeCtrl', function($scope, Topic) {
-      //for debugging
-      window.$scope = $scope;
-      document.title =  "TwoCentz - let the world know";
+  angular
+    .module('MyApp')
+    .controller('HomeCtrl', HomeController);
+
+    function HomeController($scope, Topic) {
+      
+      document.title =  "TwoCentz - find opinions";
 
       $scope.categories = ['ALL', 'MOVIES', 'PRODUCTS', 'OTHERS'];
       $scope.headingTitle = 'Topics';
@@ -30,5 +32,5 @@
         }
         
       };
-  });
+    }
 })();

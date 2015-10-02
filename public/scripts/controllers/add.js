@@ -1,7 +1,10 @@
 (function() {
   'use strict';
-	angular.module('MyApp')
-	  .controller('AddCtrl', function($scope, $alert, Topic) {
+	angular
+    .module('MyApp')
+	  .controller('AddCtrl', AddController);
+    
+    function AddController($scope, $alert, Topic) {
 
-	  });
+	  }
 })();
