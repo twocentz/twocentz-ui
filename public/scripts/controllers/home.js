@@ -10,14 +10,6 @@
 
       $scope.categories = ['ALL', 'MOVIES', 'PRODUCTS', 'OTHERS'];
       $scope.headingTitle = 'Topics';
-
-      /**
-       * Retrieve all topics from topic factory.
-       */
-      Topic.getAll().then(function(data) {
-        $scope.topics = data.content;
-      });
-
       /**
        * Filter by category on homepage.
        * @param category
@@ -30,7 +22,23 @@
           $scope.categoryFilter = category;
           $scope.headingTitle = category;
         }
-        
       };
+
+      function displayTopics(){
+        return Topic.getAll().then(function(data) {
+          $scope.topics = data.content;
+          return $scope.topics;
+        });
+      };
+
+      function activate(){
+        return displayTopics().then(function(){
+          //console.log("when rendering is finally called");
+        });
+      };
+
+      activate();
+      
+      
     }
 })();

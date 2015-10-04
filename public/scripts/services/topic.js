@@ -5,26 +5,38 @@
   .factory('Topic', Topic);
 
   function Topic($http) {
-    return {
-      getAll: function() {
-        return $http.get('/api/topics').then(function(result) {
-          return result.data;
-        });
-      },
-      getTopicBySlug: function(slug) {
-        return $http.get('/api/topics/s/' + slug).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
-      },
-      getMovieBySlug: function(slug) {
-        return $http.get('/api/movies/s/' + slug).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
-      }
+    var service = {
+      getAll : getAll,
+      getTopicBySlug: getTopicBySlug,
+      getMovieBySlug: getMovieBySlug,
     }
+
+    return service;
+
+    ///////////////////
+    function getAll() {
+      return $http.get('/api/topics').then(function(result) {
+        return result.data;
+      }, function(reason){
+        return reason.data;
+      });
+    };
+
+    function getTopicBySlug(slug) {
+      return $http.get('/api/topics/s/' + slug).then(function(result) {
+        return result.data;
+      }, function(reason){
+        return reason.data;
+      })
+    };
+
+    function getMovieBySlug(slug) {
+      return $http.get('/api/movies/s/' + slug).then(function(result) {
+        return result.data;
+      }, function(reason){
+        return reason.data;
+      });
+    };
   }
+
 })();

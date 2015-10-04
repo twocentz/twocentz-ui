@@ -5,7 +5,6 @@
     .controller('MovieCtrl', MoviesController);
 
     function MoviesController($scope, $stateParams, $timeout, Topic, Entries) {
-      window.$scope = $scope;
       $scope.error = false;
       
       /**

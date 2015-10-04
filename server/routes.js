@@ -41,6 +41,28 @@ module.exports = function(app) {
       })
   });
 
+  app.get('/api/user',  function(req, res, next) {
+    rp(API_URL + "user" + "/entries/")
+      .then(function(resp){
+        res.status(200).json(JSON.parse(resp));
+      })
+      .catch(function(error){
+        res.status(404).json({error:"failed to get all user entries"});
+        console.error(error);
+      })
+  });
+
+  app.get('/api/user/entries/:topicId',  function(req, res, next) {
+    rp(API_URL + "user" + "/entries/" + req.params.topicId)
+      .then(function(resp){
+        res.status(200).json(JSON.parse(resp));
+      })
+      .catch(function(error){
+        res.status(404).json({error:"failed to user entries for topicId: " + req.params.topicId});
+        console.error(error);
+      })
+  });
+
   app.get('/api/movies/s/:slug',  function(req, res, next) {
     request({
       url: API_URL + "topics" + "/movies/" + "s" + "/" + req.params.slug,
