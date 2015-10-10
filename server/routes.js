@@ -25,6 +25,10 @@ var API_URL = "https://twocentz-svc-stage.herokuapp.com/" + API_VERSION + "/";
 
 var spMiddleware = stormpathExpressSdk.createMiddleware();
 
+function geUserID(req){
+  return req.user.href.slice(req.user.href.lastIndexOf("/")+1);
+}
+
 module.exports = function(app) {
 
    //attaching stormpath middleware
@@ -41,24 +45,20 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/api/user',  function(req, res, next) {
-    rp(API_URL + "user" + "/entries/")
+  app.get('/api/user/entries/:topicId?', spMiddleware.authenticate, function(req, res, next) {
+    var full_URL;
+    if(req.params.topicId){
+      full_URL = API_URL + "user/" +  geUserID(req) + "/entries?topicId=" + req.params.topicId;
+    } else{
+      full_URL = API_URL + "user/" + geUserID(req) + "/entries/";
+    }
+    console.log(full_URL);
+    rp(full_URL)
       .then(function(resp){
         res.status(200).json(JSON.parse(resp));
       })
       .catch(function(error){
-        res.status(404).json({error:"failed to get all user entries"});
-        console.error(error);
-      })
-  });
-
-  app.get('/api/user/entries/:topicId',  function(req, res, next) {
-    rp(API_URL + "user" + "/entries/" + req.params.topicId)
-      .then(function(resp){
-        res.status(200).json(JSON.parse(resp));
-      })
-      .catch(function(error){
-        res.status(404).json({error:"failed to user entries for topicId: " + req.params.topicId});
+        res.status(404).json({error:"failed to get user entries for topicId: " + req.params.topicId});
         console.error(error);
       })
   });
@@ -93,8 +93,6 @@ module.exports = function(app) {
   });
 
   app.post('/api/entries/movies', spMiddleware.authenticate,  function(req, res, next) {
-    
-    //console.log(req.user);
     var entry, error;
     if(req.body.text){
 
@@ -114,7 +112,7 @@ module.exports = function(app) {
       var formObj = {
         text: entry.join(" "),
         topicId: req.body.topicId,
-        userId: req.user.href
+        userId: geUserID(req)
       }
 
       var options = {
