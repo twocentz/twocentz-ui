@@ -4,7 +4,7 @@
     .module('MyApp')
     .controller('MovieCtrl', MoviesController);
 
-    function MoviesController($scope, $stateParams, $timeout, Topic, Entries, User) {
+    function MoviesController($scope, $stateParams, $timeout, Topic, Entries, User, HelperService) {
       $scope.error = false;
       
       /**
@@ -18,7 +18,7 @@
           }else{
             
             $scope.topic = data;
-            $scope.words = populateWordCloud($scope.topic.topEntries);
+            $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
             $scope.userVoted = [];
 
             document.title = $scope.topic.title + " - TwoCentz";
@@ -51,7 +51,7 @@
       $scope.tc = {
         text: "",
         submited: false
-      }
+      };
 
       // page properties. 
       $scope.list = {
@@ -62,18 +62,18 @@
         default: 5,
         max: 100,
         isMax: false
-      }
+      };
 
       $scope.keySubmit = function(keyEvent){
         if (keyEvent.which === 13){
            $scope.postTwoCentz();
         }   
-      }
+      };
 
       $scope.upVote = function(entryText){
         $scope.tc.text = entryText;
         $scope.postTwoCentz();
-      }
+      };
 
       $scope.isVoted = function(entryText) {
         if(_.indexOf($scope.userVoted, entryText) > -1){
@@ -81,7 +81,7 @@
         }else{
           return false;
         }
-      }
+      };
 
       $scope.postTwoCentz = function(){
         //disabling submit until process is completed
@@ -91,16 +91,14 @@
           Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id)
             .then(function(data){
               if(data.created === 'true'){
-                
-                addEntryLocally($scope.tc.text, $scope.topic.topEntries, $scope.userVoted);
-                $scope.topic.topEntries = sortEntries($scope.topic.topEntries);
-                $scope.words = populateWordCloud($scope.topic.topEntries);
+
+                HelperService.addEntryToLocalCache($scope.tc.text, $scope.topic.topEntries, $scope.userVoted);
+                $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
+                $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
                 $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
 
               }else{
 
-                //incase of error
-                // console.log(data.status + " " + data.error);
                 $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
               }
               // reseting submit widget value
@@ -123,36 +121,6 @@
         }
         //angular.element(".list-group").addClass('animated pulse');
       };
-
-      // Helper functions which will be moved to a service class
-      function populateWordCloud(entries){
-        var wordCloud = [];
-      
-        _.each(entries, function(entry){
-          wordCloud.push({text: entry.text, weight: entry.votes});
-        });
-
-        return wordCloud;
-      }
-
-      function sortEntries(entries){
-        return _.sortBy(entries, function(entry) {
-            return entry.votes * -1; // desc sorting
-          });
-      }
-
-      function addEntryLocally(text, entries, userVoted){
-        var index = _.findIndex(entries, function(entry) {
-                          return entry.text == text;
-                        });
-
-        if(index !== -1){
-          entries[index].votes = entries[index].votes + 1;
-        } else {
-          entries.push({"text":text, votes: 1});
-        }
-        userVoted.push(text);
-      }
 
     }
 })();

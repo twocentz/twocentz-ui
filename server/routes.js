@@ -52,7 +52,7 @@ module.exports = function(app) {
     } else{
       full_URL = API_URL + "user/" + geUserID(req) + "/entries/";
     }
-    console.log(full_URL);
+
     rp(full_URL)
       .then(function(resp){
         res.status(200).json(JSON.parse(resp));

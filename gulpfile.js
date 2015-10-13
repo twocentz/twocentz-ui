@@ -78,7 +78,7 @@ gulp.task('compress', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('app.min.js'))
     .pipe(ngAnnotate())
-    .pipe(uglify({compress: {sequences: false, join_vars: false}}))
+    .pipe(uglify())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(bases.app));
 });
@@ -114,16 +114,23 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
   return merge(style, min, libs, css, img, html);
 });
 
-
+gulp.task('inject', ['copy'], function() {
+  var target = gulp.src('index.html',  {cwd: bases.dist});
+  return target
+      .pipe(inject(
+          gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.js']).pipe(angularFilesort()), {relative: true}
+      ))
+      .pipe(gulp.dest(bases.dist));
+});
 
 gulp.task('server', function() {
   server.run(['server/server.js']);
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/style/*.less', ['copy']);
-  gulp.watch('public/scripts/templates/**/*.html', ['copy']);
-  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['copy']);
+  gulp.watch('public/style/*.less', ['inject']);
+  gulp.watch('public/scripts/templates/**/*.html', ['inject']);
+  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['inject']);
 });
 
 gulp.task('default', ['less', 'compress', 'templates', 'copy']);
