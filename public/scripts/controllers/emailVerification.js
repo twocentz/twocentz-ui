@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
+  angular.module('TwoCentzWeb')
     .controller('VerifyCtrl', function($scope, Auth) {
       $scope.verify = function() {
         Auth.verify({

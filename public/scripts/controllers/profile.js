@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   angular
-  .module('MyApp')
-  .controller('ProfileCtrl', ProfileController);
+    .module('TwoCentzWeb')
+    .controller('ProfileCtrl', ProfileController);
 
   function ProfileController($scope, $stateParams, Topic) {
 	 

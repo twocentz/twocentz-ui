@@ -85,7 +85,7 @@ gulp.task('compress', function() {
 
 gulp.task('templates', function() {
   return gulp.src('public/scripts/templates/**/*.html')
-    .pipe(templateCache({ root: 'html', module: 'MyApp' }))
+    .pipe(templateCache({ root: 'html', module: 'TwoCentzWeb' }))
     .pipe(gulp.dest(bases.app));
 });
 

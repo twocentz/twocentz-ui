@@ -1,10 +1,10 @@
 (function() {
   'use strict';
   angular
-  .module('MyApp')
-  .controller('LoginCtrl', LoginController);
+    .module('TwoCentzWeb')
+    .controller('LoginCtrl', LoginController);
 
-  function LoginController($scope) {
-   
-  }
+    function LoginController($scope) {
+
+    }
 })();

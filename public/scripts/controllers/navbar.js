@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular
-  .module('MyApp')
+  .module('TwoCentzWeb')
   .controller('NavbarCtrl', NavBarController);
 
   function NavBarController($scope, $aside) {

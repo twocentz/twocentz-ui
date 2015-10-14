@@ -1,7 +1,7 @@
 (function() {
   'use strict';
   angular
-    .module('MyApp')
+    .module('TwoCentzWeb')
     .controller('HomeCtrl', HomeController);
 
     function HomeController($scope, Topic) {

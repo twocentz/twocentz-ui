@@ -1,7 +1,8 @@
 (function() {
   'use strict';
-  angular.module('MyApp')
-  .controller('ResetCtrl', function($scope) {
+  angular
+    .module('TwoCentzWeb')
+    .controller('ResetCtrl', function($scope) {
 	 
-	});
+	  });
 })();

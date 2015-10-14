@@ -1,10 +1,10 @@
 (function() {
   'use strict';
   angular
-    .module('TwoCentzWeb')
-    .factory('HelperService', HelperService);
+      .module('TwoCentzWeb')
+      .factory('CachedDataService', CachedDataService);
 
-  function HelperService() {
+  function CachedDataService() {
     var service = {
       descSort : descSort,
       populateWordCloud: populateWordCloud,
@@ -42,7 +42,7 @@
         }
 
       } else {
-          entries.push({"text":text, votes: 1});
+        entries.push({"text":text, votes: 1});
       }
 
     }
