@@ -26,6 +26,7 @@
     "angular-jqcloud": "~1.0.1",
     "api-check": "~7.5.0",
     "angular-formly": "~6.24.23",
-    "angular-formly-templates-bootstrap": "~6.0.0"
+    "angular-formly-templates-bootstrap": "~6.0.0",
+    "angular-local-storage": "~0.2.3"
   }
 }

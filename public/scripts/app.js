@@ -12,7 +12,8 @@
     'mgcrea.ngStrap.aside',
     'stormpath',
     'stormpath.templates',
-    'angular-jqcloud'
+    'angular-jqcloud',
+    'LocalStorageModule'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
       $urlRouterProvider

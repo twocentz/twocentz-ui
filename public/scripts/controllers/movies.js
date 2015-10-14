@@ -26,7 +26,7 @@
           //check to see if user is logged in
           $user.get()
             .then(function(user){
-                
+
               User.getUserEntriesByTopicId($scope.topic.id)
                 .then(function (data){
                   if(data.error){

@@ -4,27 +4,25 @@
     .module('TwoCentzWeb')
     .factory('Entries', Entries);
     
-  function Entries($http) {
-    return {
-      getMovieEntryById: function(id) {
-        return $http.get('/api/movies/entries/' + id).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
-      },
-      postEntriesByTopicId: function(text, topicId){
-        var postObj = {
-                        text: text,
-                        topicId: topicId
-                      };
+  function Entries(CachedDataService) {
+    var service = {
+      getMovieEntryById : getMovieEntryById,
+      postEntriesByTopicId:  postEntriesByTopicId
+    };
 
-        return $http.post('/api/entries/movies', postObj).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
-      }
+    return service;
+
+    function getMovieEntryById (id) {
+        CachedDataService.getValue('/api/movies/entries/' + id);
     }
+
+    function postEntriesByTopicId(text, topicId){
+      var postObject = {
+                      text: text,
+                      topicId: topicId
+                    };
+      return CachedDataService.postValue('api/entries/movies', postObject);
+    }
+
   }
 })();

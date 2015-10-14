@@ -4,7 +4,7 @@
     .module('TwoCentzWeb')
     .factory('Topic', Topic);
 
-    function Topic($http) {
+    function Topic(CachedDataService) {
       var service = {
         getAll : getAll,
         getTopicBySlug: getTopicBySlug,
@@ -15,27 +15,15 @@
 
       ///////////////////
       function getAll() {
-        return $http.get('/api/topics').then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
+        return CachedDataService.getValue('/api/topics');
       };
 
       function getTopicBySlug(slug) {
-        return $http.get('/api/topics/s/' + slug).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        })
+        return CachedDataService.getValue('/api/topics/s/' + slug);
       };
 
       function getMovieBySlug(slug) {
-        return $http.get('/api/movies/s/' + slug).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
+        return CachedDataService.getValue('/api/movies/s/' + slug);
       };
   }
 

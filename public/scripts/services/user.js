@@ -4,7 +4,7 @@
     .module('TwoCentzWeb')
     .factory('User', User);
 
-    function User($http) {
+    function User(CachedDataService) {
       var service = {
         getAllUserEntries : getAllUserEntries,
         getUserEntriesByTopicId: getUserEntriesByTopicId
@@ -14,19 +14,11 @@
 
       ///////////////////
       function getAllUserEntries() {
-        return $http.get('/api/user/entries').then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        });
+        return CachedDataService.getValue('/api/user/entries');
       };
 
       function getUserEntriesByTopicId(topicId) {
-        return $http.get('/api/user/entries/' + topicId).then(function(result) {
-          return result.data;
-        }, function(reason){
-          return reason.data;
-        })
+        return CachedDataService.getValue('/api/user/entries/' + topicId);
       };
     }
 

@@ -4,47 +4,55 @@
       .module('TwoCentzWeb')
       .factory('CachedDataService', CachedDataService);
 
-  function CachedDataService() {
+  function CachedDataService($http, $q, localStorageService) {
     var service = {
-      descSort : descSort,
-      populateWordCloud: populateWordCloud,
-      addEntryToLocalCache: addEntryToLocalCache,
+      getValue : getValue,
+      postValue: postValue,
+      deleteValue: deleteValue,
+      clearAll: clearAll
     }
 
     return service;
 
     ///////////////////
-    function populateWordCloud(entries){
-      var wordCloud = [];
-      _.each(entries, function(entry){
-        wordCloud.push({text: entry.text, weight: entry.votes});
-      });
 
-      return wordCloud;
-    }
+    function getValue(key){
+      var deferred = $q.defer();
+      var value = localStorageService.get(key);
 
-    function descSort(entries){
-      return _.sortBy(entries, function(entry) {
-        return entry.votes * -1; // desc sorting
-      });
-    }
-
-    function addEntryToLocalCache(text, entries, userVoted){
-      var index = _.findIndex(entries, function(entry) {
-        return entry.text == text;
-      });
-
-      if(index !== -1){
-
-        if(_.indexOf(userVoted, text) === -1){
-          entries[index].votes = entries[index].votes + 1;
-          userVoted.push(text);
-        }
-
+      if(value){
+        deferred.resolve(value);
       } else {
-        entries.push({"text":text, votes: 1});
+        $http.get(key)
+          .then(function(result) {
+            localStorageService.set(key, result.data);
+            deferred.resolve(result.data);
+          }, function(reason){
+            deferred.resolve(reason.data);
+          });
       }
+      return deferred.promise;
+    }
 
+    function postValue(url, postObject){
+      var deferred = $q.defer();
+
+      $http.post(url, postObject)
+        .then(function(result) {
+          deferred.resolve(result.data);
+        }, function(reason){
+          deferred.resolve(reason.data);
+        });
+
+      return deferred.promise;
+    }
+
+    function deleteValue(key){
+      return localStorageService.remove(key);
+    }
+
+    function clearAll(){
+      return localStorageService.clearAll();
     }
   }
 
