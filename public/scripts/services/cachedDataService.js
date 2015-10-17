@@ -4,7 +4,7 @@
       .module('TwoCentzWeb')
       .factory('CachedDataService', CachedDataService);
 
-  function CachedDataService($http, $q, localStorageService) {
+  function CachedDataService($http, $q, localStorageService, HelperService) {
     var service = {
       getValue : getValue,
       postValue: postValue,
@@ -20,7 +20,8 @@
       var deferred = $q.defer();
       var value = localStorageService.get(key);
 
-      if(value){
+
+      if(value && useCache()){
         deferred.resolve(value);
       } else {
         $http.get(key)
@@ -53,6 +54,27 @@
 
     function clearAll(){
       return localStorageService.clearAll();
+    }
+
+    function useCache(){
+      var cacheValue, urlParam, useCache = 'true';
+
+      cacheValue = localStorageService.get('useCache');
+      urlParam =  HelperService.getUrlParam('useCache');
+
+      if(urlParam){
+        useCache = urlParam;
+      } else if (cacheValue){
+        useCache = cacheValue;
+      }
+
+      localStorageService.set('useCache', useCache);
+
+      if(useCache === 'true'){
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
