@@ -46,7 +46,7 @@ var paths = {
     "bower_components/jqcloud2/dist/jqcloud.min.css"
   ],
   vendor: ['vendor/*.js'],
-  minified: ['*.min.js','templates.js'],
+  minified: ['*.min.js','*.map','templates.js'],
   style: ['style/']
 };
 
@@ -77,10 +77,10 @@ gulp.task('less', function() {
 gulp.task('compress', function() {
   return gulp.src(paths.scripts, {cwd: bases.app})
     .pipe(sourcemaps.init())
-    .pipe(concat('app.min.js'))
-    .pipe(ngAnnotate())
-    .pipe(uglify())
-    .pipe(sourcemaps.write())
+    .pipe(concat('app.min.js', {newLine: ';'}))
+    .pipe(ngAnnotate({add:true}))
+    .pipe(uglify({mangle:true}))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(bases.app));
 });
 
@@ -108,14 +108,19 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
     
   var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
-  
-  var html = gulp.src('index.html',  {cwd: bases.app})
-    .pipe(gulp.dest(bases.dist));
 
-  return merge(style, min, libs, css, img, html);
+
+  return merge(style, min, libs, css, img);
 });
 
-gulp.task('inject', ['copy'], function() {
+
+gulp.task('indexCopy',['copy'], function () {
+  return gulp
+      .src('index.html',  {cwd: bases.app})
+      .pipe(gulp.dest(bases.dist))
+});
+
+gulp.task('inject', ['indexCopy'], function() {
   var target = gulp.src('index.html',  {cwd: bases.dist});
   return target
       .pipe(inject(
@@ -134,37 +139,16 @@ gulp.task('watch', function() {
   gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['inject']);
 });
 
-gulp.task('default', ['less', 'compress', 'templates', 'copy']);
 
-gulp.task('serve', ['set-env', 'copy', 'server','watch'], function(){
-  var target = gulp.src('index.html',  {cwd: bases.dist});
-  return target
-    .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.min.js']).pipe(angularFilesort()), {relative: true}
-    ))
-    .pipe(gulp.dest(bases.dist));
-});
+// runnable gulp tasks:
 
-gulp.task('prod', ['copy', 'server'], function(){
-  var target = gulp.src('index.html',  {cwd: bases.dist});
-  return target
-    .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.min.js']).pipe(angularFilesort()), {relative: true}
-    ))
-    .pipe(gulp.dest(bases.dist));
-});
+gulp.task('default', ['build']);
 
-gulp.task('build', ['copy'], function(){
-  var target = gulp.src('index.html',  {cwd: bases.dist});
-  return target
-    .pipe(inject(
-      gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.min.js']).pipe(angularFilesort()), {relative: true}
-    ))
-    .pipe(gulp.dest(bases.dist));
-})
+gulp.task('serve', ['set-env', 'inject', 'server', 'watch']);
 
-// gulp.task('build', ['copy']);
-// gulp.task('serve', ['set-env', 'copy', 'server','watch']);
-// gulp.task('prod', ['copy', 'server']);
+gulp.task('prod', ['inject', 'server']);
+
+gulp.task('build', ['inject']);
+
 
 
