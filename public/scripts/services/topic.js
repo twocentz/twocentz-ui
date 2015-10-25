@@ -3,7 +3,7 @@
   angular
     .module('TwoCentzWeb')
     .factory('Topic', Topic);
-
+    /* @ngInject */
     function Topic(CachedDataService) {
       var service = {
         getAll : getAll,

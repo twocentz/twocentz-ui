@@ -4,6 +4,7 @@
     .module('TwoCentzWeb')
     .controller('HomeCtrl', HomeController);
 
+    /* @ngInject */
     function HomeController($scope, Topic) {
       
       document.title =  "TwoCentz - find opinions";

@@ -4,7 +4,9 @@
     .module('TwoCentzWeb')
     .controller('MovieCtrl', MoviesController);
 
-  function MoviesController($scope, $user, $stateParams, $timeout, Topic, Entries, User, HelperService) {
+
+  /* @ngInject */
+  function MoviesController($scope, $user, $stateParams, Topic, Entries, User, HelperService) {
     $scope.error = false;
 
     /**

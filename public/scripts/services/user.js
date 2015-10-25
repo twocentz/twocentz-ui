@@ -3,7 +3,7 @@
   angular
     .module('TwoCentzWeb')
     .factory('User', User);
-
+    /* @ngInject */
     function User(CachedDataService) {
       var service = {
         getAllUserEntries : getAllUserEntries,

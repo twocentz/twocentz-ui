@@ -4,6 +4,7 @@
       .module('TwoCentzWeb')
       .factory('CachedDataService', CachedDataService);
 
+  /* @ngInject */
   function CachedDataService($http, $q, localStorageService, HelperService) {
     var service = {
       getValue : getValue,

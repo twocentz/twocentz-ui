@@ -81,13 +81,13 @@ gulp.task('compress', function() {
     .pipe(ngAnnotate({add:true}))
     .pipe(uglify({mangle:true}))
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(bases.app));
+    .pipe(gulp.dest(bases.dist));
 });
 
 gulp.task('templates', function() {
   return gulp.src('public/scripts/templates/**/*.html')
     .pipe(templateCache({ root: 'html', module: 'TwoCentzWeb' }))
-    .pipe(gulp.dest(bases.app));
+    .pipe(gulp.dest(bases.dist));
 });
 
 // Copy all other files to dist directly
@@ -96,9 +96,6 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
  // Copy styles
   var style = gulp.src(paths.style + "*.css", {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
- 
-  var min = gulp.src(paths.minified, {cwd: bases.app})
-    .pipe(gulp.dest(bases.dist));
 
   var libs = gulp.src(paths.bower_libs,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'libs'));
@@ -110,7 +107,7 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
     .pipe(gulp.dest(bases.dist));
 
 
-  return merge(style, min, libs, css, img);
+  return merge(style, libs, css, img);
 });
 
 

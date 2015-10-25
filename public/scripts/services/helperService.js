@@ -4,6 +4,7 @@
     .module('TwoCentzWeb')
     .factory('HelperService', HelperService);
 
+  /* @ngInject */
   function HelperService() {
     var service = {
       descSort : descSort,

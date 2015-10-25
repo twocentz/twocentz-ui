@@ -4,6 +4,7 @@
     .module('TwoCentzWeb')
     .controller('LoginCtrl', LoginController);
 
+    /* @ngInject */
     function LoginController($scope) {
 
     }
