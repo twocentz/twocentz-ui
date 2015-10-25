@@ -1,0 +1,11 @@
+<div class="col-xs-12 col-sm-6 col-md-4" ng-if="movie.category == 'MOVIES'">
+    <div class="thumbnail text-center">
+        <a ui-sref="movies({slug: movie.slug})">
+            <img data-src="holder.js/192x200" bs-holder />
+            <h4>{{movie.title}} </h4>
+        </a>
+        <div class="caption">
+            <mark>{{movie.category}}</mark>
+        </div>
+    </div>
+</div>

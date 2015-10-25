@@ -19,28 +19,7 @@
         <div class="panel-body">
             <div class="row show-list">
                 <div ng-repeat="topic in topics | filter:categoryFilter | filter:searchFilter">
-                    <div class="col-xs-12 col-sm-6 col-md-4" ng-if="topic.category == 'MOVIES'">
-                        <div class="thumbnail text-center">
-                            <a ui-sref="movies({slug: topic.slug})">
-                                <img data-src="holder.js/192x200" bs-holder />
-                                <h4>{{topic.title}} </h4>
-                            </a>
-                            <div class="caption">
-                                <mark>{{topic.category}}</mark>
-                                <div class="top-buffer" >
-                                    <a ui-sref="movies({slug: topic.slug})" class="btn btn-primary btn-block" role="button">Details</a>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                    <!-- <div class="text-center" ng-if="topic.category == 'MOVIES'">
-                        <a ui-sref="movies({slug: topic.slug})">{{topic.title}}</a>
-                        <mark>{{topic.category}}</mark>
-                    </div>
-                    <div class="text-center" ng-if="topic.category == 'OTHERS'">
-                        <a ui-sref="others({slug: topic.slug})">{{topic.title}}</a>
-                        <mark>{{topic.category}}</mark>
-                    </div> -->
+                    <tc-movie-widget movie="topic"></tc-movie-widget>
                 </div>
             </div>
         </div>
