@@ -27,6 +27,8 @@ var paths = {
     "bower_components/angular/angular.min.js",
     "bower_components/angular-strap/dist/angular-strap.js",
     "bower_components/angular-strap/dist/angular-strap.tpl.js",
+    "bower_components/angular-formly/dist/formly.min.js",
+    "bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js",
     "bower_components/angular-animate/angular-animate.js",
     "bower_components/angular-cookies/angular-cookies.js",
     "bower_components/angular-messages/angular-messages.js",

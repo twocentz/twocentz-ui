@@ -13,7 +13,9 @@
     'stormpath',
     'stormpath.templates',
     'angular-jqcloud',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'formly',
+    'formlyBootstrap'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
       $urlRouterProvider
