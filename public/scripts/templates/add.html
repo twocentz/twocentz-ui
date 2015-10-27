@@ -1,5 +1,7 @@
-<div ng-controller="AddCtrl as vm">
-    <formly-form model="vm.user" fields="vm.userFields">
-        <button type="submit" class="btn btn-default" ng-click="vm.submit(vm.user)">Submit</button>
-    </formly-form>
+<div class="col-md-12" ng-controller="AddCtrl as vm">
+    <form ng-submit="vm.onSubmit()" novalidate>
+        <formly-form model="vm.model" fields="vm.fields" form="vm.form" options="vm.options">
+            <button type="submit" class="btn btn-primary submit-button" ng-disabled="vm.form.$invalid">Submit</button>
+        </formly-form>
+    </form>
 </div>
