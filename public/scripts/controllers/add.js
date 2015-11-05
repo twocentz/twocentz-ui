@@ -8,10 +8,6 @@
       var vm = this;
       // function assignment
       vm.onSubmit = onSubmit;
-
-
-      vm.exampleTitle = 'Repeating Section'; // add this
-
       vm.options = {};
 
       init();
@@ -20,158 +16,112 @@
 
       // function definition
       function onSubmit() {
-        alert(JSON.stringify(vm.model), null, 2);
+        alert(angular.toJson(vm.model));
       }
 
 
       function init() {
+        vm.model = {};
+
         vm.model = {
-          investments: [
+          textField: [
             {
-              investmentName:'abc',
-              investmentDate:(new Date()).toDateString(),
-              stockIdentifier:'',
-              investmentValue:'',
-              relationshipName:'',
-              complianceApprover:'',
-              requestorComment:''
-            },
+              fieldName:'',
+              fieldValue:''
+            }
+          ],
+          textArea: [
             {
-              investmentName:'haf',
-              investmentDate:(new Date()).toDateString(),
-              stockIdentifier:'',
-              investmentValue:'',
-              relationshipName:'',
-              complianceApprover:'',
-              requestorComment:''
+              fieldName:'',
+              fieldValue:''
             }
           ]
         };
 
+
         vm.fields = [
           {
-            type: 'propertySection',
-            key: 'investments',
+            key: 'title',
+            type: 'input',
             templateOptions: {
-              btnText:'Add another investment',
+              label: 'Title',
+              placeholder: 'your topics title',
+              required: true
+            }
+          },
+          {
+            key: 'description',
+            type: 'textarea',
+            templateOptions: {
+              label: 'Description',
+              placeholder: 'Some description of the topic'
+            }
+          },
+          {
+            type: 'propertySection',
+            key: 'textField',
+            templateOptions: {
+              btnText:'new field',
               fields: [
                 {
-                  className: 'row',
+                  className: 'form-inline',
                   fieldGroup: [
                     {
-                      className: 'col-xs-4',
                       type: 'input',
-                      key: 'investmentName',
+                      key: 'fieldName',
                       templateOptions: {
-                        label: 'Name of Investment:',
+                        label: 'Label',
+                        placeholder: 'your field label',
                         required: true
                       }
                     },
                     {
                       type: 'input',
-                      key: 'investmentDate',
-                      className: 'col-xs-4',
+                      key: 'fieldValue',
                       templateOptions: {
-                        label: 'Date of Investment:',
-                        placeholder: 'dd/mm/yyyy such as 20/05/2015',
-                        dateFormat: 'DD, d  MM, yy'
-                      }
-                    },
-                    {
-                      type: 'input',
-                      key: 'stockIdentifier',
-                      className: 'col-xs-4',
-                      templateOptions: {
-                        label: 'Stock Identifier:'
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "radio",
-                  "key": "type",
-                  "templateOptions": {
-                    "options": [
-                      {
-                        "name": "Text Field",
-                        "value": "input"
-                      },
-                      {
-                        "name": "TextArea Field",
-                        "value": "textarea"
-                      },
-                      {
-                        "name": "Radio Buttons",
-                        "value": "radio"
-                      },
-                      {
-                        "name": "Checkbox",
-                        "value": "checkbox"
-                      }
-                    ],
-                    "label": "Field Type",
-                    "required": true
-                  }
-                },
-                {
-                  type: 'input',
-                  key: 'investmentValue',
-                  templateOptions: {
-                    label: 'Value:'
-                  },
-                  expressionProperties: {
-                    'templateOptions.disabled': '!model.stockIdentifier'
-                  }
-                },
-                {
-                  type: 'checkbox',
-                  model: 'formState',
-                  key: 'selfExecuting',
-                  templateOptions: {
-                    label: 'Are you executing this trade?'
-                  }
-                },
-                {
-                  hideExpression: '!formState.selfExecuting',
-                  fieldGroup: [
-                    {
-                      type: 'input',
-                      key: 'relationshipName',
-                      templateOptions: {
-                        label: 'Name:'
-                      }
-                    },
-                    {
-                      type: 'select',
-                      key: 'complianceApprover',
-                      templateOptions:
-                      {
-                        label: 'Compliance Approver:',
-                        options: [
-                          {
-                            name: 'approver 1',
-                            value:'some one 1'
-                          },
-                          {
-                            name: 'approver 2',
-                            value:'some one 2'
-                          }]
-                      }
-                    },
-                    {
-                      type: 'textarea',
-                      key: 'requestorComment',
-                      templateOptions:
-                      {
-                        label: 'Requestor Comment',
-                        rows: 4
+                        label: 'Value',
+                        placeholder: 'your field value',
+                        required: true
                       }
                     }
                   ]
                 }
               ]
             }
-
+          }
+          ,{
+            type: 'propertySection',
+            key: 'textArea',
+            templateOptions: {
+              btnText:'new text area',
+              fields: [
+                {
+                  className: 'form-inline',
+                  fieldGroup: [
+                    {
+                      type: 'input',
+                      key: 'fieldName',
+                      templateOptions: {
+                        label: 'Label',
+                        placeholder: 'your field label',
+                        required: true
+                      }
+                    },
+                    {
+                      type: 'textarea',
+                      key: 'fieldValue',
+                      templateOptions: {
+                        label: 'Value',
+                        placeholder: 'your field value',
+                        required: true,
+                        rows: 4,
+                        cols: 20
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
           }
         ];
       }
