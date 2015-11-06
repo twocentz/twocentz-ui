@@ -6,7 +6,7 @@
 
 
   /* @ngInject */
-  function MoviesController($scope, $user, $stateParams, Topic, Entries, User, HelperService) {
+  function MoviesController($scope, $user, $stateParams, $q, Topic, Entries, User, HelperService) {
     $scope.error = false;
 
     /**
@@ -27,7 +27,7 @@
 
           //check to see if user is logged in
           $user.get()
-            .then(function(user){
+            .then(function(){
 
               User.getUserEntriesByTopicId($scope.topic.id)
                 .then(function (data){
@@ -69,8 +69,7 @@
     };
 
     $scope.upVote = function(entryText){
-      $scope.tc.text = entryText;
-      $scope.postTwoCentz();
+      submitEntry(entryText);
     };
 
     $scope.isVoted = function(entryText) {
@@ -82,30 +81,15 @@
     };
 
     $scope.postTwoCentz = function(){
-      //disabling submit until process is completed
-      $scope.tc.submited = true;
-
-      if($scope.tc.text !== null && $scope.tc.text.length>0){
-
-        Entries.postEntriesByTopicId($scope.tc.text, $scope.topic.id)
-          .then(function(data){
-            if(data.created === 'true'){
-
-              HelperService.addEntryToLocalCache($scope.tc.text, $scope.topic.topEntries, $scope.userVoted);
-              $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
-              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-              $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
-
-            }else{
-
-              $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
-            }
-            // reseting submit widget value
-            $scope.tc.text = "";
-            $scope.tc.submited = false;
-          });
-
-      }
+      submitEntry($scope.tc.text)
+        .then(function(data){
+          if(data.created === 'true'){
+            $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
+          }else{
+            $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+          }
+          $scope.tc.text = "";
+        })
     };
 
     $scope.toggleEntries = function(){
@@ -121,6 +105,28 @@
       }
       //angular.element(".list-group").addClass('animated pulse');
     };
+
+    function submitEntry(entry){
+      var deferred = $q.defer();
+
+      if(!_.isEmpty(entry) && !$scope.tc.submited){
+        //disabling submit until process is completed
+        $scope.tc.submited = true;
+        Entries.postEntriesByTopicId(entry, $scope.topic.id)
+          .then(function(data){
+            if(data.created === 'true'){
+              HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
+              $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
+              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+            }
+
+            deferred.resolve(data);
+            // reseting submit widget value
+            $scope.tc.submited = false;
+          });
+      }
+      return deferred.promise;
+    }
 
   }
 })();

@@ -4,30 +4,40 @@
   </div>
   <div ng-if="!error">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4">
+      <div class="col-xs-12 col-sm-4 col-md-4">
         <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}">
         <!-- <img data-src="holder.js/300x220" bs-holder /> -->
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-8 top-buffer">
+      <div class="col-xs-12 col-sm-8 col-md-8 top-buffer">
         <h2 class="media-heading">
           {{topic.title}}
         </h2>
         <table class="table table-condensed">
-          <tr>
-            <th>Release Date</th><td>{{topic.props.releaseDate}}</td>
-          </tr>
-          <tr>
-            <th>Duration</th><td>{{topic.props.duration}}</td>
-          </tr>
-          <tr>
-            <th>Rating</th><td>{{topic.props.rating}}</td>
-          </tr>
-          <tr>
-            <th>Director</th><td>{{topic.props.director}}</td>
-          </tr>
-          <tr>
-            <th>Cast</th><td>...</td>
-          </tr>
+            <tr>
+                <th>Release Date</th><td>{{topic.props.releaseDate}}</td>
+            </tr>
+            <tr>
+                <th>Duration</th><td>{{topic.props.duration}}</td>
+            </tr>
+            <tr>
+                <th>Genre</th><td>{{topic.props.genre}}</td>
+            </tr>
+            <tr>
+                <th>Rating</th><td>{{topic.props.rating}}</td>
+            </tr>
+            <tr>
+                <th>Director</th><td>{{topic.props.director}}</td>
+            </tr>
+            <tr>
+                <th>Cast</th>
+                <td>
+                    <ul class="list-inline">
+                        <li ng-repeat="cast in topic.props.cast | limitTo:5">
+                            <span>{{cast.name}}</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
         </table>
         <p>{{topic.description}}</p>
         <ul class="list-inline" >
@@ -38,7 +48,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 top-buffer">
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
         <div class="panel panel-default">
           <div class="panel-body">
             <ul if-user class="list-group">
@@ -74,7 +84,7 @@
           
         </div>
       </div>
-      <div class="col-md-6 top-buffer">
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
         <div class="panel panel-default">
           <div class="panel-body">
             <jqcloud words="words" width="300" height="320" delay="10" steps="7" shape="rectangular" font-size="{from:0.12, to:0.04}" autoResize="true" ></jqcloud>
