@@ -6,6 +6,6 @@
 
     /* @ngInject */
     function LoginController($scope) {
-
+      document.title = "User Login - TwoCentz";
     }
 })();

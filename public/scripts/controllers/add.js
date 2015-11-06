@@ -5,6 +5,7 @@
 	  .controller('AddCtrl', AddController);
     /* @ngInject */
     function AddController($scope, $alert, Topic) {
+      document.title = "Add a new topic - TwoCentz";
       var vm = this;
       // function assignment
       vm.onSubmit = onSubmit;

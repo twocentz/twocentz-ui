@@ -7,7 +7,7 @@
     /* @ngInject */
     function HomeController($scope, Topic) {
       
-      document.title =  "TwoCentz - find opinions";
+      document.title =  "TwoCentz - topics, reviews, opinions";
 
       $scope.categories = ['ALL', 'MOVIES', 'PRODUCTS', 'OTHERS'];
       $scope.headingTitle = 'Topics';
