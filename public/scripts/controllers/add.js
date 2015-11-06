@@ -29,13 +29,13 @@
               fieldName:'',
               fieldValue:''
             }
-          ],
-          textArea: [
-            {
-              fieldName:'',
-              fieldValue:''
-            }
           ]
+          //,textArea: [
+          //  {
+          //    fieldName:'',
+          //    fieldValue:''
+          //  }
+          //]
         };
 
 
@@ -89,40 +89,40 @@
               ]
             }
           }
-          ,{
-            type: 'propertySection',
-            key: 'textArea',
-            templateOptions: {
-              btnText:'new text area',
-              fields: [
-                {
-                  className: 'form-inline',
-                  fieldGroup: [
-                    {
-                      type: 'input',
-                      key: 'fieldName',
-                      templateOptions: {
-                        label: 'Label',
-                        placeholder: 'your field label',
-                        required: true
-                      }
-                    },
-                    {
-                      type: 'textarea',
-                      key: 'fieldValue',
-                      templateOptions: {
-                        label: 'Value',
-                        placeholder: 'your field value',
-                        required: true,
-                        rows: 4,
-                        cols: 20
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
+          //,{
+          //  type: 'propertySection',
+          //  key: 'textArea',
+          //  templateOptions: {
+          //    btnText:'new text area',
+          //    fields: [
+          //      {
+          //        className: 'form-inline',
+          //        fieldGroup: [
+          //          {
+          //            type: 'input',
+          //            key: 'fieldName',
+          //            templateOptions: {
+          //              label: 'Label',
+          //              placeholder: 'your field label',
+          //              required: true
+          //            }
+          //          },
+          //          {
+          //            type: 'textarea',
+          //            key: 'fieldValue',
+          //            templateOptions: {
+          //              label: 'Value',
+          //              placeholder: 'your field value',
+          //              required: true,
+          //              rows: 4,
+          //              cols: 20
+          //            }
+          //          }
+          //        ]
+          //      }
+          //    ]
+          //  }
+          //}
         ];
       }
 	  }
