@@ -2,11 +2,13 @@
   'use strict';
 
   angular.module('TwoCentzWeb', [
+    'algoliasearch',
     'ngCookies',
     'ngResource',
     'ngMessages',
     'ngAnimate',
     'ui.router',
+    'ngSanitize',
     'mgcrea.ngStrap',
     'mgcrea.ngStrap.modal',
     'mgcrea.ngStrap.aside',

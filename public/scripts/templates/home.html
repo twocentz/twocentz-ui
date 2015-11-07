@@ -1,25 +1,16 @@
-<div class="jumbotron">
-    <div class="container">
-        <ul class="genres">
-            <li ng-repeat="category in categories">
-                <span ng-click="filterByCategory(category)">{{category}}</span>
-            </li>
-        </ul>
-    </div>
-</div>
-
 <div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">
-            {{headingTitle}}
-            <div class="pull-right">
-                <input class="search" type="text" ng-model="searchFilter" placeholder="Search...">
+            <div>
+                <i class="fa fa-search fa-2x"></i>
+                <input class="search" type="text" ng-model="query" ng-change="search(query)" placeholder="Search...">
             </div>
         </div>
         <div class="panel-body">
-            <div class="row show-list">
-                <div ng-repeat="topic in topics | filter:categoryFilter | filter:searchFilter">
-                    <tc-movie-widget movie="topic"></tc-movie-widget>
+            <div class="row">
+                <div ng-repeat="topic in topics">
+                    <tc-movie-widget title="topic._highlightResult.title.value" slug="topic.slug" image="topic.mediaFiles[0].url"
+                            release="topic._highlightResult.props.releaseDate.value" genre="topic._highlightResult.props.genre.value"></tc-movie-widget>
                 </div>
             </div>
         </div>

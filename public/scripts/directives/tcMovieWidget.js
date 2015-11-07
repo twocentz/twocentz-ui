@@ -12,7 +12,11 @@
     var directive = {
       restrict: 'EA',
       scope: {
-        movie: '='
+        title: '=',
+        slug: '=',
+        image: '=',
+        release: '=',
+        genre: '='
       },
       templateUrl: 'html/movieWidget.html'
     };
