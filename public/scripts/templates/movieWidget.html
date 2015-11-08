@@ -2,11 +2,11 @@
     <div class="thumbnail text-center">
         <a ui-sref="movies({slug: slug})">
             <div class="img-card">
-                <img src="{{image}}"  alt="{{title}}"/>
+                <img src="{{image}}"  alt="{{slug}}"/>
             </div>
             <h4 ng-bind-html="title"></h4>
-            <p ng-bind-html="release">()</p>
         </a>
+        <p ng-bind-html="release"></p>
         <div class="caption">
             <mark ng-bind-html="genre"></mark>
         </div>

@@ -11,16 +11,30 @@
   function tcMovieWidget() {
     var directive = {
       restrict: 'EA',
+      link: link,
       scope: {
-        title: '=',
-        slug: '=',
-        image: '=',
-        release: '=',
-        genre: '='
+        topic: '='
       },
       templateUrl: 'html/movieWidget.html'
     };
     return directive;
+
+    function link(scope, element, attrs) {
+      var topic = scope.topic;
+      if(scope.topic._highlightResult){
+        scope.title = topic._highlightResult.title.value;
+        scope.image = topic.mediaFiles[0].url;
+        scope.release = topic._highlightResult.props.releaseDate.value;
+        scope.slug = topic.slug;
+        scope.genre = topic._highlightResult.props.genre.value;
+      } else {
+        scope.title = topic.title;
+        scope.image = topic.mediaFiles[0].url;
+        scope.release = topic.props.releaseDate;
+        scope.slug = topic.slug;
+        scope.genre = topic.props.genre;
+      }
+    }
   }
 
 })();

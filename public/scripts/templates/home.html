@@ -9,8 +9,7 @@
         <div class="panel-body">
             <div class="row">
                 <div ng-repeat="topic in topics">
-                    <tc-movie-widget title="topic._highlightResult.title.value" slug="topic.slug" image="topic.mediaFiles[0].url"
-                            release="topic._highlightResult.props.releaseDate.value" genre="topic._highlightResult.props.genre.value"></tc-movie-widget>
+                    <tc-movie-widget topic="topic" ></tc-movie-widget>
                 </div>
             </div>
         </div>
