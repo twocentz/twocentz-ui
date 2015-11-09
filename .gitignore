@@ -32,3 +32,6 @@ server/config/local.env.js
 public/app.min.js
 public/templates.js
 public/style/style.css
+
+server/config/local.env
+
