@@ -36,6 +36,11 @@
           templateUrl: 'html/movies.html',
           controller: 'MovieCtrl'
         })
+        .state('usertopic', {
+          url: "/user/:username/:slug",
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl'
+        })
         .state('login', {
           url:'/login',
           templateUrl: 'html/login.html',

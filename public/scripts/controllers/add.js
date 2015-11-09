@@ -4,7 +4,7 @@
     .module('TwoCentzWeb')
 	  .controller('AddCtrl', AddController);
     /* @ngInject */
-    function AddController($scope, $alert, Topic) {
+    function AddController($scope, $alert, $state, Topic) {
       document.title = "Add a new topic - TwoCentz";
       var vm = this;
       // function assignment
@@ -15,9 +15,12 @@
 
       vm.originalFields = angular.copy(vm.fields);
 
-      // function definition
+      //
       function onSubmit() {
-        alert(angular.toJson(vm.model));
+        Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
+          .then(function(topic){
+              $state.transitionTo('usertopic', { username: topic.userName, slug: topic.slug });
+          })
       }
 
 
@@ -25,18 +28,18 @@
         vm.model = {};
 
         vm.model = {
-          textField: [
+          //textField: [
+          //  {
+          //    fieldName:'',
+          //    fieldValue:''
+          //  }
+          //],
+          textArea: [
             {
               fieldName:'',
               fieldValue:''
             }
           ]
-          //,textArea: [
-          //  {
-          //    fieldName:'',
-          //    fieldValue:''
-          //  }
-          //]
         };
 
 
@@ -58,43 +61,11 @@
               placeholder: 'Some description of the topic'
             }
           },
-          {
-            type: 'propertySection',
-            key: 'textField',
-            templateOptions: {
-              btnText:'new field',
-              fields: [
-                {
-                  className: 'form-inline',
-                  fieldGroup: [
-                    {
-                      type: 'input',
-                      key: 'fieldName',
-                      templateOptions: {
-                        label: 'Label',
-                        placeholder: 'your field label',
-                        required: true
-                      }
-                    },
-                    {
-                      type: 'input',
-                      key: 'fieldValue',
-                      templateOptions: {
-                        label: 'Value',
-                        placeholder: 'your field value',
-                        required: true
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          }
-          //,{
+          //{
           //  type: 'propertySection',
-          //  key: 'textArea',
+          //  key: 'textField',
           //  templateOptions: {
-          //    btnText:'new text area',
+          //    btnText:'new field',
           //    fields: [
           //      {
           //        className: 'form-inline',
@@ -109,21 +80,53 @@
           //            }
           //          },
           //          {
-          //            type: 'textarea',
+          //            type: 'input',
           //            key: 'fieldValue',
           //            templateOptions: {
           //              label: 'Value',
           //              placeholder: 'your field value',
-          //              required: true,
-          //              rows: 4,
-          //              cols: 20
+          //              required: true
           //            }
           //          }
           //        ]
           //      }
           //    ]
           //  }
-          //}
+          //},
+          {
+            type: 'propertySection',
+            key: 'textArea',
+            templateOptions: {
+              btnText:'new text area',
+              fields: [
+                {
+                  className: 'form-inline',
+                  fieldGroup: [
+                    {
+                      type: 'input',
+                      key: 'fieldName',
+                      templateOptions: {
+                        label: 'Label',
+                        placeholder: 'your field label',
+                        required: true
+                      }
+                    },
+                    {
+                      type: 'textarea',
+                      key: 'fieldValue',
+                      templateOptions: {
+                        label: 'Value',
+                        placeholder: 'your field value',
+                        required: true,
+                        rows: 4,
+                        cols: 20
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
         ];
       }
 	  }
