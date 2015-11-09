@@ -29,6 +29,10 @@ function geUserID(req){
   return req.user.href.slice(req.user.href.lastIndexOf("/")+1);
 }
 
+function getUserName(req){
+  return req.user.username;
+}
+
 module.exports = function(app) {
 
    //attaching stormpath middleware
@@ -126,13 +130,76 @@ module.exports = function(app) {
           .then(function(resp){
             res.status(200).json(resp);
           })
-          .catch(console.error);
+          .catch(function(err){
+            res.status(400).send({'error': 'server error', 'status': 400})
+            console.error(err);
+          });
       
 
     } else {
       return res.status(400).send({'error': 'twocentz missing', 'status': 400});
     }
     
+  });
+
+  app.get('/api/topics/users/:userName/:slug', function(req, res, next) {
+    request({
+      url: API_URL + "topics" + "/users/" + req.params.userName + "?" +"slug=" + req.params.slug,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }, function(error, response, body) {
+      if(body){
+        res.status(200).json(JSON.parse(body));
+      }else{
+        res.status(404).json({error:"topic not found"});
+        console.error("topic not found");
+      }
+    });
+  });
+
+  app.post('/api/topics/users', spMiddleware.authenticate,  function(req, res, next) {
+    var error;
+    if(req.body.title){
+
+      if(_.trim(req.body.title) < 3){
+        error = "title should be at least 3 letter long";
+      }
+      if(error){
+        return res.status(400).send({'error': error, 'status': 400});
+      }
+
+
+      var formObj = {
+        title: _.trim(req.body.title),
+        description: req.body.description,
+        props: req.body.props,
+        userId: geUserID(req),
+        userName: getUserName(req)
+      }
+
+      var options = {
+        uri : API_URL + "topics/users",
+        method : 'POST',
+        json: true,
+        body: formObj
+      };
+
+      rp(options)
+          .then(function(resp){
+            res.status(200).json(resp);
+          })
+          .catch(function(err){
+            res.status(400).send({'error': 'server error', 'status': 400})
+            console.error(err);
+          });
+
+
+    } else {
+      return res.status(400).send({'error': 'title missing', 'status': 400});
+    }
+
   });
 
   /*
