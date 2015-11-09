@@ -58,7 +58,7 @@
     }
 
     function useCache(){
-      var cacheValue, urlParam, useCache = 'true';
+      var cacheValue, urlParam, useCache = 'false'; //turning cache off for now
 
       cacheValue = localStorageService.get('useCache');
       urlParam =  HelperService.getUrlParam('useCache');
