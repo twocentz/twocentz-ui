@@ -32,7 +32,7 @@
               User.getUserEntriesByTopicId($scope.topic.id)
                 .then(function (data){
                   if(data.error){
-                    console.log($scope.error);
+                    console.log(data.error);
                   } else {
                     $scope.userVoted = _.pluck(data.content, 'text');
                   }
