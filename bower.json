@@ -27,6 +27,7 @@
     "api-check": "~7.5.0",
     "angular-formly": "~7.2.0",
     "angular-formly-templates-bootstrap": "~6.0.0",
-    "angular-local-storage": "~0.2.3"
+    "angular-local-storage": "~0.2.3",
+    "angular-toastr": "~1.6.0"
   }
 }

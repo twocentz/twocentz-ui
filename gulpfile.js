@@ -32,6 +32,7 @@ var paths = {
     "bower_components/angular-animate/angular-animate.js",
     "bower_components/angular-cookies/angular-cookies.js",
     "bower_components/angular-messages/angular-messages.js",
+    "bower_components/angular-toastr/dist/angular-toastr.tpls.min.js",
     "bower_components/angular-resource/angular-resource.js",
     "bower_components/angular-ui-router/release/angular-ui-router.js",
     "bower_components/angular-animate/angular-animate.js",
@@ -44,6 +45,7 @@ var paths = {
   ],
   bower_css:  [
     "bower_components/angular-motion/dist/angular-motion.min.css",
+    "bower_components/angular-toastr/dist/angular-toastr.min.css",
     "bower_components/bootstrap-additions/dist/bootstrap-additions.css",
     "bower_components/jqcloud2/dist/jqcloud.min.css"
   ],
@@ -94,7 +96,7 @@ gulp.task('templates', function() {
 
 // Copy all other files to dist directly
 gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
- 
+
  // Copy styles
   var style = gulp.src(paths.style + "*.css", {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
@@ -104,7 +106,7 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
 
   var css = gulp.src(paths.bower_css,  {cwd: bases.app})
     .pipe(gulp.dest(bases.dist + 'css'));
-    
+
   var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
@@ -148,6 +150,3 @@ gulp.task('serve', ['set-env', 'inject', 'server', 'watch']);
 gulp.task('prod', ['inject', 'server']);
 
 gulp.task('build', ['inject']);
-
-
-

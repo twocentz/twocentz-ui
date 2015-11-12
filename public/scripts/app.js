@@ -7,6 +7,7 @@
     'ngResource',
     'ngMessages',
     'ngAnimate',
+    'toastr',
     'ui.router',
     'ngSanitize',
     'mgcrea.ngStrap',
@@ -84,7 +85,7 @@
         });
 
     })
-   
+
     .run(function($stormpath){
       $stormpath.uiRouter({
         loginState: 'login',

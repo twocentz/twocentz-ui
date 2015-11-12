@@ -4,7 +4,7 @@
     .module('TwoCentzWeb')
 	  .controller('AddCtrl', AddController);
     /* @ngInject */
-    function AddController($scope, $alert, $state, Topic) {
+    function AddController($scope, $alert, $state, toastr, Topic) {
       document.title = "Add a new topic - TwoCentz";
       var vm = this;
       // function assignment
@@ -19,7 +19,11 @@
       function onSubmit() {
         Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
           .then(function(topic){
+            if(topic.username){
               $state.transitionTo('usertopic', { username: topic.userName, slug: topic.slug });
+            } else {
+              toastr.error('title already exist, try another name.', 'Error');
+            }
           })
       }
 
