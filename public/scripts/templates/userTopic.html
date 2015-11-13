@@ -1,12 +1,73 @@
 <div class="container">
-    <div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-8 top-buffer">
-                <h2 class="media-heading">
-                    {{topic.title}}
-                    {{topic.description}}
-                </h2>
-            </div>
-        </div>
+  <div ng-if="error">
+    <div class="alert alert-danger col-md-12" role="alert">We didn't find any movie with the name provided</div>
+  </div>
+  <div ng-if="!error">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4 col-md-4">
+        <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}">
+        <!-- <img data-src="holder.js/300x220" bs-holder /> -->
+      </div>
+      <div class="col-xs-12 col-sm-8 col-md-8 top-buffer">
+        <h2 class="media-heading">
+          {{topic.title}}
+        </h2>
+        <table class="table table-condensed">
+  
+        </table>
+        <p>{{topic.description}}</p>
+        <ul class="list-inline" >
+          <li ng-repeat="tag in topic.tags">
+            <button type="button" class="btn btn-xs">{{tag}}</button>
+          </li>
+        </ul>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ul if-user class="list-group">
+              <li class="list-group-item" ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+                {{entry.text}}
+                <button ng-hide="isVoted(entry.text)" type="button" ng-click="upVote(entry.text)" style="padding:2px" class="btn btn-info pull-right">
+                  <span class="badge">{{entry.votes}}</span> vote
+                  <i class="fa fa-thumbs-o-up"></i>
+                </button>
+                 <button ng-show="isVoted(entry.text)" type="button"  style="padding:2px" class="btn btn-success disabled pull-right">
+                  <span class="badge">{{entry.votes}}</span> done
+                  <i class="fa fa-check-circle"></i>
+                </button>
+
+              </li>
+            </ul>
+            <ul if-not-user class="list-group">
+              <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+                {{entry.text}}
+                  <span class="badge">{{entry.votes}}</span>
+              </li>
+            </ul>
+            <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
+          </div>
+        </div>
+        <div if-user class="panel panel-default">
+          <form class="form-inline" role="form">
+            <input class="entries" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="Add your two centz" id="twocentz-input" >
+            <a ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-primary pull-right" role="button">Submit</a>
+          </form>
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
+
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <jqcloud words="words" width="300" height="320" delay="10" steps="7" shape="rectangular" font-size="{from:0.12, to:0.04}" autoResize="true" ></jqcloud>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>

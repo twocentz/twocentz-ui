@@ -23,28 +23,28 @@
           }else{
 
             $scope.topic = data.content[0];
-            //$scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-            //$scope.userVoted = [];
-            //
-            //document.title = $scope.topic.title + " - TwoCentz";
-            //
-            ////check to see if user is logged in
-            //$user.get()
-            //    .then(function(){
-            //
-            //      User.getUserEntriesByTopicId($scope.topic.id)
-            //          .then(function (data){
-            //            if(data.error){
-            //              $scope.error = true;
-            //            } else {
-            //              $scope.userVoted = _.pluck(data.content, 'text');
-            //            }
-            //
-            //          });
-            //    })
-            //    .catch(function(){
-            //      //user not logged in
-            //    })
+            $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+            $scope.userVoted = [];
+
+            document.title = $scope.topic.title + " - TwoCentz";
+
+            //check to see if user is logged in
+            $user.get()
+               .then(function(){
+
+                 User.getUserEntriesByTopicId($scope.topic.id)
+                     .then(function (data){
+                       if(data.error){
+                         $scope.error = true;
+                       } else {
+                         $scope.userVoted = _.pluck(data.content, 'text');
+                       }
+
+                     });
+               })
+               .catch(function(){
+                 //user not logged in
+               })
 
           }
         });
