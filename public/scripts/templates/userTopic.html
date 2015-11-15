@@ -12,9 +12,7 @@
         <h2 class="media-heading">
           {{topic.title}}
         </h2>
-        <table class="table table-condensed">
-  
-        </table>
+        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
         <p>{{topic.description}}</p>
         <ul class="list-inline" >
           <li ng-repeat="tag in topic.tags">

@@ -12,33 +12,7 @@
         <h2 class="media-heading">
           {{topic.title}}
         </h2>
-        <table class="table table-condensed">
-            <tr>
-                <th>Release Date</th><td>{{topic.props.releaseDate}}</td>
-            </tr>
-            <tr>
-                <th>Duration</th><td>{{topic.props.duration}}</td>
-            </tr>
-            <tr>
-                <th>Genre</th><td>{{topic.props.genre}}</td>
-            </tr>
-            <tr>
-                <th>Rating</th><td>{{topic.props.rating}}</td>
-            </tr>
-            <tr>
-                <th>Director</th><td>{{topic.props.director}}</td>
-            </tr>
-            <tr>
-                <th>Cast</th>
-                <td>
-                    <ul class="list-inline">
-                        <li ng-repeat="cast in topic.props.cast | limitTo:5">
-                            <span>{{cast.name}}</span>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
         <p>{{topic.description}}</p>
         <ul class="list-inline" >
           <li ng-repeat="tag in topic.tags">
@@ -55,20 +29,20 @@
               <li class="list-group-item" ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                 {{entry.text}}
                 <button ng-hide="isVoted(entry.text)" type="button" ng-click="upVote(entry.text)" style="padding:2px" class="btn btn-info pull-right">
-                  <span class="badge">{{entry.votes}}</span> vote 
+                  <span class="badge">{{entry.votes}}</span> vote
                   <i class="fa fa-thumbs-o-up"></i>
                 </button>
                  <button ng-show="isVoted(entry.text)" type="button"  style="padding:2px" class="btn btn-success disabled pull-right">
-                  <span class="badge">{{entry.votes}}</span> done 
+                  <span class="badge">{{entry.votes}}</span> done
                   <i class="fa fa-check-circle"></i>
                 </button>
-                
+
               </li>
             </ul>
             <ul if-not-user class="list-group">
               <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                 {{entry.text}}
-                  <span class="badge">{{entry.votes}}</span> 
+                  <span class="badge">{{entry.votes}}</span>
               </li>
             </ul>
             <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
@@ -81,7 +55,7 @@
           </form>
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
-          
+
         </div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
