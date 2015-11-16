@@ -9,7 +9,7 @@
 
 
   /* @ngInject */
-  function UserTopicController($scope, $user, $stateParams, $q, Topic, Entries, User, HelperService) {
+  function UserTopicController($scope, $user, $stateParams, $q, Topic, Entries, toastr, User, HelperService) {
     $scope.error = false;
 
     /**
@@ -19,33 +19,37 @@
         .then(function(data) {
           if(data.error){
             $scope.error = true;
+            $scope.errorMessage = "Couldn't find information for topic '" + $stateParams.slug +"''";
 
           }else{
+            if(data.content.length === 0){
+              $scope.error = true;
+              $scope.errorMessage = "Couldn't find information for topic '" + $stateParams.slug +"''";
+            } else {
+              $scope.topic = data.content[0];
+              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+              $scope.userVoted = [];
 
-            $scope.topic = data.content[0];
-            $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-            $scope.userVoted = [];
+              document.title = $scope.topic.title + " - TwoCentz";
 
-            document.title = $scope.topic.title + " - TwoCentz";
+              //check to see if user is logged in
+              $user.get()
+                 .then(function(){
 
-            //check to see if user is logged in
-            $user.get()
-               .then(function(){
+                   User.getUserEntriesByTopicId($scope.topic.id)
+                       .then(function (data){
+                         if(data.error){
+                           toastr.error("Couldn't fetch user entries.", 'Warning');
+                         } else {
+                           $scope.userVoted = _.pluck(data.content, 'text');
+                         }
 
-                 User.getUserEntriesByTopicId($scope.topic.id)
-                     .then(function (data){
-                       if(data.error){
-                         $scope.error = true;
-                       } else {
-                         $scope.userVoted = _.pluck(data.content, 'text');
-                       }
-
-                     });
-               })
-               .catch(function(){
-                 //user not logged in
-               })
-
+                       });
+                 })
+                 .catch(function(){
+                   //user not logged in
+                 })
+            }
           }
         });
 

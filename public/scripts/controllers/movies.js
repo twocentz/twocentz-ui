@@ -16,7 +16,7 @@
       .then(function(data) {
         if(data.error){
           $scope.error = true;
-
+          $scope.errorMessage = "Couldn't find information for movie '" + $stateParams.slug +"'";
         }else{
 
           $scope.topic = data;
@@ -32,7 +32,7 @@
               User.getUserEntriesByTopicId($scope.topic.id)
                 .then(function (data){
                   if(data.error){
-                    console.log(data.error);
+                    toastr.error("Couldn't fetch user entries.", 'Warning');
                   } else {
                     $scope.userVoted = _.pluck(data.content, 'text');
                   }

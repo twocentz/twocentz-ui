@@ -18,10 +18,10 @@
       //
       function onSubmit() {
         Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
-          .then(function(topic){
-            if(topic.username){
-              $state.transitionTo('usertopic', { username: topic.userName, slug: topic.slug });
-            } else {
+          .then(function(respose){
+            if(respose.userName){
+              $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
+            } else if (respose.exists){
               toastr.error('title already exist, try another name.', 'Error');
             }
           })

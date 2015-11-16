@@ -29,7 +29,7 @@
                 scope.textField = scope.props.textField;
               }
               if(scope.props.hasOwnProperty('textArea')){
-                scope.textArea =scope.props.textArea;
+                scope.textArea = scope.props.textArea;
               }
             }
           }

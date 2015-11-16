@@ -1,6 +1,6 @@
 <div class="container">
   <div ng-if="error">
-    <div class="alert alert-danger col-md-12" role="alert">We didn't find any movie with the name provided</div>
+    <div class="alert alert-danger col-md-12" role="alert">{{errorMessage}}</div>
   </div>
   <div ng-if="!error">
     <div class="row">
@@ -12,8 +12,8 @@
         <h2 class="media-heading">
           {{topic.title}}
         </h2>
-        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
         <p>{{topic.description}}</p>
+        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
         <ul class="list-inline" >
           <li ng-repeat="tag in topic.tags">
             <button type="button" class="btn btn-xs">{{tag}}</button>

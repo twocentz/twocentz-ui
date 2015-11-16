@@ -1,7 +1,11 @@
 <table class="table table-condensed" ng-if="category === 'USERS'">
-    <tr ng-repeat="field in textField">
-        <th ng-repeat="(key, value) in field"> {{key}} </th>
-        <td ng-repeat="(key, value) in field"> {{value}} </td>
+    <!-- <tr ng-repeat="field in textField">
+      <th> {{field.fieldName}} </th>
+      <td> {{field.fieldValue}} </td>
+    </tr> -->
+    <tr ng-repeat="field in textArea">
+        <th> {{field.fieldName}} </th>
+        <td> {{field.fieldValue}} </td>
     </tr>
 </table>
 <table class="table table-condensed" ng-if="category === 'MOVIES'">
