@@ -5,8 +5,14 @@
   angular
       .module('TwoCentzWeb')
       .config(function($httpProvider) {
-          //Enable cross domain calls
-          //$httpProvider.defaults.useXDomain = true;
-          //$httpProvider.defaults.withCredentials = false;
+        $httpProvider.interceptors.push(function() {
+          return {
+            request: function(config) {
+              // overwrites stormpath interceptor which blocks CORS requests
+              config.withCredentials=false;
+              return config;
+            }
+          };
+        });
       })
 })()

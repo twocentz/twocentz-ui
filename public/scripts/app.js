@@ -13,8 +13,8 @@
     'mgcrea.ngStrap',
     'mgcrea.ngStrap.modal',
     'mgcrea.ngStrap.aside',
-    // 'stormpath',
-    // 'stormpath.templates',
+    'stormpath',
+    'stormpath.templates',
     'angular-jqcloud',
     'LocalStorageModule',
     'formly',
@@ -88,10 +88,10 @@
 
     })
 
-    // .run(function($stormpath){
-    //   $stormpath.uiRouter({
-    //     loginState: 'login',
-    //     defaultPostLoginState: 'home'
-    //   });
-    // });
+    .run(function($stormpath){
+      $stormpath.uiRouter({
+        loginState: 'login',
+        defaultPostLoginState: 'home'
+      });
+    });
 })();
