@@ -114,11 +114,7 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
   var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
-  var cors = gulp.src('cloudinary_cors.html',  {cwd: bases.app})
-    .pipe(gulp.dest(bases.dist))
-
-
-  return merge(style, libs, css, img, cors);
+  return merge(style, libs, css, img);
 });
 
 
