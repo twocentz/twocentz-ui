@@ -5,7 +5,6 @@
 'use strict';
 var stormpathExpressSdk = require('stormpath-sdk-express');
 var path = require('path');
-var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var _ = require('lodash');
@@ -112,7 +111,7 @@ module.exports = function(app) {
         return res.status(400).send({'error': error, 'status': 400});
       }
 
-      
+
       var formObj = {
         text: entry.join(" "),
         topicId: req.body.topicId,
@@ -125,7 +124,7 @@ module.exports = function(app) {
           json: true,
           body: formObj
       };
-       
+
       rp(options)
           .then(function(resp){
             res.status(200).json(resp);
@@ -134,12 +133,12 @@ module.exports = function(app) {
             res.status(400).send({'error': 'server error', 'status': 400})
             console.error(err);
           });
-      
+
 
     } else {
       return res.status(400).send({'error': 'twocentz missing', 'status': 400});
     }
-    
+
   });
 
   app.get('/api/topics/users/:userName/:slug', function(req, res, next) {

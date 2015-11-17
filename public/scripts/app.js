@@ -13,12 +13,14 @@
     'mgcrea.ngStrap',
     'mgcrea.ngStrap.modal',
     'mgcrea.ngStrap.aside',
-    'stormpath',
-    'stormpath.templates',
+    // 'stormpath',
+    // 'stormpath.templates',
     'angular-jqcloud',
     'LocalStorageModule',
     'formly',
-    'formlyBootstrap'
+    'formlyBootstrap',
+    'ngFileUpload',
+    'cloudinary'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
       $urlRouterProvider
@@ -86,10 +88,10 @@
 
     })
 
-    .run(function($stormpath){
-      $stormpath.uiRouter({
-        loginState: 'login',
-        defaultPostLoginState: 'home'
-      });
-    });
+    // .run(function($stormpath){
+    //   $stormpath.uiRouter({
+    //     loginState: 'login',
+    //     defaultPostLoginState: 'home'
+    //   });
+    // });
 })();

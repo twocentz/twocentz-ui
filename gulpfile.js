@@ -41,7 +41,11 @@ var paths = {
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js",
     "bower_components/jqcloud2/dist/jqcloud.min.js",
-    "bower_components/angular-jqcloud/angular-jqcloud.js"
+    "bower_components/angular-jqcloud/angular-jqcloud.js",
+    "bower_components/cloudinary_js/js/jquery.cloudinary.js",
+    "bower_components/ng-file-upload/ng-file-upload-shim.min.js",
+    "bower_components/cloudinary_ng/js/angular.cloudinary.js",
+    "bower_components/ng-file-upload/ng-file-upload.min.js"
   ],
   bower_css:  [
     "bower_components/angular-motion/dist/angular-motion.min.css",
@@ -110,8 +114,11 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
   var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
+  var cors = gulp.src('cloudinary_cors.html',  {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist))
 
-  return merge(style, libs, css, img);
+
+  return merge(style, libs, css, img, cors);
 });
 
 

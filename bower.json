@@ -28,6 +28,8 @@
     "angular-formly": "~7.2.0",
     "angular-formly-templates-bootstrap": "~6.0.0",
     "angular-local-storage": "~0.2.3",
-    "angular-toastr": "~1.6.0"
+    "angular-toastr": "~1.6.0",
+    "cloudinary_ng": "~0.1.4",
+    "ng-file-upload": "~10.0.2"
   }
 }
