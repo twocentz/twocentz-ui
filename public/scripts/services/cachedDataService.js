@@ -53,6 +53,14 @@
       return localStorageService.remove(key);
     }
 
+    function fetchFromCache(key){
+      return localStorageService.get(key);
+    }
+
+    function storeInCache(key, value){
+      localStorageService.set(key, value);
+    }
+
     function clearAll(){
       return localStorageService.clearAll();
     }

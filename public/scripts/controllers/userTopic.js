@@ -119,7 +119,7 @@
       if(!_.isEmpty(entry) && !$scope.tc.submited){
         //disabling submit until process is completed
         $scope.tc.submited = true;
-        Entries.postEntriesByTopicId(entry, $scope.topic.id)
+        Entries.postUserTopicEntriesByTopicId(entry, $scope.topic.id)
             .then(function(data){
               if(data.created === 'true'){
                 HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);

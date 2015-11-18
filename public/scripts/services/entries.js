@@ -16,12 +16,20 @@
         CachedDataService.getValue('/api/movies/entries/' + id);
     }
 
-    function postEntriesByTopicId(text, topicId){
+    function postMovieEntriesByTopicId(text, topicId){
       var postObject = {
                       text: text,
                       topicId: topicId
                     };
       return CachedDataService.postValue('api/entries/movies', postObject);
+    }
+
+    function postUserTopicEntriesByTopicId(text, topicId){
+      var postObject = {
+                      text: text,
+                      topicId: topicId
+                    };
+      return CachedDataService.postValue('api/entries/usertopics', postObject);
     }
 
   }

@@ -17,43 +17,94 @@
 
       //
       function onSubmit() {
-        Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
-          .then(function(respose){
-            if(respose.userName){
-              $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
-            } else if (respose.exists){
-              toastr.error('title already exist, try another name.', 'Error');
-            }
-          })
+
+        if ($scope.files) {
+          //console.log($scope.files);
+          $scope.uploadFile()
+            .then(function(resp){
+              var imgUrl = resp.data.url;
+              vm.model.props.media = {url: imgUrl};
+              Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
+                .then(function(respose){
+                  if(respose.userName){
+                    $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
+                  } else if (respose.exists){
+                    toastr.error('title already exist, try another name.', 'Error');
+                  }
+                })
+            }, function(err){
+              toastr.error('uploading image file failed', 'Error');
+            })
+        }
+
+
       }
 
       //$scope.$watch('files', function() {
-      $scope.uploadFiles = function(files){
+      $scope.setFiles = function(files){
         $scope.files = files;
-        if (!$scope.files) return;
-        angular.forEach(files, function(file){
-          if (file && !file.$error) {
-            file.upload = Upload.upload({
-              url: "https://api.cloudinary.com/v1_1/" + $.cloudinary.config().cloud_name + "/upload",
-              fields: {
-                upload_preset: $.cloudinary.config().upload_preset,
-                context: 'alt=' + $scope.title
-              },
-              file: file
-            }).progress(function (e) {
-              file.progress = Math.round((e.loaded * 100.0) / e.total);
-              file.status = "Uploading... " + file.progress + "%";
-            }).success(function (data, status, headers, config) {
-              $rootScope.photos = $rootScope.photos || [];
-              data.context = {custom: {photo: $scope.title}};
-              file.result = data;
-              $rootScope.photos.push(data);
-            }).error(function (data, status, headers, config) {
-              file.result = data;
-            });
-          }
+      }
+
+      //allowing only one file upload for now
+      $scope.uploadFile = function(){
+
+        var deferred = $q.defer();
+        var upload, file;
+        if (!$scope.files){
+          deferred.reject("error");
+        }
+        file = $scope.files[0]
+        if (file && !file.$error) {
+          upload = Upload.upload({
+            url: "https://api.cloudinary.com/v1_1/" + $.cloudinary.config().cloud_name + "/upload",
+            fields: {
+              upload_preset: $.cloudinary.config().upload_preset,
+              context: 'alt=' + $scope.title
+            },
+            file: file
+          }).progress(function (e) {
+            file.progress = Math.round((e.loaded * 100.0) / e.total);
+            file.status = "Uploading... " + file.progress + "%";
+          }).error(function (data, status, headers, config) {
+            file.result = data;
+            deferred.reject("error");
+          });
+        }
+
+        upload.then(function(resp) {
+          // file is uploaded successfully
+          deferred.resolve(resp);
+          file.result = resp.data;
+          console.log('file ' + resp.config.file.name + 'is uploaded successfully. Response: ' + resp.data);
         });
+
+        return deferred.promise();
+
+        // if (!$scope.files) return;
+        // angular.forEach(files, function(file){
+        //   if (file && !file.$error) {
+        //     file.upload = Upload.upload({
+        //       url: "https://api.cloudinary.com/v1_1/" + $.cloudinary.config().cloud_name + "/upload",
+        //       fields: {
+        //         upload_preset: $.cloudinary.config().upload_preset,
+        //         context: 'alt=' + $scope.title
+        //       },
+        //       file: file
+        //     }).progress(function (e) {
+        //       file.progress = Math.round((e.loaded * 100.0) / e.total);
+        //       file.status = "Uploading... " + file.progress + "%";
+        //     }).success(function (data, status, headers, config) {
+        //       $rootScope.photos = $rootScope.photos || [];
+        //       data.context = {custom: {photo: $scope.title}};
+        //       file.result = data;
+        //       $rootScope.photos.push(data);
+        //     }).error(function (data, status, headers, config) {
+        //       file.result = data;
+        //     });
+        //   }
+        // });
       };
+
       /* Modify the look and fill of the dropzone when files are being dragged over it */
       $scope.dragOverClass = function($event) {
         var items = $event.dataTransfer.items;

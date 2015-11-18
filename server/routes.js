@@ -32,6 +32,19 @@ function getUserName(req){
   return req.user.username;
 }
 
+function validateEntry(text){
+  var error = false;
+  // check that entry has two words and each word is max 20 letters
+  entry = _.words(_.trim(text), /[^, ]+/g);
+  if(entry.length > 2){
+    error = "only two words allowed";
+  }
+  if(_.some(entry, function(n){ return n.length > 20;})){
+    error = "max length per word is 20";
+  }
+  return error;
+}
+
 module.exports = function(app) {
 
    //attaching stormpath middleware
@@ -99,14 +112,8 @@ module.exports = function(app) {
     var entry, error;
     if(req.body.text){
 
-      // check that entry has two words and each word is max 20 letters
-      entry = _.words(_.trim(req.body.text), /[^, ]+/g);
-      if(entry.length > 2){
-        error = "only two words allowed";
-      }
-      if(_.some(entry, function(n){ return n.length > 20;})){
-        error = "max length per word is 20";
-      }
+      error = validateEntry(req.body.text);
+
       if(error){
         return res.status(400).send({'error': error, 'status': 400});
       }
@@ -120,6 +127,46 @@ module.exports = function(app) {
 
       var options = {
           uri : API_URL + "entries/movies",
+          method : 'POST',
+          json: true,
+          body: formObj
+      };
+
+      rp(options)
+          .then(function(resp){
+            res.status(200).json(resp);
+          })
+          .catch(function(err){
+            res.status(400).send({'error': 'server error', 'status': 400})
+            console.error(err);
+          });
+
+
+    } else {
+      return res.status(400).send({'error': 'twocentz missing', 'status': 400});
+    }
+
+  });
+
+  app.post('api/entries/usertopics', spMiddleware.authenticate,  function(req, res, next) {
+    var entry, error;
+    if(req.body.text){
+
+      error = validateEntry(req.body.text);
+
+      if(error){
+        return res.status(400).send({'error': error, 'status': 400});
+      }
+
+
+      var formObj = {
+        text: entry.join(" "),
+        topicId: req.body.topicId,
+        userId: geUserID(req)
+      }
+
+      var options = {
+          uri : API_URL + "entries/usertopics",
           method : 'POST',
           json: true,
           body: formObj

@@ -5,12 +5,12 @@
         </formly-form>
     </form>
     <div id="direct_upload"
-        ngf-drop="uploadFiles($files)"
+        ngf-drop="setFiles($files)"
         ngf-drag-over-class="dragOverClass($event)"
         ng-model="files">
         <form>
             <div>
-                <div href="#" class="btn btn-info" ngf-select="uploadFiles($files)" title="upload" resetOnClick="true" >Upload</div>
+                <div href="#" class="btn btn-info" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >Upload</div>
                 <label> |   Drag & Drop an image  </label>
             </div>
         </form>
@@ -29,4 +29,6 @@
 
         </div>
     </div>
+
+
 </div>
