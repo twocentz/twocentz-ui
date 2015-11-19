@@ -5,7 +5,10 @@
   <div ng-if="!error">
     <div class="row">
       <div class="col-xs-12 col-sm-4 col-md-4">
-        <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}">
+        <cl-image public-id="{{topic.mediaFiles[0].public_id}}" >
+          <cl-transformation  width="300" crop="fit"/>
+        </cl-image>
+        <!-- <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}"> -->
         <!-- <img data-src="holder.js/300x220" bs-holder /> -->
       </div>
       <div class="col-xs-12 col-sm-8 col-md-8 top-buffer">

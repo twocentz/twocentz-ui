@@ -4,7 +4,7 @@
     .module('TwoCentzWeb')
 	  .controller('AddCtrl', AddController);
     /* @ngInject */
-    function AddController($scope, $rootScope, $alert, $state, Upload, toastr, Topic) {
+    function AddController($scope, $rootScope, $alert, $state, $q, Upload, toastr, Topic) {
       document.title = "Add a new topic - TwoCentz";
       var vm = this;
       // function assignment
@@ -17,14 +17,13 @@
 
       //
       function onSubmit() {
-
+        var topicModel = JSON.parse(angular.toJson(vm.model));
         if ($scope.files) {
-          //console.log($scope.files);
           $scope.uploadFile()
             .then(function(resp){
-              var imgUrl = resp.data.url;
-              vm.model.props.media = {url: imgUrl};
-              Topic.postUserTopic(JSON.parse(angular.toJson(vm.model)))
+              var  mediaFiles = [resp.data];
+              topicModel.mediaFiles = mediaFiles;
+              Topic.postUserTopic(topicModel)
                 .then(function(respose){
                   if(respose.userName){
                     $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
@@ -74,11 +73,9 @@
         upload.then(function(resp) {
           // file is uploaded successfully
           deferred.resolve(resp);
-          file.result = resp.data;
-          console.log('file ' + resp.config.file.name + 'is uploaded successfully. Response: ' + resp.data);
         });
 
-        return deferred.promise();
+        return deferred.promise;
 
         // if (!$scope.files) return;
         // angular.forEach(files, function(file){

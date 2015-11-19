@@ -221,6 +221,7 @@ module.exports = function(app) {
         title: _.trim(req.body.title),
         description: req.body.description,
         props: req.body.props,
+        mediaFiles: req.body.mediaFiles,
         userId: geUserID(req),
         userName: getUserName(req)
       }

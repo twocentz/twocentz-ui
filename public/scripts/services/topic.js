@@ -39,7 +39,8 @@
         var postObject = {
           title: topicObj.title,
           description: topicObj.description,
-          props: props
+          props: props,
+          mediaFiles: topicObj.mediaFiles
         }
 
         return CachedDataService.postValue('api/topics/users', postObject);
