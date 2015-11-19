@@ -33,16 +33,20 @@ function getUserName(req){
 }
 
 function validateEntry(text){
+
   var error = false;
   // check that entry has two words and each word is max 20 letters
-  entry = _.words(_.trim(text), /[^, ]+/g);
+  var entry = _.words(_.trim(text), /[^, ]+/g);
   if(entry.length > 2){
     error = "only two words allowed";
   }
   if(_.some(entry, function(n){ return n.length > 20;})){
     error = "max length per word is 20";
   }
-  return error;
+  if(error){
+    return res.status(400).send({'error': error, 'status': 400});
+  }
+  return entry;
 }
 
 module.exports = function(app) {
@@ -110,15 +114,11 @@ module.exports = function(app) {
 
   app.post('/api/entries/movies', spMiddleware.authenticate,  function(req, res, next) {
     var entry, error;
+
+
     if(req.body.text){
 
-      error = validateEntry(req.body.text);
-
-      if(error){
-        return res.status(400).send({'error': error, 'status': 400});
-      }
-
-
+      entry = validateEntry(req.body.text, res);
       var formObj = {
         text: entry.join(" "),
         topicId: req.body.topicId,
@@ -148,16 +148,12 @@ module.exports = function(app) {
 
   });
 
-  app.post('api/entries/usertopics', spMiddleware.authenticate,  function(req, res, next) {
+  app.post('/api/entries/usertopics', spMiddleware.authenticate,  function(req, res, next) {
+    console.log("here");
     var entry, error;
     if(req.body.text){
 
-      error = validateEntry(req.body.text);
-
-      if(error){
-        return res.status(400).send({'error': error, 'status': 400});
-      }
-
+      entry = validateEntry(req.body.text);
 
       var formObj = {
         text: entry.join(" "),

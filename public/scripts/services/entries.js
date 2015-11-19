@@ -7,7 +7,8 @@
   function Entries(CachedDataService) {
     var service = {
       getMovieEntryById : getMovieEntryById,
-      postMovieEntriesByTopicId: postMovieEntriesByTopicId
+      postMovieEntriesByTopicId: postMovieEntriesByTopicId,
+      postUserTopicEntriesByTopicId: postUserTopicEntriesByTopicId
     };
 
     return service;

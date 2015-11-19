@@ -50,7 +50,7 @@
         </div>
         <div if-user class="panel panel-default">
           <form class="form-inline" role="form">
-            <input class="search" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="Add your two centz" id="twocentz-input" >
+            <input class="entries" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="Add your two centz" id="twocentz-input" >
             <a ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-primary pull-right" role="button">Submit</a>
           </form>
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
