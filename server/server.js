@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var Logger = require('le_node');
 var log = new Logger({
   token:'28364857-ccad-34ad-b844-44bb3a088cf1',
-  console: true,
-  timestamp: true
+  console: true
 });
 
 var env = process.env.NODE_ENV || 'development';
