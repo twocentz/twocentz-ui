@@ -123,20 +123,20 @@
       function init() {
         vm.model = {};
 
-        vm.model = {
-          //textField: [
-          //  {
-          //    fieldName:'',
-          //    fieldValue:''
-          //  }
-          //],
-          textArea: [
-            {
-              fieldName:'',
-              fieldValue:''
-            }
-          ]
-        };
+        // vm.model = {
+        //   //textField: [
+        //   //  {
+        //   //    fieldName:'',
+        //   //    fieldValue:''
+        //   //  }
+        //   //],
+        //   textArea: [
+        //     {
+        //       fieldName:'',
+        //       fieldValue:''
+        //     }
+        //   ]
+        // };
 
 
         vm.fields = [
