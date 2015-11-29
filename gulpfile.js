@@ -12,6 +12,14 @@ var sourcemaps = require('gulp-sourcemaps');
 var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var merge = require('merge-stream');
+var psi = require('psi');
+
+
+var site = 'https://twocentz-ui-stage.herokuapp.com/';
+var key = '';
+
+
+
 
 var templateCache = require('gulp-angular-templatecache');
 
@@ -153,3 +161,25 @@ gulp.task('serve', ['set-env', 'inject', 'server', 'watch']);
 gulp.task('prod', ['inject', 'server']);
 
 gulp.task('build', ['inject']);
+
+gulp.task('mobile-psi', function () {
+    return psi(site, {
+        // key: key
+        nokey: 'true',
+        strategy: 'mobile',
+    }).then(function (data) {
+        console.log('Speed score (max 100): ' + data.ruleGroups.SPEED.score);
+        console.log('Usability score (max 100): ' + data.ruleGroups.USABILITY.score);
+    });
+});
+
+gulp.task('desktop-psi', function () {
+    return psi(site, {
+        nokey: 'true',
+        // key: key,
+        strategy: 'desktop',
+    }).then(function (data) {
+        console.log('Speed score (max 100): ' + data.ruleGroups.SPEED.score);
+        console.log('Usability score (max 100): ' + data.ruleGroups.USABILITY.score);
+    });
+});
