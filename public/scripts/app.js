@@ -57,6 +57,14 @@
             authenticate: true
           }
         })
+        .state('mytopics', {
+          url:'/mytopics',
+          templateUrl: 'html/mytopics.html',
+          controller: 'MyTopicsCtrl',
+          sp: {
+            authenticate: true
+          }
+        })
         .state('signup', {
           url:'/signup',
           templateUrl: 'html/signup.html',

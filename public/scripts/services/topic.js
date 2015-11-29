@@ -10,8 +10,8 @@
         getTopicBySlug: getTopicBySlug,
         getMovieBySlug: getMovieBySlug,
         postUserTopic: postUserTopic,
-        getUserTopicBySlug: getUserTopicBySlug
-
+        getUserTopicBySlug: getUserTopicBySlug,
+        getAllUserTopics:  getAllUserTopics
       }
 
       return service;
@@ -31,6 +31,10 @@
 
       function getUserTopicBySlug(username, slug) {
         return CachedDataService.getValue('api/topics/users/'+ username + '/' + slug);
+      };
+
+      function getAllUserTopics() {
+        return CachedDataService.getValue('api/usertopics');
       };
 
       function postUserTopic(topicObj){

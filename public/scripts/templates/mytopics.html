@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>
+                <i class="fa fa-search fa-2x"></i>
+                <input class="search" type="text" ng-model="query" ng-change="search(query)" placeholder="Search...">
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div ng-repeat="topic in topics">
+                    <tc-movie-widget topic="topic" ></tc-movie-widget>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

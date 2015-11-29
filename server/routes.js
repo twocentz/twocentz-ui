@@ -149,7 +149,7 @@ module.exports = function(app) {
   });
 
   app.post('/api/entries/usertopics', spMiddleware.authenticate,  function(req, res, next) {
-    console.log("here");
+
     var entry, error;
     if(req.body.text){
 
@@ -197,6 +197,23 @@ module.exports = function(app) {
       }else{
         res.status(404).json({error:"topic not found"});
         console.error("topic not found");
+      }
+    });
+  });
+
+  app.get('/api/usertopics',  spMiddleware.authenticate, function(req, res, next) {
+    request({
+      url: API_URL + "topics" + "/users/" + getUserName(req),
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }, function(error, response, body) {
+      if(body){
+        res.status(200).json(JSON.parse(body));
+      }else{
+        res.status(404).json({error:"Topics not found"});
+        console.error("topics not found");
       }
     });
   });
