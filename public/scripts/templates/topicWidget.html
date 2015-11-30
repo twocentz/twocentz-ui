@@ -3,11 +3,11 @@
         <a ui-sref="usertopic({slug: slug, username: userName})">
             <div ng-if="image">
                 <cl-image public-id="{{image}}">
-                  <cl-transformation  width="300" height="300" crop="fit"/>
+                  <cl-transformation  width="240" height="300" crop="fit"/>
                 </cl-image>
             </div>
             <div class="img-card" ng-if="!image">
-                <img data-src="holder.js/300x300" bs-holder />
+                <img data-src="holder.js/240x300" bs-holder />
             </div>
             <h4 ng-bind-html="title"></h4>
         </a>

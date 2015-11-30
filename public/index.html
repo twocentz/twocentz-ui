@@ -37,8 +37,8 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li ><a ui-sref="home">Home</a></li>
-          <li if-user ><a ui-sref="add">Add</a></li>
           <li if-user ><a ui-sref="mytopics">My Topics</a></li>
+          <li if-user ><a ui-sref="add"><i class="fa fa-plus-circle"></i> Create New </a></li>
         </ul>
         <ul class="nav navbar-nav pull-right">
           <li if-user ng-class="{active: isActive('/profile')}">
