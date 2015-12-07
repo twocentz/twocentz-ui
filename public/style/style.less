@@ -1,54 +1,12 @@
 @import (less) 'bootstrap/bootstrap';
 
-@body-bg: #e4e7ec;
+@body-bg: #FFFFE7;
 
 @font-family-base: 'Open Sans', sans-serif;
 @headings-color: #111;
 
 @headings-font-family: 'Montserrat', sans-serif;
 @headings-font-weight: bold;
-
-@brand-success: #22ae5f;
-@brand-primary: #1d7cf4;
-@brand-danger: #b30015;
-@brand-warning: #ffd66a;
-
-@text-muted: #90939a;
-@link-color: #000;
-
-@navbar-default-link-active-bg: #f7f7f7;
-@navbar-default-link-color: #848484;
-@navbar-default-bg: #fff;
-@navbar-default-border: #e3e9ec;
-
-@navbar-default-brand-color: #333;
-@navbar-default-brand-hover-color: #ffe939;
-@navbar-default-brand-hover-bg: #333;
-
-@btn-success-bg: @brand-success;
-@btn-success-border: darken(@btn-success-bg, 3%);
-@btn-primary-bg: @brand-primary;
-@btn-primary-border: darken(@btn-primary-bg, 3%);
-
-@jumbotron-padding: 16px;
-@jumbotron-bg: #f4f6f8;
-
-@alert-border-radius: 0;
-@input-border-radius: 0;
-
-@alert-success-text: #fff;
-@alert-success-bg: #60c060;
-@alert-success-border: darken(@alert-success-bg, 3%);
-
-@alert-danger-text: #fff;
-@alert-danger-bg: @brand-danger;
-@alert-danger-border: darken(@alert-danger-bg, 3%);
-
-@alert-info-bg: #e5f7fd;
-@alert-info-border: #bcf8f3;
-@alert-info-text: #25484e;
-
-@btn-font-weight: bold;
 
 body {
   padding-bottom: 20px;
@@ -189,32 +147,21 @@ em {
   font-size: 1.65em;
   padding: 0px 0px 0px 10px;
   border: 0;
-  width: 60%;
-  background-color: transparent;
-  outline: none;
-  vertical-align:middle;
-  -webkit-appearance: none;
+  width: 90%;
+}
 
-  &:focus {
-    -webkit-transition: all .4s ease;
-    transition: all .4s ease;
-  }
+.entries-xs {
+  color: #4f4f4f;
+  font-weight: 300;
+  font-size: 1.65em;
+  padding: 0px 0px 0px 10px;
+  border: 0;
+  width: 100%;
 }
 
 
 .panel {
-  border-color: #cfd9D7;
-  border-radius: 2px;
-  box-shadow: 0 8px 17px rgba(0,0,0,.2);
-}
-
-.panel-default > .panel-heading {
-  color: #444;
-  border-color: #cfd9db;
-  font-weight: bold;
-  font-size: 85%;
-  text-transform: uppercase;
-  background-color: #f6f6f6;
+  border-radius: 6px;
 }
 
 .label {
@@ -242,7 +189,6 @@ em {
 
 .navbar {
   border: 0;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
 }
 
 .navbar-header {

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div ng-if="error">
     <div class="alert alert-danger col-md-12" role="alert">{{errorMessage}}</div>
   </div>
@@ -47,13 +47,11 @@
             <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
           </div>
         </div>
-        <div if-user class="panel panel-default">
-          <form class="form-inline" role="form">
-            <input class="entries" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="Add your two centz" id="twocentz-input" >
-            <a ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-primary pull-right" role="button">Submit</a>
-          </form>
+        <div if-user class="input-group input-group-lg">
+            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="my two centz" id="twocentz-input" >
+            <span class="input-group-btn"><button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button"><i class="fa fa-arrow-circle-right"></i></button></span>
         </div>
-        <div if-user>
+        <div if-user style="padding-top:10px">
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
         </div>

@@ -45,6 +45,7 @@
 
       } else {
           entries.push({"text":text, votes: 1});
+          userVoted.push(text);
       }
 
     }
