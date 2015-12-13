@@ -27,7 +27,19 @@
 
       scope.slug = topic.slug;
       scope.userName = topic.userName;
+      scope.entries = getTopEntriesString(topic.topEntries, 50);
 
+    }
+
+    function getTopEntriesString(entries, maxLength){
+      var result = "";
+      _.each(entries, function(item){
+        result += ' "' + item.text + '"';
+        if(result.length >= maxLength){
+           return false;
+        }
+      });
+      return result;
     }
   }
 
