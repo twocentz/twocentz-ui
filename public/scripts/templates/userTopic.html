@@ -5,9 +5,11 @@
   <div ng-if="!error">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-4">
-        <cl-image public-id="{{topic.mediaFiles[0].public_id}}" >
-          <cl-transformation  width="300" crop="fit"/>
-        </cl-image>
+        <a href="#" data-animation="am-fade-and-scale" data-placement="center" ng-click="showModal()" >
+          <cl-image public-id="{{topic.mediaFiles[0].public_id}}" >
+            <cl-transformation  width="300" crop="fit"/>
+          </cl-image>
+        </a>
         <!-- <img class="media-object" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}"> -->
         <!-- <img data-src="holder.js/300x220" bs-holder /> -->
       </div>
