@@ -10,7 +10,8 @@
       descSort : descSort,
       populateWordCloud: populateWordCloud,
       addEntryToLocalCache: addEntryToLocalCache,
-      getUrlParam: getURLParameter
+      getUrlParam: getURLParameter,
+      getTopEntriesString: getTopEntriesString
     }
 
     return service;
@@ -52,6 +53,17 @@
 
     function getURLParameter(name) {
       return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+    }
+
+    function getTopEntriesString(entries, maxLength){
+      var result = "";
+      _.each(entries, function(item){
+        result += ' "' + item.text + '"';
+        if(result.length >= maxLength){
+           return false;
+        }
+      });
+      return result;
     }
   }
 

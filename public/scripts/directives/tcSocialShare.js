@@ -2,10 +2,11 @@
   'use strict';
 
   angular
-      .module('TwoCentzWeb')
-      .directive('tcSocialShare', tcSocialShare);
+    .module('TwoCentzWeb')
+    .directive('tcSocialShare', tcSocialShare);
 
-  function tcSocialShare() {
+  /* @ngInject */
+  function tcSocialShare(encode, HelperService) {
     var directive = {
       restrict: 'EA',
       link: link,
@@ -21,8 +22,11 @@
     return directive;
 
     function link(scope, element, attrs) {
-      
+      // initializing social sharing buttons so they resize properly
+      rrssbInit();
+
       scope.$watch('media', function(newValue, oldValue) {
+
           var baseUrl = 'https://twocentz-ui-stage.herokuapp.com/';
           if (newValue){
             scope.url = encode( baseUrl + scope.type +'/' + scope.slug);
@@ -32,7 +36,7 @@
               scope.img = scope.media[0].url;
             }
             scope.title = encode(scope.title);
-            scope.desc = encode(getTopEntriesString(scope.entries, 50));
+            scope.desc = encode(HelperService.getTopEntriesString(scope.entries, 50));
 
             //adding meta tags for prerendering
             $('head').append('<meta property="og:title" content="'+scope.title+'" />');
@@ -42,27 +46,6 @@
 
           }
       });
-    }
-
-    function encode(value) {
-    	var unencoded = value;
-    	return encodeURIComponent(unencoded).replace(/'/g,"%27").replace(/"/g,"%22");
-    }
-
-    function decode(value) {
-    	var encoded = value;
-    	return decodeURIComponent(encoded.replace(/\+/g,  " "));
-    }
-
-    function getTopEntriesString(entries, maxLength){
-      var result = "";
-      _.each(entries, function(item){
-        result += ' "' + item.text + '"';
-        if(result.length >= maxLength){
-           return false;
-        }
-      });
-      return result;
     }
   }
 
