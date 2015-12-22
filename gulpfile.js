@@ -53,13 +53,15 @@ var paths = {
     "bower_components/cloudinary_js/js/jquery.cloudinary.js",
     "bower_components/ng-file-upload/ng-file-upload-shim.min.js",
     "bower_components/cloudinary_ng/js/angular.cloudinary.js",
-    "bower_components/ng-file-upload/ng-file-upload.min.js"
+    "bower_components/ng-file-upload/ng-file-upload.min.js",
+    "bower_components/rrssb/js/rrssb.min.js"
   ],
   bower_css:  [
     "bower_components/angular-motion/dist/angular-motion.min.css",
     "bower_components/angular-toastr/dist/angular-toastr.min.css",
     "bower_components/bootstrap-additions/dist/bootstrap-additions.css",
-    "bower_components/jqcloud2/dist/jqcloud.min.css"
+    "bower_components/jqcloud2/dist/jqcloud.min.css",
+    "bower_components/rrssb/css/rrssb.css"
   ],
   vendor: ['vendor/*.js'],
   minified: ['*.min.js','*.map','templates.js'],
