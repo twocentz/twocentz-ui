@@ -21,7 +21,7 @@
     return directive;
 
     function link(scope, element, attrs) {
-      var baseUrl =
+      
       scope.$watch('media', function(newValue, oldValue) {
           var baseUrl = 'https://twocentz-ui-stage.herokuapp.com/';
           if (newValue){
