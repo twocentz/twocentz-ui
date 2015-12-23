@@ -26,7 +26,6 @@
       rrssbInit();
 
       scope.$watch('media', function(newValue, oldValue) {
-
           var baseUrl = 'https://twocentz-ui-stage.herokuapp.com/';
           if (newValue){
             scope.url =  baseUrl + scope.type +'/' + scope.slug;
@@ -35,14 +34,16 @@
             } else {
               scope.img = scope.media[0].url;
             }
+            var title = scope.title;
             scope.title = encode(scope.title);
-            scope.desc = encode(HelperService.getTopEntriesString(scope.entries, 50));
+            var entries = HelperService.getTopEntriesString(scope.entries, 50);
+            scope.desc = encode(entries);
 
             //adding meta tags for prerendering
-            $('head').append('<meta property="og:title" content="'+scope.title+'" />');
+            $('head').append('<meta property="og:title" content="'+title+'" />');
             $('head').append('<meta property="og:url" content="'+scope.url+'" />');
             $('head').append('<meta property="og:image" content="'+scope.img+'" />');
-            $('head').append('<meta property="og:description" content="'+scope.desc+'" />');
+            $('head').append("<meta property='og:description' content='"+entries+"' />");
 
           }
       });
