@@ -22,11 +22,18 @@ if (env === 'production') {
   })
 }
 
+//prerender redirect for crawlers
+app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
+
+
 app.set('port', process.env.PORT || 3000);
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+
+
+// express serving pages
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 // console.log("***** App Path *********" + path.join( path.normalize(__dirname + '/..'), 'dist'));
