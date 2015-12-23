@@ -265,13 +265,17 @@ module.exports = function(app) {
   /*
    * Ensure this route is last.
    */
-  app.get('*', function(req, res) {
-    res.redirect('/#' + req.originalUrl);
-  });
+   app.all('/*', function(req, res){
+     res.sendFile('index.html',  { root: path.join( path.normalize(__dirname + '/..'), 'dist') });
+   });
+
+  // app.get('*', function(req, res) {
+  //   res.redirect('/#' + req.originalUrl);
+  // });
 
   app.use(function(err, req, res, next) {
     console.error(err.stack);
-    res.send(500, { message: err.message });
+    res.status(500).send({ message: err.message });
   });
 
 };

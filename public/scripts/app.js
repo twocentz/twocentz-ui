@@ -23,8 +23,7 @@
     'cloudinary'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-      $urlRouterProvider
-        .otherwise('/');
+
 
       $locationProvider.html5Mode(true);
 
@@ -93,6 +92,10 @@
           templateUrl: 'html/passwordReset.html',
           controller: 'ResetCtrl'
         });
+
+        $urlRouterProvider.otherwise('/');
+        $locationProvider.html5Mode(true);
+        $locationProvider.hashPrefix('!');
 
     })
 

@@ -33,7 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 
-// express serving pages
+// express serving files
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 // console.log("***** App Path *********" + path.join( path.normalize(__dirname + '/..'), 'dist'));

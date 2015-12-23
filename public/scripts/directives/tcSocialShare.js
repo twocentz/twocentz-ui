@@ -29,7 +29,7 @@
 
           var baseUrl = 'https://twocentz-ui-stage.herokuapp.com/';
           if (newValue){
-            scope.url = encode( baseUrl + scope.type +'/' + scope.slug);
+            scope.url =  baseUrl + scope.type +'/' + scope.slug;
             if(scope.type === 'user'){
               scope.img = 'https://res.cloudinary.com/twocentz/image/upload/a_auto/' + scope.media[0].public_id;
             } else {
