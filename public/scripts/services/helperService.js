@@ -58,7 +58,7 @@
     function getTopEntriesString(entries, maxLength){
       var result = "";
       _.each(entries, function(item){
-        result += ' "' + item.text + '"';
+        result += "'" + item.text + "' ";
         if(result.length >= maxLength){
            return false;
         }

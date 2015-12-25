@@ -8,7 +8,7 @@
       .module('TwoCentzWeb')
       .directive('tcMovieWidget', tcMovieWidget);
 
-  function tcMovieWidget() {
+  function tcMovieWidget(HelperService) {
     var directive = {
       restrict: 'EA',
       link: link,
@@ -27,24 +27,13 @@
         scope.release = topic._highlightResult.props.releaseDate.value;
         scope.slug = topic.slug;
         scope.genre = topic._highlightResult.props.genre.value;
-        scope.entries = getTopEntriesString(topic.topEntries, 50);
+        scope.entries = HelperService.getTopEntriesString(topic.topEntries, 50);
       } else {
         scope.title = topic.title;
         scope.image = topic.mediaFiles[0].url;
         scope.release = topic.props.releaseDate;
         scope.slug = topic.slug;
         scope.genre = topic.props.genre;
-      }
-
-      function getTopEntriesString(entries, maxLength){
-        var result = "";
-        _.each(entries, function(item){
-          result += ' "' + item.text + '"';
-          if(result.length >= maxLength){
-             return false;
-          }
-        });
-        return result;
       }
     }
   }

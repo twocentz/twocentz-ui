@@ -13,7 +13,7 @@
     $scope.error = false;
     $scope.colors = ["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"];
 
-    
+
     // Show when some event occurs (use $promise property to ensure the template has been loaded)
     $scope.showModal = function() {
       var imgModal = $modal({scope: $scope, template: 'html/topicImage.html', show: false});
@@ -39,6 +39,7 @@
               $scope.topic = data.content[0];
               $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
               $scope.userVoted = [];
+              $scope.userName = $stateParams.username;
 
               document.title = $scope.topic.title + " - TwoCentz";
 
