@@ -1,21 +1,30 @@
 (function() {
   'use strict';
-  angular
-      .module('TwoCentzWeb')
-      .factory('CachedDataService', CachedDataService);
 
   /* @ngInject */
   function CachedDataService($http, $q, localStorageService, HelperService) {
-    var service = {
-      getValue : getValue,
-      postValue: postValue,
-      deleteValue: deleteValue,
-      clearAll: clearAll
-    }
-
-    return service;
 
     ///////////////////
+    function useCache(){
+      var cacheValue, urlParam, useCache = 'false'; //turning cache off for now
+
+      cacheValue = localStorageService.get('useCache');
+      urlParam =  HelperService.getUrlParam('useCache');
+
+      if(urlParam){
+        useCache = urlParam;
+      } else if (cacheValue){
+        useCache = cacheValue;
+      }
+
+      localStorageService.set('useCache', useCache);
+
+      if(useCache === 'true'){
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     function getValue(key){
       var deferred = $q.defer();
@@ -65,26 +74,23 @@
       return localStorageService.clearAll();
     }
 
-    function useCache(){
-      var cacheValue, urlParam, useCache = 'false'; //turning cache off for now
-
-      cacheValue = localStorageService.get('useCache');
-      urlParam =  HelperService.getUrlParam('useCache');
-
-      if(urlParam){
-        useCache = urlParam;
-      } else if (cacheValue){
-        useCache = cacheValue;
-      }
-
-      localStorageService.set('useCache', useCache);
-
-      if(useCache === 'true'){
-        return true;
-      } else {
-        return false;
-      }
+    ////////////////////
+    var service = {
+      getValue : getValue,
+      postValue: postValue,
+      deleteValue: deleteValue,
+      clearAll: clearAll,
+      fetchFromCache: fetchFromCache,
+      storeInCache: storeInCache
     }
+
+    return service;
+
   }
+
+  angular
+    .module('TwoCentzWeb')
+    .factory('CachedDataService', CachedDataService);
+
 
 })();

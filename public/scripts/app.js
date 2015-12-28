@@ -40,7 +40,7 @@
           controller: 'MovieCtrl'
         })
         .state('usertopic', {
-          url: "/user/:username/:slug",
+          url: '/user/:username/:slug',
           templateUrl: 'html/userTopic.html',
           controller: 'UserTopicCtrl'
         })

@@ -1,21 +1,10 @@
 (function () {
   'use strict';
 
-  angular
-      .module('TwoCentzWeb')
-      .directive('tcTopicDetails', tcTopicDetails);
+
 
   function tcTopicDetails() {
-    var directive = {
-      restrict: 'EA',
-      link: link,
-      scope: {
-        props: '=',
-        category: '='
-      },
-      templateUrl: 'html/topicDetails.html'
-    };
-    return directive;
+
 
     function link(scope, element, attrs) {
 
@@ -35,6 +24,21 @@
           }
       });
     }
+
+    var directive = {
+      restrict: 'EA',
+      link: link,
+      scope: {
+        props: '=',
+        category: '='
+      },
+      templateUrl: 'html/topicDetails.html'
+    };
+    return directive;
   }
+
+  angular
+    .module('TwoCentzWeb')
+    .directive('tcTopicDetails', tcTopicDetails);
 
 })();

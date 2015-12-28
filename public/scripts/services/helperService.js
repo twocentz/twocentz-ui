@@ -1,20 +1,9 @@
 (function() {
   'use strict';
-  angular
-    .module('TwoCentzWeb')
-    .factory('HelperService', HelperService);
 
   /* @ngInject */
   function HelperService() {
-    var service = {
-      descSort : descSort,
-      populateWordCloud: populateWordCloud,
-      addEntryToLocalCache: addEntryToLocalCache,
-      getUrlParam: getURLParameter,
-      getTopEntriesString: getTopEntriesString
-    }
 
-    return service;
 
     ///////////////////
     function populateWordCloud(entries){
@@ -34,7 +23,7 @@
 
     function addEntryToLocalCache(text, entries, userVoted){
       var index = _.findIndex(entries, function(entry) {
-        return entry.text == text;
+        return entry.text === text;
       });
 
       if(index !== -1){
@@ -45,26 +34,44 @@
         }
 
       } else {
-          entries.push({"text":text, votes: 1});
+          entries.push({'text':text, votes: 1});
           userVoted.push(text);
       }
 
     }
 
     function getURLParameter(name) {
+        /* jshint ignore:start */
       return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+        /* jshint ignore:end */
     }
 
-    function getTopEntriesString(entries, maxLength){
-      var result = "";
-      _.each(entries, function(item){
-        result += "'" + item.text + "' ";
-        if(result.length >= maxLength){
+    function getTopEntriesString(entries, count){
+      var result = '';
+      _.each(entries, function(item, index){
+        result += ' &ldquo;' + item.text + '&rdquo; ';
+        if(index === count){
            return false;
         }
       });
       return result;
     }
+    /////////////////////
+
+    var service = {
+      descSort : descSort,
+      populateWordCloud: populateWordCloud,
+      addEntryToLocalCache: addEntryToLocalCache,
+      getUrlParam: getURLParameter,
+      getTopEntriesString: getTopEntriesString
+    }
+
+    return service;
   }
+
+  angular
+    .module('TwoCentzWeb')
+    .factory('HelperService', HelperService);
+
 
 })();

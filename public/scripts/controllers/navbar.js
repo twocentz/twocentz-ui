@@ -1,8 +1,5 @@
 (function() {
   'use strict';
-  angular
-  .module('TwoCentzWeb')
-  .controller('NavbarCtrl', NavBarController);
 
   /* @ngInject */
   function NavBarController($scope, $aside) {
@@ -13,4 +10,8 @@
       })
     };
   }
+  
+  angular
+    .module('TwoCentzWeb')
+    .controller('NavbarCtrl', NavBarController);
 })();

@@ -3,19 +3,16 @@
  */
 (function() {
   'use strict';
-  angular
-      .module('TwoCentzWeb')
-      .constant("moment", moment)
-      .constant("encode", encode)
-      .constant("decode", decode);
-
+    /* jshint ignore:start */
   function encode(value) {
   	var unencoded = value;
   	return encodeURIComponent(unencoded).replace(/'/g,"%27").replace(/"/g,"%22");
   }
-  function decode(value) {
-  	var encoded = value;
-  	return decodeURIComponent(encoded.replace(/\+/g,  " "));
-  }
 
+
+  angular
+    .module('TwoCentzWeb')
+    .constant('moment', moment)
+    .constant('encode', encode);
+  /* jshint ignore:end */
 })();

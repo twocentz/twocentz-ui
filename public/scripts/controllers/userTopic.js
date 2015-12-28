@@ -3,15 +3,11 @@
  */
 (function() {
   'use strict';
-  angular
-      .module('TwoCentzWeb')
-      .controller('UserTopicCtrl', UserTopicController);
-
 
   /* @ngInject */
   function UserTopicController($scope, $user, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
     $scope.error = false;
-    $scope.colors = ["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"];
+    $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
 
     // Show when some event occurs (use $promise property to ensure the template has been loaded)
@@ -29,19 +25,19 @@
         .then(function(data) {
           if(data.error){
             $scope.error = true;
-            $scope.errorMessage = "Couldn't find information for topic '" + $stateParams.slug +"''";
+            $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
 
           }else{
             if(data.content.length === 0){
               $scope.error = true;
-              $scope.errorMessage = "Couldn't find information for topic '" + $stateParams.slug +"''";
+              $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
             } else {
               $scope.topic = data.content[0];
               $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
               $scope.userVoted = [];
               $scope.userName = $stateParams.username;
 
-              document.title = $scope.topic.title + " - TwoCentz";
+              document.title = $scope.topic.title + ' - TwoCentz';
 
               //check to see if user is logged in
               $user.get()
@@ -50,7 +46,7 @@
                    User.getUserEntriesByTopicId($scope.topic.id)
                        .then(function (data){
                          if(data.error){
-                           toastr.error("Couldn't fetch user entries.", 'Warning');
+                           toastr.error('Could not fetch user entries', 'Warning');
                          } else {
                            $scope.userVoted = _.pluck(data.content, 'text');
                          }
@@ -65,20 +61,42 @@
         });
 
     $scope.tc = {
-      text: "",
+      text: '',
       submited: false
     };
 
     // page properties.
     $scope.list = {
-      text: "show all",
-      text_all: "show all",
-      text_less: "show less",
+      text: 'show all',
+      text_all: 'show all',
+      text_less: 'show less',
       limit: 5,
       default: 5,
       max: 100,
       isMax: false
     };
+
+    function submitEntry(entry){
+      var deferred = $q.defer();
+
+      if(!_.isEmpty(entry) && !$scope.tc.submited){
+        //disabling submit until process is completed
+        $scope.tc.submited = true;
+        Entries.postUserTopicEntriesByTopicId(entry, $scope.topic.id)
+            .then(function(data){
+              if(data.created === 'true'){
+                HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
+                $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
+                $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+              }
+
+              deferred.resolve(data);
+              // reseting submit widget value
+              $scope.tc.submited = false;
+            });
+      }
+      return deferred.promise;
+    }
 
     $scope.keySubmit = function(keyEvent){
       if (keyEvent.which === 13){
@@ -106,7 +124,7 @@
             }else{
               $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
             }
-            $scope.tc.text = "";
+            $scope.tc.text = '';
           })
     };
 
@@ -121,30 +139,14 @@
         $scope.list.text = $scope.list.text_all;
         $scope.isMax = false;
       }
-      //angular.element(".list-group").addClass('animated pulse');
+      //angular.element('.list-group').addClass('animated pulse');
     };
 
-    function submitEntry(entry){
-      var deferred = $q.defer();
 
-      if(!_.isEmpty(entry) && !$scope.tc.submited){
-        //disabling submit until process is completed
-        $scope.tc.submited = true;
-        Entries.postUserTopicEntriesByTopicId(entry, $scope.topic.id)
-            .then(function(data){
-              if(data.created === 'true'){
-                HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
-                $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
-                $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-              }
-
-              deferred.resolve(data);
-              // reseting submit widget value
-              $scope.tc.submited = false;
-            });
-      }
-      return deferred.promise;
-    }
 
   }
+
+  angular
+    .module('TwoCentzWeb')
+    .controller('UserTopicCtrl', UserTopicController);
 })();

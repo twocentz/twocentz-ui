@@ -13,6 +13,7 @@ var inject = require('gulp-inject');
 var angularFilesort = require('gulp-angular-filesort');
 var merge = require('merge-stream');
 var psi = require('psi');
+var jshint = require('gulp-jshint');
 
 
 var site = 'https://twocentz-ui-stage.herokuapp.com/';
@@ -93,6 +94,13 @@ gulp.task('less', function() {
     .pipe(gulp.dest(bases.app + "/style"));
 });
 
+gulp.task('lint', function() {
+  return gulp.src(paths.scripts, {cwd: bases.app})
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
+});
+
 gulp.task('compress', function() {
   return gulp.src(paths.scripts, {cwd: bases.app})
     .pipe(sourcemaps.init())
@@ -159,11 +167,11 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['build']);
 
-gulp.task('serve', ['set-env', 'inject', 'server', 'watch']);
+gulp.task('serve', ['set-env', 'lint', 'inject', 'server', 'watch']);
 
 gulp.task('prod', ['inject', 'server']);
 
-gulp.task('build', ['inject']);
+gulp.task('build', ['lint', 'inject']);
 
 gulp.task('mobile-psi', function () {
     return psi(site, {

@@ -1,26 +1,9 @@
 (function () {
   'use strict';
 
-  angular
-    .module('TwoCentzWeb')
-    .directive('tcSocialShare', tcSocialShare);
-
   /* @ngInject */
   function tcSocialShare(encode, HelperService) {
-    var directive = {
-      restrict: 'EA',
-      link: link,
-      scope: {
-        slug: '@',
-        media: '=',
-        entries: '=',
-        title: '@',
-        type: '@',
-        user: '@'
-      },
-      templateUrl: 'html/socialShare.html'
-    };
-    return directive;
+
 
     function link(scope, element, attrs) {
       // initializing social sharing buttons so they resize properly
@@ -39,7 +22,7 @@
             }
             var title = scope.title;
             scope.title = encode(scope.title);
-            var entries = HelperService.getTopEntriesString(scope.entries, 50);
+            var entries = HelperService.getTopEntriesString(scope.entries, 5);
             scope.desc = encode(entries);
 
             //cleaning up existing meta tags
@@ -63,6 +46,26 @@
           }
       });
     }
+
+    var directive = {
+      restrict: 'EA',
+      link: link,
+      scope: {
+        slug: '@',
+        media: '=',
+        entries: '=',
+        title: '@',
+        type: '@',
+        user: '@'
+      },
+      templateUrl: 'html/socialShare.html'
+    };
+    return directive;
   }
+
+  angular
+    .module('TwoCentzWeb')
+    .directive('tcSocialShare', tcSocialShare);
+
 
 })();
