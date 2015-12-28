@@ -31,6 +31,7 @@
     "angular-toastr": "~1.6.0",
     "cloudinary_ng": "~0.1.4",
     "ng-file-upload": "~10.0.2",
-    "rrssb": "~1.9.2"
+    "rrssb": "~1.9.2",
+    "angular-masonry-directive": "*"
   }
 }

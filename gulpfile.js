@@ -45,6 +45,7 @@ var paths = {
     "bower_components/angular-ui-router/release/angular-ui-router.js",
     "bower_components/angular-animate/angular-animate.js",
     "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+    "bower_components/angular-masonry-directive/src/angular-masonry-directive.js",
     "bower_components/moment/min/moment.min.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js",

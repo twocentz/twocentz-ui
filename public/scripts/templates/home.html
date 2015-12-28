@@ -1,5 +1,5 @@
 <tc-nav-bar search="search" query="query"></tc-nav-bar>
-<div class="container">
+<div class="container-fluidr">
     <div class="custom-search-input hidden-xs">
          <div class="input-group col-md-12">
              <input type="text" class="form-control" ng-model="query" ng-change="search(query)" placeholder="Search..." />
@@ -10,9 +10,8 @@
              </span>
          </div>
     </div>
-    <div class="row">
-        <div ng-repeat="topic in topics">
-            <tc-movie-widget topic="topic" ></tc-movie-widget>
+    <div class="widget-panel" masonry='{  "transitionDuration" : "0.4s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
+        <div masonry-tile ng-repeat="topic in topics track by topic._id" tc-movie-widget topic="topic" class="tile">
         </div>
     </div>
 </div>
