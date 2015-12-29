@@ -6,20 +6,21 @@
 
     ///////////////////
     function useCache(){
-      var cacheValue, urlParam, useCache = 'false'; //turning cache off for now
+      var cacheEnabled = 'false'; //turning cache off for now
+      var cacheValue, urlParam;
 
       cacheValue = localStorageService.get('useCache');
       urlParam =  HelperService.getUrlParam('useCache');
 
       if(urlParam){
-        useCache = urlParam;
+        cacheEnabled = urlParam;
       } else if (cacheValue){
-        useCache = cacheValue;
+        cacheEnabled = cacheValue;
       }
 
-      localStorageService.set('useCache', useCache);
+      localStorageService.set('useCache', cacheEnabled);
 
-      if(useCache === 'true'){
+      if(cacheEnabled === 'true'){
         return true;
       } else {
         return false;
