@@ -2,8 +2,8 @@
   "name": "TwoCentz",
   "version": "0.0.74",
   "engines": {
-    "node": "0.12.x",
-    "npm": "2.10.x"
+    "node": "5.3.x",
+    "npm": "3.5.x"
   },
   "main": "server/server.js",
   "scripts": {
