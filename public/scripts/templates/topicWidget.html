@@ -1,7 +1,7 @@
-<div class="col-xs-12 col-sm-6 col-md-4">
-    <div class="thumbnail text-center">
+<div>
+    <div class="thumbnail text-center widget">
         <a ui-sref="usertopic({slug: slug, username: userName})">
-            <h3 ng-bind-html="title"></h3>
+            <h4 ng-bind-html="title"></h4>
             <div ng-if="image">
                 <cl-image public-id="{{image}}">
                   <cl-transformation  width="240" height="300" crop="fit"/>
@@ -12,7 +12,7 @@
             </div>
         </a>
         <div class="caption">
-            <h4 class="text-info" ng-bind-html="entries"></h4>
+            <p class="text-info movie-info" ng-bind-html="entries"></p>
         </div>
     </div>
 </div>
