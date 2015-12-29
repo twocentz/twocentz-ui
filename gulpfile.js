@@ -32,24 +32,22 @@ var bases = {
 var paths = {
   scripts: ['scripts/**/*.js'],
   bower_libs: [
-    // "bower_components/jquery/dist/jquery.js",
     "bower_components/angular/angular.min.js",
-    "bower_components/angular-strap/dist/angular-strap.js",
-    "bower_components/angular-strap/dist/angular-strap.tpl.js",
+    "bower_components/angular-strap/dist/angular-strap.min.js",
+    "bower_components/angular-strap/dist/angular-strap.tpl.min.js",
     "bower_components/angular-formly/dist/formly.min.js",
     "bower_components/angular-formly-templates-bootstrap/dist/angular-formly-templates-bootstrap.min.js",
-    "bower_components/angular-animate/angular-animate.js",
-    "bower_components/angular-cookies/angular-cookies.js",
-    "bower_components/angular-messages/angular-messages.js",
+    "bower_components/angular-animate/angular-animate.min.js",
+    "bower_components/angular-cookies/angular-cookies.min.js",
+    "bower_components/angular-messages/angular-messages.min.js",
     "bower_components/angular-toastr/dist/angular-toastr.tpls.min.js",
-    "bower_components/angular-resource/angular-resource.js",
-    "bower_components/angular-ui-router/release/angular-ui-router.js",
-    "bower_components/angular-animate/angular-animate.js",
+    "bower_components/angular-resource/angular-resource.min.js",
+    "bower_components/angular-ui-router/release/angular-ui-router.min.js",
     "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
     "bower_components/angular-masonry-directive/src/angular-masonry-directive.js",
     "bower_components/moment/min/moment.min.js",
-    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.js",
-    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.js",
+    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.min.js",
+    "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.min.js",
     "bower_components/jqcloud2/dist/jqcloud.min.js",
     "bower_components/angular-jqcloud/angular-jqcloud.js",
     "bower_components/cloudinary_js/js/jquery.cloudinary.js",
@@ -82,7 +80,7 @@ gulp.task('set-env', function () {
 
 // Delete the dist directory
 gulp.task('clean', function() {
- return gulp.src(bases.dist)
+ return gulp.src('bases.dist')
  .pipe(clean());
 });
 
@@ -137,19 +135,23 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
 });
 
 
-gulp.task('indexCopy',['copy'], function () {
-  return gulp
-      .src('index.html',  {cwd: bases.app})
-      .pipe(gulp.dest(bases.dist))
-});
+gulp.task('minify',['copy'], function () {
 
-gulp.task('inject', ['indexCopy'], function() {
-  var target = gulp.src('index.html',  {cwd: bases.dist});
-  return target
-      .pipe(inject(
-          gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.min.js']).pipe(angularFilesort()), {relative: true}
-      ))
+  var concat_lib = gulp.src([bases.dist + 'libs/**/*.js', '!' + bases.dist + 'libs/angular.min.js'])
+    .pipe(angularFilesort())
+    .pipe(concat('libs.min.js'))
+    //.pipe(uglify())
+    .pipe(gulp.dest(bases.dist));
+
+  var concat_css = gulp.src([bases.dist + 'css/**/*.css'])
+    .pipe(concat('style.min.css'))
+    .pipe(gulp.dest(bases.dist));
+
+  var copy_index = gulp.src('index.html',  {cwd: bases.app})
       .pipe(gulp.dest(bases.dist));
+
+
+  return merge(concat_lib, concat_css, copy_index);
 });
 
 gulp.task('server', function() {
@@ -157,9 +159,9 @@ gulp.task('server', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('public/style/*.less', ['inject']);
-  gulp.watch('public/scripts/templates/**/*.html', ['inject']);
-  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['inject']);
+  gulp.watch('public/style/*.less', ['minify']);
+  gulp.watch('public/scripts/templates/**/*.html', ['minify']);
+  gulp.watch(['public/**/*.js', '!public/app.min.js', '!public/templates.js', '!public/bower_components'], ['minify']);
 });
 
 
@@ -167,11 +169,11 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['build']);
 
-gulp.task('serve', ['set-env', 'lint', 'inject', 'server', 'watch']);
+gulp.task('serve', ['set-env', 'lint', 'minify', 'server', 'watch']);
 
-gulp.task('prod', ['inject', 'server']);
+gulp.task('prod', ['minify', 'server']);
 
-gulp.task('build', ['lint', 'inject']);
+gulp.task('build', ['lint', 'minify']);
 
 gulp.task('mobile-psi', function () {
     return psi(site, {

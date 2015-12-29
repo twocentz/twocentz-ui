@@ -21,6 +21,7 @@ build/Release
 
 #dist
 dist
+dists
 
 # Dependency directory
 # Deployed apps should consider commenting this line out:
