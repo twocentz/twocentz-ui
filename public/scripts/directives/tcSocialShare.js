@@ -2,7 +2,7 @@
   'use strict';
 
   /* @ngInject */
-  function tcSocialShare(encode, HelperService) {
+  function tcSocialShare(HelperService) {
 
 
     function link(scope, element, attrs) {
@@ -21,9 +21,9 @@
               scope.url =  baseUrl + scope.type +'/' + scope.slug;
             }
             var title = scope.title;
-            scope.title = encode(scope.title);
-            var entries = HelperService.getTopEntriesString(scope.entries, 5);
-            scope.desc = encode(entries);
+            scope.title = HelperService.encode(scope.title);
+            var entries = HelperService.getSocialShareDescription(scope.entries);
+            scope.desc = HelperService.encode(entries);
 
             //cleaning up existing meta tags
             $('head').find('.tc_meta_tags').remove();

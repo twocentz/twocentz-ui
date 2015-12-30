@@ -56,6 +56,26 @@
       });
       return result;
     }
+
+    function getSocialShareDescription(entries){
+      var result = '', limit = 3
+      _.each(entries, function(item, index){
+        result += item.text + ', ';
+        if(index === limit){
+          return false;
+        }
+      });
+      return result.slice(0, -2);
+    }
+
+
+    function encode(value) {
+      /* jshint ignore:start */
+      var unencoded = value;
+      return encodeURIComponent(unencoded).replace(/'/g,"%27").replace(/"/g,"%22");
+      /* jshint ignore:end */
+    }
+
     /////////////////////
 
     var service = {
@@ -63,7 +83,9 @@
       populateWordCloud: populateWordCloud,
       addEntryToLocalCache: addEntryToLocalCache,
       getUrlParam: getURLParameter,
-      getTopEntriesString: getTopEntriesString
+      getTopEntriesString: getTopEntriesString,
+      getSocialShareDescription: getSocialShareDescription,
+      encode: encode
     }
 
     return service;
