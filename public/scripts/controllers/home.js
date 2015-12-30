@@ -1,22 +1,35 @@
 (function() {
   'use strict';
   /* @ngInject */
-  function HomeController($scope, moment, SearchService, Topic) {
+  function HomeController($scope, moment, CachedDataService, SearchService, Topic) {
 
     document.title =  'TwoCentz - topics, reviews, opinions';
 
     function search(key) {
-      SearchService.search(key)
-        .then(function(hits){
-          $scope.topics = hits;
-        },function(err){
-          console.log(err);
-        })
+      if(key === CachedDataService.fetchFromCache('home-query')){
+          $scope.topics = CachedDataService.fetchFromCache('home-movies');
+      } else {
+        SearchService.search(key)
+          .then(function(hits){
+            //saving to cache
+            CachedDataService.storeInCache('home-movies', hits);
+            CachedDataService.storeInCache('home-query', key);
+            $scope.topics = hits;
+          },function(err){
+            console.log(err);
+          })
+      }
     }
 
 
     function activate(){
-      search(moment().format('MMMM YYYY'));
+      if(CachedDataService.fetchFromCache('home-query')){
+        $scope.query = CachedDataService.fetchFromCache('home-query');
+        $scope.topics = CachedDataService.fetchFromCache('home-movies');
+      } else {
+        // search based on date
+        search(moment().format('MMMM YYYY'));
+      }
     }
 
     $scope.search = search;
