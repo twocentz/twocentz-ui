@@ -16,18 +16,23 @@
             CachedDataService.storeInCache('home-query', key);
             $scope.topics = hits;
           },function(err){
-            console.log(err);
+            //console.log(err);
           })
       }
     }
+
+    $scope.$watch('query', function(newValue, oldValue) {
+        if (newValue){
+          search(newValue);
+        }
+    });
 
 
     function activate(){
       if(CachedDataService.fetchFromCache('home-query')){
         $scope.query = CachedDataService.fetchFromCache('home-query');
-        $scope.topics = CachedDataService.fetchFromCache('home-movies');
       } else {
-        // search based on date
+        // initial based on date
         search(moment().format('MMMM YYYY'));
       }
     }

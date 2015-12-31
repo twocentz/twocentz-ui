@@ -5,22 +5,19 @@
       <span class="icon-bar"></span>
     </button>
   <div class="navbar-header hidden-xs">
-    <a class="navbar-brand" ui-sref="home">
-      <span>Two<strong>Centz</strong></span>
+    <a ui-sref="home">
+      <!-- <span>Two<strong style="color:yellow">Centz</strong></span> -->
+      <img class="brand-img" src="tc-logo.png" alt="TwoCentz">
     </a>
   </div>
   <div class="navbar-header visible-xs-block">
-    <a class="navbar-brand" ui-sref="home">
-      <span>T<strong>C</strong></span>
+    <a ui-sref="home" class="pull-left">
+      <img class="brand-img" src="tc-small.png" alt="TwoCentz">
     </a>
     <div class="custom-search-input visible-xs-block col-xs-7" ng-if="search">
          <div class="input-group">
+           <span class="input-group-addon"><i class="fa fa-search"></i></span>
            <input type="text" class="form-control" ng-model="query" ng-change="search(query)" placeholder="Search..." />
-           <span class="input-group-btn">
-               <button class="btn btn-info btn-lg" type="button">
-                   <i class="fa fa-search"></i>
-               </button>
-           </span>
          </div>
     </div>
   </div>
