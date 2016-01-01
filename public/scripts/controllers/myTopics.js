@@ -15,9 +15,7 @@
      }
 
      function activate(){
-       //cleanup DOM
-       $('.modal, .modal-backdrop').remove();
-
+       
        return displayTopics().then(function(){
          //console.log("when rendering is finally called");
        });

@@ -5,18 +5,28 @@
   'use strict';
 
   /* @ngInject */
-  function UserTopicController($scope, $user, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
+  function UserTopicController($rootScope, $scope, $user, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
     $scope.error = false;
     $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
+    var onRouteChangeOff = $scope.$on('$locationChangeStart', routeChange);
+
+    //close modal when leaving page
+    function routeChange(event, newUrl, oldUrl) {
+      if(event.currentScope.imgModal){
+          event.currentScope.imgModal.hide();
+      }
+    }
 
     // Show when some event occurs (use $promise property to ensure the template has been loaded)
     $scope.showModal = function() {
-      var imgModal = $modal({scope: $scope, template: 'html/topicImage.html', show: false});
-      imgModal.$promise.then(function(){
-        imgModal.show();
+      $scope.imgModal = $modal({scope: $scope, template: 'html/topicImage.html', show: false});
+      $scope.imgModal.$promise.then(function(){
+        $scope.imgModal.show();
       });
     };
+
+
 
     /**
      * Get movie detail.
@@ -142,9 +152,8 @@
       //angular.element('.list-group').addClass('animated pulse');
     };
 
-
-
   }
+
 
   angular
     .module('TwoCentzWeb')
