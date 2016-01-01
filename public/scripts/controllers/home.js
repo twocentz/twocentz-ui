@@ -29,6 +29,9 @@
 
 
     function activate(){
+      //cleanup DOM
+      $('.modal, .modal-backdrop').remove();
+
       if(CachedDataService.fetchFromCache('home-query')){
         $scope.query = CachedDataService.fetchFromCache('home-query');
       } else {

@@ -10,22 +10,8 @@
         </div>
     </div>
     <div class="row" style="margin-bottom:10px">
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <img class="" ng-src="{{topic.mediaFiles[0].url}}" alt="{{topic.title}}">
-        <!-- <img data-src="holder.js/300x220" bs-holder /> -->
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-8 top-buffer">
-        <h2 class="media-heading">
-          {{topic.title}}
-        </h2>
-        <p>{{topic.description}}</p>
-        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
-        <ul class="list-inline" >
-          <li ng-repeat="tag in topic.tags">
-            <button type="button" class="btn btn-xs">{{tag}}</button>
-          </li>
-        </ul>
-      </div>
+      <tc-topic-details props="topic.props" category="{{topic.category}}" title="{{topic.title}}"
+        description="{{topic.description}}" media="topic.mediaFiles"></tc-topic-details>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
@@ -50,7 +36,7 @@
           </div>
         </div>
         <div if-user class="input-group input-group-lg">
-            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="my two centz" id="twocentz-input" >
+            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="write your two cents" id="twocentz-input" >
             <span class="input-group-btn"><button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button"><i class="fa fa-arrow-circle-right"></i></button></span>
         </div>
         <div if-user style="padding-top:10px">
@@ -58,14 +44,7 @@
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
-        <div class="panel panel-default" ng-if="words.length > 0">
-          <div class="panel-body">
-            <jqcloud words="words" id="cloud-dynamic" auto-resize="true" width="300" height="350" delay="10" steps="7" colors="{{colors}}" shape="rectangular" font-size="{from:0.12, to:0.04}" ></jqcloud>
-          </div>
-        </div>
 
-      </div>
     </div>
   </div>
 </div>

@@ -20,11 +20,8 @@
         <!-- <img data-src="holder.js/300x220" bs-holder /> -->
       </div>
       <div class="col-xs-12 col-sm-6 col-md-8 top-buffer">
-        <h2 class="media-heading">
-          {{topic.title}}
-        </h2>
-        <p>{{topic.description}}</p>
-        <tc-topic-details props="topic.props" category="topic.category" ></tc-topic-details>
+        <tc-topic-details props="topic.props" category="{{topic.category}}" title="{{topic.title}}"
+          description="{{topic.description}}" media="topic.mediaFiles"></tc-topic-details>
         <ul class="list-inline" >
           <li ng-repeat="tag in topic.tags">
             <button type="button" class="btn btn-xs">{{tag}}</button>

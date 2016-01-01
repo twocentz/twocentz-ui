@@ -30,7 +30,10 @@
       link: link,
       scope: {
         props: '=',
-        category: '='
+        media: '=',
+        category: '@',
+        title: '@',
+        description: '@'
       },
       templateUrl: 'html/topicDetails.html'
     };
