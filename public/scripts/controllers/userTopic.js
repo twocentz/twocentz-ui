@@ -9,7 +9,7 @@
     $scope.error = false;
     $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
-    var onRouteChangeOff = $scope.$on('$locationChangeStart', routeChange);
+
 
     //close modal when leaving page
     function routeChange(event, newUrl, oldUrl) {
@@ -17,6 +17,8 @@
           event.currentScope.imgModal.hide();
       }
     }
+
+    $scope.$on('$locationChangeStart', routeChange);
 
     // Show when some event occurs (use $promise property to ensure the template has been loaded)
     $scope.showModal = function() {
