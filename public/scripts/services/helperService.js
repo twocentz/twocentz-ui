@@ -57,6 +57,11 @@
       return result;
     }
 
+    function getTopicTwoCentz(totalVotes, topEntries){
+      var percent = Math.round(100 * parseInt(topEntries[0].votes) / parseInt(totalVotes));
+      return percent + '% ' + topEntries[0].text;
+    }
+
     function getSocialShareDescription(entries){
       var result = '', limit = 3
       _.each(entries, function(item, index){
@@ -84,6 +89,7 @@
       addEntryToLocalCache: addEntryToLocalCache,
       getUrlParam: getURLParameter,
       getTopEntriesString: getTopEntriesString,
+      getTopicTwoCentz: getTopicTwoCentz,
       getSocialShareDescription: getSocialShareDescription,
       encode: encode
     }

@@ -5,10 +5,14 @@
             <div class="img-card">
                 <img src="{{image}}"  alt="{{slug}}"/>
             </div>
+            <div class="ribbon">
+              <strong class="ribbon-content">
+                <h1>{{twocentz}}</h1>
+              </strong>
+            </div>
+            <div style="margin-top:35px">
+              <p ng-bind-html="release"></p>
+            </div>
         </a>
-        <p ng-bind-html="release"></p>
-        <div class="caption">
-            <p class="text-info movie-info" ng-bind-html="entries"></p>
-        </div>
     </div>
 </div>

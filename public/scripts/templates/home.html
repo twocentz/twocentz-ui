@@ -6,7 +6,7 @@
             <input type="text" class="form-control" ng-model="query" ng-model-options="{ debounce: 500 }" placeholder="Search..." />
          </div>
     </div>
-    <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
+    <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 50}'>
         <div masonry-tile ng-repeat="topic in topics track by topic._id" tc-movie-widget topic="topic" class="tile">
         </div>
     </div>
