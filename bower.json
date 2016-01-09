@@ -34,5 +34,8 @@
     "rrssb": "~1.9.2",
     "angular-masonry-directive": "*",
     "ng-mfb": "~0.6.2"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
   }
 }
