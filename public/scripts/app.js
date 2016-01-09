@@ -21,7 +21,8 @@
     'formlyBootstrap',
     'ngFileUpload',
     'cloudinary',
-    'masonry'
+    'masonry',
+    'ng-mfb'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 

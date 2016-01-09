@@ -1,15 +1,46 @@
 (function () {
   'use strict';
-  
-  function tcNavBar($aside, SearchService) {
+
+  function tcNavBar($user, SearchService) {
 
     function link(scope, element, attrs) {
-      var asideMenu =  $aside({scope: scope, template: 'html/asideNavbar.html', show: false});
-      scope.showMenu = function(){
-        asideMenu.$promise.then(function() {
-          asideMenu.show();
+      $user.get()
+        .then(function(){
+          scope.buttons = [{
+            label: 'Create New',
+            sref: 'add',
+            icon: 'ion-plus'
+          },
+          {
+            label: 'Profile',
+            sref: 'mytopics',
+            icon: 'ion-person'
+          },
+          {
+            label: 'Home Page',
+            sref: 'home',
+            icon: 'ion-home'
+          }];
         })
-      };
+        .catch(function(){
+          scope.buttons = [
+          {
+            label: 'Sign Up',
+            sref: 'signup',
+            icon: 'ion-paper-airplane'
+          },
+          {
+            label: 'Sign in',
+            sref: 'login',
+            icon: 'ion-log-in'
+          },
+          {
+            label: 'Home Page',
+            sref: 'home',
+            icon: 'ion-home'
+          }];
+        })
+
     }
 
     var directive = {

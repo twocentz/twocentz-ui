@@ -4,7 +4,6 @@
   function HomeController($scope, moment, CachedDataService, SearchService, Topic) {
 
     document.title =  'TwoCentz - topics, reviews, opinions';
-
     function search(key) {
       if(key === CachedDataService.fetchFromCache('home-query')){
           $scope.topics = CachedDataService.fetchFromCache('home-movies');
@@ -29,7 +28,7 @@
 
 
     function activate(){
-      
+
       if(CachedDataService.fetchFromCache('home-query')){
         $scope.query = CachedDataService.fetchFromCache('home-query');
       } else {

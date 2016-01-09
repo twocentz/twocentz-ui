@@ -1,47 +1,45 @@
-<div class="navbar navbar-default ng-cloak sticky_header" role="navigation">
-  <button type="button" class="navbar-toggle pull-right" data-toggle="collapse" data-animation="am-slide-right" ng-click="showMenu()">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-  <div class="navbar-header hidden-xs">
+<div class="navbar navbar-default navbar-fixed-top ng-cloak row" role="navigation">
+  <div class="navbar-header hidden-xs col-sm-3 col-md-3">
     <a ui-sref="home">
-      <!-- <span>Two<strong style="color:yellow">Centz</strong></span> -->
       <img class="brand-img" src="tc-logo.png" alt="TwoCentz">
     </a>
   </div>
-  <div class="navbar-header visible-xs-block">
-    <div class="col-xs-2">
+  <div class="navbar-header visible-xs-block col-xs-2">
+
       <a ui-sref="home" class="pull-left">
         <img class="brand-img" src="tc-small.png" alt="TwoCentz">
       </a>
-    </div>
-    <div class="custom-search-input visible-xs-block col-xs-7" ng-if="search">
-         <div class="input-group">
-           <span class="input-group-addon"><i class="fa fa-search"></i></span>
-           <input type="text" class="form-control" ng-model="query" ng-change="search(query)" placeholder="Search..." />
-         </div>
-    </div>
-  </div>
 
+  </div>
+  <div class="custom-search-input col-xs-9 col-sm-6 col-md-6" ng-if="search">
+       <div class="input-group">
+         <span class="input-group-addon"><i class="fa fa-search"></i></span>
+         <input type="text" class="form-control" ng-model="query" ng-change="search(query)" placeholder="Search..." />
+       </div>
+  </div>
   <div class="collapse navbar-collapse">
-    <ul class="nav navbar-nav">
-      <li if-user ><a ui-sref="mytopics">My Topics</a></li>
-      <li if-user ><a ui-sref="add"><i class="fa fa-plus-circle"></i> Create New </a></li>
-    </ul>
     <ul class="nav navbar-nav pull-right">
-      <li if-user ng-class="{active: isActive('/profile')}">
-        <a ui-sref="profile">Profile</a>
-      </li>
+      <li if-user ><a ui-sref="mytopics"<i class="icon ion-person"></i></a></li>
+      <li if-user ><a ui-sref="add"><i class="icon ion-plus"></i></a></li>
       <li if-not-user ng-class="{active: isActive('/signup')}">
-          <a ui-sref="signup">Sign up</a>
+          <a ui-sref="signup"><i class="icon ion-paper-airplane"></i></a>
       </li>
       <li if-not-user ng-class="{active: isActive('/login')}">
-          <a ui-sref="login">Login</a>
+          <a ui-sref="login"><i class="icon ion-log-in"></i></a>
       </li>
       <li if-user ng-class="{active: isActive('/logout')}">
-          <a ui-sref="home" sp-logout>Logout</a>
+          <a ui-sref="home" sp-logout><i class="icon ion-log-out"></i></a>
       </li>
     </ul>
   </div>
 </div>
+
+
+<nav mfb-menu position="br" effect="zoomin" label="Close"
+     active-icon="ion-close-round" resting-icon="ion-plus-round"
+     toggling-method="click" class="visible-xs-block" >
+
+     <a mfb-button ui-sref="home" icon="ion-log-out" label="Logout" sp-logout if-user></a>
+     <a mfb-button label="{{button.label}}" icon="{{button.icon}}" ui-sref={{button.sref}} ng-repeat="button in buttons"></a>
+
+</nav>
