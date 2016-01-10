@@ -7,15 +7,19 @@
         ng-model="files">
         <form>
             <div class="hidden-xs">
-                <div href="#" class="btn btn-info" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >Upload</div>
+                <div href="#" class="btn btn-info" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >
+                  <span class="size-18" style="vertical-align:middle"><i class="icon ion-camera"></i></span> Upload
+                </div>
                 <label> |   Drag & Drop an image  </label>
             </div>
             <div class="visible-xs-block">
-                <div href="#" class="btn btn-info btn-block" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >Upload Image</div>
+                <div href="#" class="btn btn-info btn-block" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >
+                  <span class="step size-32"><i class="icon ion-camera"></i></span>
+                </div>
             </div>
         </form>
         <div class="file" ng-repeat="file in files">
-            <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3>
+            <!-- <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3> -->
             <div class="status">{{file.status}}</div>
             <div class="progress-bar">
               <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>

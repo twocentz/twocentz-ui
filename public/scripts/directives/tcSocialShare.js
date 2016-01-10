@@ -22,7 +22,8 @@
             }
             var title = scope.title;
             scope.title = HelperService.encode(scope.title);
-            var entries = HelperService.getSocialShareDescription(scope.entries);
+            var entries = HelperService.getTopicTwoCentz(scope.topic.totalVotes, scope.entries);
+            //var entries = HelperService.getSocialShareDescription(scope.entries);
             scope.desc = HelperService.encode(entries);
 
             //cleaning up existing meta tags
@@ -56,7 +57,8 @@
         entries: '=',
         title: '@',
         type: '@',
-        user: '@'
+        user: '@',
+        topic: '='
       },
       templateUrl: 'html/socialShare.html'
     };

@@ -6,7 +6,8 @@
   <div ng-if="!error">
     <div class="row" style="margin-bottom:10px">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <tc-social-share slug="{{topic.slug}}" media="topic.mediaFiles" entries="topic.topEntries" title="{{topic.title}}" type="user" user="{{userName}}"></tc-social-share>
+            <tc-social-share slug="{{topic.slug}}" media="topic.mediaFiles" entries="topic.topEntries"
+             title="{{topic.title}}" type="user" user="{{userName}}" topic="topic"></tc-social-share>
         </div>
     </div>
     <div class="row" style="margin-bottom:10px">
@@ -35,7 +36,7 @@
               <li class="list-group-item"  ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                   <span style="padding:0px 10px">  {{entry.text}}</span>
                   <a href="#" ng-click="upVote(entry.text)" class="pull-right" ng-hide="isVoted(entry.text)">
-                    <i class="fa fa-chevron-circle-up fa-2x pull-right"></i>
+                    <span class="size-24 step pull-right"><i class="icon ion-android-arrow-dropup-circle"></i></span>
                   </a>
                   <span class="badge pull-left">{{entry.votes}}</span>
               </li>
@@ -51,7 +52,11 @@
         </div>
         <div if-user class="input-group input-group-lg">
             <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="my two centz" id="twocentz-input" >
-            <span class="input-group-btn"><button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button"><i class="fa fa-arrow-circle-right"></i></button></span>
+            <span class="input-group-btn">
+              <button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button">
+                <span class="size-24 step"><i class="icon ion-android-send"></i></span>
+              </button>
+            </span>
         </div>
         <div if-user style="padding-top:10px">
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>

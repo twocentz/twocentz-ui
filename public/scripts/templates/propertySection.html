@@ -8,17 +8,16 @@
                              form="form">
                 </formly-form>
                 <div style="margin-bottom:20px;">
-                    <!-- <button type="button" class="btn btn-sm btn-danger" ng-click="model[options.key].splice($index, 1)">
-                        <i class="fa fa-trash-o fa-lg"></i>  Remove
-                    </button> -->
                     <button type="button" class="btn btn-sm btn-danger" ng-click="model[options.key].splice($index, 1)">
-                        <i class="fa fa-trash-o fa-lg"></i>  Remove
+                        <span class="size-18" style="vertical-align:middle"><i class="icon ion-trash-b"></i></span>  Remove
                     </button>
                 </div>
             </div>
         </div>
         <p class="AddNewButton">
-            <button type="button" class="btn btn-primary btn-sm" ng-click="addNew()"><i class="fa fa-plus-circle"></i> {{to.btnText}}</button>
+            <button type="button" class="btn btn-primary btn-sm" ng-click="addNew()">
+              <span class="size-18" style="vertical-align:middle"><i class="icon ion-plus-circled"></i></span> {{to.btnText}}
+            </button>
         </p>
     </div>
 </div>

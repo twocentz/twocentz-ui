@@ -36,10 +36,10 @@
 
 
 <nav mfb-menu position="br" effect="zoomin" label="Close"
-     active-icon="ion-close-round" resting-icon="ion-plus-round"
+     active-icon="ion-close-round" resting-icon="ion-navicon-round"
      toggling-method="click" class="visible-xs-block" >
 
-     <a mfb-button ui-sref="home" icon="ion-log-out" label="Logout" sp-logout if-user></a>
      <a mfb-button label="{{button.label}}" icon="{{button.icon}}" ui-sref={{button.sref}} ng-repeat="button in buttons"></a>
+     <a mfb-button ui-sref="home" icon="ion-log-out" label="Logout" sp-logout if-user></a>
 
 </nav>
