@@ -111,7 +111,6 @@
     };
 
     $scope.toggleEntries = function(){
-
       if(!$scope.isMax){
         $scope.list.limit = $scope.list.max;
         $scope.list.text = $scope.list.text_less;
@@ -123,9 +122,6 @@
       }
       //angular.element('.list-group').addClass('animated pulse');
     };
-
-
-
   }
 
   angular

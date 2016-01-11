@@ -3,12 +3,11 @@
  */
 
 'use strict';
-var stormpathExpressSdk = require('stormpath-sdk-express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var _ = require('lodash');
-
+var stormpath = require('express-stormpath');
 var crypto = require('crypto');
 var bcrypt = require('bcryptjs');
 var jwt = require('jwt-simple');
@@ -21,8 +20,6 @@ var xml2js = require('xml2js');
 
 var API_VERSION = "1.0";
 var API_URL = "https://twocentz-svc-stage.herokuapp.com/" + API_VERSION + "/";
-
-var spMiddleware = stormpathExpressSdk.createMiddleware();
 
 function geUserID(req){
   return req.user.href.slice(req.user.href.lastIndexOf("/")+1);
@@ -51,9 +48,6 @@ function validateEntry(text){
 
 module.exports = function(app) {
 
-   //attaching stormpath middleware
-  spMiddleware.attachDefaults(app);
-
   app.get('/api/topics',  function(req, res, next) {
     rp(API_URL + "topics" + "/movies/")
       .then(function(resp){
@@ -65,7 +59,7 @@ module.exports = function(app) {
       })
   });
 
-  app.get('/api/user/entries/:topicId?', spMiddleware.authenticate, function(req, res, next) {
+  app.get('/api/user/entries/:topicId?', stormpath.loginRequired, function(req, res, next) {
     var full_URL;
     if(req.params.topicId){
       full_URL = API_URL + "user/" +  geUserID(req) + "/entries?topicId=" + req.params.topicId;
@@ -112,7 +106,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/api/entries/movies', spMiddleware.authenticate,  function(req, res, next) {
+  app.post('/api/entries/movies', stormpath.loginRequired,  function(req, res, next) {
     var entry, error;
 
 
@@ -148,7 +142,7 @@ module.exports = function(app) {
 
   });
 
-  app.post('/api/entries/usertopics', spMiddleware.authenticate,  function(req, res, next) {
+  app.post('/api/entries/usertopics', stormpath.loginRequired,  function(req, res, next) {
 
     var entry, error;
     if(req.body.text){
@@ -201,7 +195,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/usertopics',  spMiddleware.authenticate, function(req, res, next) {
+  app.get('/api/usertopics',  stormpath.loginRequired, function(req, res, next) {
     request({
       url: API_URL + "topics" + "/users/" + getUserName(req),
       method: "GET",
@@ -218,7 +212,7 @@ module.exports = function(app) {
     });
   });
 
-  app.post('/api/topics/users', spMiddleware.authenticate,  function(req, res, next) {
+  app.post('/api/topics/users', stormpath.loginRequired,  function(req, res, next) {
     var error;
     if(req.body.title){
 

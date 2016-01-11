@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var Logger = require('le_node');
+var stormpath = require('express-stormpath');
 var log = new Logger({
   token:'28364857-ccad-34ad-b844-44bb3a088cf1',
   console: true
@@ -25,13 +26,19 @@ if (env === 'production') {
 //prerender redirect for crawlers
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
 
-
 app.set('port', process.env.PORT || 3000);
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+app.use(stormpath.init(app, {
+  // Optional configuration options.
+  website: true,
+  web: {
+    spaRoot: path.join(__dirname, '../dist', 'index.html')
+  }
+}));
 
 // express serving files
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));

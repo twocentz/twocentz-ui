@@ -18,7 +18,6 @@
     "angular-animate": "~1.4.1",
     "moment": "~2.10.3",
     "angular-mocks": "~1.4.1",
-    "stormpath-sdk-angularjs": "~0.5.1",
     "angular-ui-router": "~0.2.15",
     "angular-cookies": "~1.4.1",
     "bootstrap-additions": "~0.3.1",
@@ -33,7 +32,8 @@
     "ng-file-upload": "~10.0.2",
     "rrssb": "~1.9.2",
     "angular-masonry-directive": "*",
-    "ng-mfb": "~0.6.2"
+    "ng-mfb": "~0.6.2",
+    "stormpath-sdk-angularjs": "~0.8.2"
   },
   "resolutions": {
     "angular": "1.4.8"
