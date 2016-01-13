@@ -58,8 +58,13 @@
     }
 
     function getTopicTwoCentz(totalVotes, topEntries){
-      var percent = Math.round(100 * parseInt(topEntries[0].votes) / parseInt(totalVotes));
-      return percent + '% ' + topEntries[0].text;
+      if(totalVotes>1){
+        var percent = Math.round(100 * parseInt(topEntries[0].votes) / parseInt(totalVotes));
+        return percent + '% ' + topEntries[0].text;
+      } else {
+        return '';
+      }
+
     }
 
     function getSocialShareDescription(entries){

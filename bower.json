@@ -33,9 +33,11 @@
     "rrssb": "~1.9.2",
     "angular-masonry-directive": "*",
     "ng-mfb": "~0.6.2",
-    "stormpath-sdk-angularjs": "~0.8.2"
+    "stormpath-sdk-angularjs": "~0.8.2",
+    "angular-busy": "~4.1.3"
   },
   "resolutions": {
-    "angular": "1.4.8"
+    "angular": "1.4.8",
+    "angular-animate": "1.4.8"
   }
 }

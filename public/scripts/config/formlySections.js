@@ -42,7 +42,7 @@
             var lastSection = repeatsection[repeatsection.length - 1];
             var newsection = {};
             if (lastSection) {
-              newsection = angular.copy(lastSection);
+              newsection = _.mapValues(lastSection, function(o) { return '' });
             }
             repeatsection.push(newsection);
           }

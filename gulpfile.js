@@ -35,6 +35,7 @@ var paths = {
     "bower_components/angular/angular.min.js",
     "bower_components/angular-toastr/dist/angular-toastr.tpls.min.js",
     "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+    "bower_components/angular-busy/dist/angular-busy.min.js",
     "bower_components/angular-masonry-directive/src/angular-masonry-directive.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.min.js",
     "bower_components/stormpath-sdk-angularjs/dist/stormpath-sdk-angularjs.tpls.min.js",
@@ -51,6 +52,7 @@ var paths = {
   bower_css:  [
     "bower_components/angular-motion/dist/angular-motion.min.css",
     "bower_components/angular-toastr/dist/angular-toastr.min.css",
+    "bower_components/angular-busy/dist/angular-busy.min.css",
     "bower_components/bootstrap-additions/dist/bootstrap-additions.css",
     "bower_components/jqcloud2/dist/jqcloud.min.css",
     "bower_components/rrssb/css/rrssb.css",

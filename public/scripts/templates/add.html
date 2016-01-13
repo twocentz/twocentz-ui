@@ -1,6 +1,6 @@
 <tc-nav-bar></tc-nav-bar>
 <div class="col-md-12 floating_panel" ng-controller="AddCtrl as vm">
-
+    <div cg-busy="vm.uploadFile">
     <div id="direct_upload"
         ngf-drop="setFiles($files)"
         ngf-drag-over-class="dragOverClass($event)"
@@ -36,5 +36,5 @@
             <button type="submit" class="btn btn-success btn-lg submit-button btn-block visible-xs-block" ng-disabled="vm.form.$invalid">Submit</button>
         </formly-form>
     </form>
-
+    </div>
 </div>

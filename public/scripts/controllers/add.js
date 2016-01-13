@@ -8,7 +8,8 @@
       function onSubmit() {
         var topicModel = JSON.parse(angular.toJson(vm.model));
         if ($scope.files) {
-          $scope.uploadFile()
+
+          vm.uploadFile = $scope.uploadFile()
             .then(function(resp){
               var  mediaFiles = [resp.data];
               topicModel.mediaFiles = mediaFiles;
@@ -22,6 +23,15 @@
                 })
             }, function(err){
               toastr.error('uploading image file failed', 'Error');
+            })
+        } else {
+          Topic.postUserTopic(topicModel)
+            .then(function(respose){
+              if(respose.userName){
+                $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
+              } else if (respose.exists){
+                toastr.error('title already exist, try another name.', 'Error');
+              }
             })
         }
       }
@@ -212,8 +222,9 @@
           }
         ];
       }
-      
+
     // function assignment
+    vm.uploadFile = null;
     vm.onSubmit = onSubmit;
     vm.options = {};
     init();

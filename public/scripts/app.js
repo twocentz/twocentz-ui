@@ -22,7 +22,8 @@
     'ngFileUpload',
     'cloudinary',
     'masonry',
-    'ng-mfb'
+    'ng-mfb',
+    'cgBusy'
     ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
