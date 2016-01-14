@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var Logger = require('le_node');
 var stormpath = require('express-stormpath');
+var compress = require('compression');
 var log = new Logger({
   token:'28364857-ccad-34ad-b844-44bb3a088cf1',
   console: true
@@ -27,6 +28,7 @@ if (env === 'production') {
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
 
 app.set('port', process.env.PORT || 3000);
+app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
 app.use(bodyParser.json());
