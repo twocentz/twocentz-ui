@@ -35,13 +35,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(stormpath.init(app, {
   // Optional configuration options.
   website: true,
-  enableFacebook: true,
-  social: {
-    facebook: {
-      appId: process.env.FACEBOOK_APP_ID,
-      appSecret: process.env.FACEBOOK_APP_SECRET
-    },
-  },
   web: {
     spaRoot: path.join(__dirname, '../dist', 'index.html')
   }
