@@ -50,8 +50,7 @@ app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 require('./routes')(app);
 
-app.on('stormpath.ready', function() {
-  app.listen(3000, function() {
-    console.log('Stormpath SPA Development Server listening at http://localhost:3000');
-  });
+app.listen(app.get('port'), function() {
+  log.info('server-'+ env +': Express server listening on port ' + app.get('port'));
+  //console.log('Express server listening on port ' + app.get('port'));
 });
