@@ -29,8 +29,8 @@ app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_AP
 app.set('port', process.env.PORT || 3000);
 app.use(cookieParser());
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   // Optional configuration options.
