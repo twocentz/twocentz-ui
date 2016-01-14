@@ -29,12 +29,19 @@ app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_AP
 app.set('port', process.env.PORT || 3000);
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   // Optional configuration options.
   website: true,
+  enableFacebook: true,
+  social: {
+    facebook: {
+      appId: process.env.FACEBOOK_APP_ID,
+      appSecret: process.env.FACEBOOK_APP_SECRET
+    },
+  },
   web: {
     spaRoot: path.join(__dirname, '../dist', 'index.html')
   }
@@ -50,7 +57,8 @@ app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 require('./routes')(app);
 
-app.listen(app.get('port'), function() {
-  log.info('server-'+ env +': Express server listening on port ' + app.get('port'));
-  //console.log('Express server listening on port ' + app.get('port'));
+app.on('stormpath.ready', function() {
+  app.listen(3000, function() {
+    console.log('Stormpath SPA Development Server listening at http://localhost:3000');
+  });
 });

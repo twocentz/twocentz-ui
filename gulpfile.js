@@ -65,12 +65,7 @@ var paths = {
 
 
 gulp.task('set-env', function () {
-    env({
-        file: "./server/config/local.env",
-        vars: {
-            //any vars you want to overwrite
-        }
-    });
+  
 });
 
 // Delete the dist directory
