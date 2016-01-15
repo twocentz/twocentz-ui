@@ -4,30 +4,38 @@
   function tcNavBar($user, SearchService) {
 
     function link(scope, element, attrs) {
+      scope.buttons = [];
       $user.get()
         .then(function(){
-          scope.buttons = [{
-            label: 'Create New',
-            sref: 'add',
-            icon: 'ion-plus'
-          },
-          {
-            label: 'Profile',
-            sref: 'mytopics',
-            icon: 'ion-person'
-          },
-          {
-            label: 'Home Page',
-            sref: 'home',
-            icon: 'ion-home'
-          }];
+          if(scope.page === 'movies' || scope.page === 'topic'){
+            scope.editable = true;
+          } else {
+            scope.buttons =  scope.buttons.concat([
+              {
+                label: 'Create New',
+                sref: 'add',
+                icon: 'ion-plus'
+              }]);
+          }
+
+          scope.buttons = scope.buttons.concat([
+            {
+              label: 'Profile',
+              sref: 'mytopics',
+              icon: 'ion-person'
+            },
+            {
+              label: 'Home Page',
+              sref: 'home',
+              icon: 'ion-home'
+            }]);
         })
         .catch(function(){
           scope.buttons = [
           {
             label: 'Sign Up',
             sref: 'signup',
-            icon: 'ion-paper-airplane'
+            icon: 'ion-compose'
           },
           {
             label: 'Sign in',
@@ -49,6 +57,7 @@
       scope: {
         search: '=',
         query: '=',
+        page: '@'
       },
       templateUrl: 'html/NavBar.html'
     };

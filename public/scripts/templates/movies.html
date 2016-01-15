@@ -1,4 +1,4 @@
-<tc-nav-bar></tc-nav-bar>
+<tc-nav-bar page="movies"></tc-nav-bar>
 <div class="container-fluid floating_panel">
   <div ng-if="error">
     <div class="alert alert-danger col-md-12" role="alert">{{errorMessage}}</div>
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div if-user class="input-group input-group-lg">
-            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="write your two cents" id="twocentz-input" >
+            <input id="twocentz-input" class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="write your two cents" id="twocentz-input" >
             <span class="input-group-btn">
               <button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button">
                 <span class="size-24 step"><i class="icon ion-android-send"></i></span>

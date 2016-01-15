@@ -2,6 +2,7 @@
   'use strict';
 
   angular.module('TwoCentzWeb', [
+    'tcFocus',
     'algoliasearch',
     'ngCookies',
     'ngResource',

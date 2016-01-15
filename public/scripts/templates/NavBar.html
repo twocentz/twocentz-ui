@@ -37,8 +37,10 @@
 
 <nav mfb-menu position="br" effect="zoomin" label="Close"
      active-icon="ion-close-round" resting-icon="ion-navicon-round"
-     toggling-method="click" class="visible-xs-block" >
+     toggling-method="click" class="visible-xs-block" menu-state="floatingButtonState">
 
+     <button if-user mfb-button mfb-button-close icon="ion-edit" label="write twocentz"
+      event-focus="click" event-focus-id="twocentz-input" ng-if="editable"></button>
      <a mfb-button label="{{button.label}}" icon="{{button.icon}}" ui-sref={{button.sref}} ng-repeat="button in buttons"></a>
      <a mfb-button ui-sref="home" icon="ion-log-out" label="Logout" sp-logout if-user></a>
 
