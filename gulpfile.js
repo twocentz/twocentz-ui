@@ -64,16 +64,6 @@ var paths = {
   style: ['style/']
 };
 
-
-gulp.task('set-env', function () {
-    env({
-        file: "./server/config/local.env",
-        vars: {
-            //any vars you want to overwrite
-        }
-    });
-});
-
 // Delete the dist directory
 gulp.task('clean', function() {
   return del([
@@ -184,7 +174,7 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['build']);
 
-gulp.task('serve', ['set-env', 'lint', 'complete', 'server', 'watch']);
+gulp.task('serve', ['lint', 'complete', 'server', 'watch']);
 
 gulp.task('prod', ['complete', 'server']);
 
