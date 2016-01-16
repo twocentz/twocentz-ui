@@ -132,12 +132,16 @@
       submitEntry($scope.tc.text)
           .then(function(data){
             if(data.created === 'true'){
-              $('.label-success').show().addClass('animated pulse').delay(2000).fadeOut(1000);
+              $('.label-success').show().addClass('animated pulse block').delay(2000).fadeOut(1000);
             }else{
-              $('.label-danger').show().addClass('animated shake').delay(2000).fadeOut(1000);
+              $('.label-danger').show().addClass('animated shake block').delay(2000).fadeOut(1000);
             }
             $scope.tc.text = '';
           })
+    };
+
+    $scope.getVotesinPercent = function(votes) {
+      return HelperService.getVotesinPercent($scope.topic.totalVotes, votes);
     };
 
     $scope.toggleEntries = function(){

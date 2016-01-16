@@ -72,6 +72,15 @@ gulp.task('clean', function() {
    ]);
 });
 
+gulp.task('set-env', function () {
+  env({
+       file: "./server/config/local.env",
+       vars: {
+           //any vars you want to overwrite
+       }
+   });
+});
+
 gulp.task('less', function() {
   return gulp.src(paths.style + '*.less', {cwd: bases.app})
     .pipe(plumber())
@@ -174,7 +183,7 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['build']);
 
-gulp.task('serve', ['lint', 'complete', 'server', 'watch']);
+gulp.task('serve', ['set-env', 'lint', 'complete', 'server', 'watch']);
 
 gulp.task('prod', ['complete', 'server']);
 

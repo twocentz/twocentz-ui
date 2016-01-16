@@ -58,11 +58,11 @@
     }
 
     function getTopicTwoCentz(totalVotes, topEntries){
-      if(totalVotes>1){
+      if(totalVotes>0){
         var percent = Math.round(100 * parseInt(topEntries[0].votes) / parseInt(totalVotes));
         return percent + '% ' + topEntries[0].text;
       } else {
-        return '';
+        return 'No Votes Yet';
       }
 
     }
@@ -76,6 +76,15 @@
         }
       });
       return result.slice(0, -2);
+    }
+
+    function getVotesinPercent(totalVotes, votes) {
+      if(totalVotes>0){
+        var percent = Math.round(100 * votes / totalVotes);
+        return percent;
+      } else {
+        return 0;
+      }
     }
 
 
@@ -96,6 +105,7 @@
       getTopEntriesString: getTopEntriesString,
       getTopicTwoCentz: getTopicTwoCentz,
       getSocialShareDescription: getSocialShareDescription,
+      getVotesinPercent: getVotesinPercent,
       encode: encode
     }
 

@@ -110,6 +110,10 @@
         })
     };
 
+    $scope.getVotesinPercent = function(votes) {
+      return HelperService.getVotesinPercent($scope.topic.totalVotes, votes);
+    };
+
     $scope.toggleEntries = function(){
       if(!$scope.isMax){
         $scope.list.limit = $scope.list.max;

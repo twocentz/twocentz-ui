@@ -16,7 +16,7 @@
 
       scope.slug = topic.slug;
       scope.userName = topic.userName;
-      scope.entries = HelperService.getTopEntriesString(topic.topEntries, 5);
+      scope.twocentz = HelperService.getTopicTwoCentz(topic.totalVotes, topic.topEntries);
 
     }
 

@@ -14,7 +14,9 @@
           if (newValue){
             scope.url =  baseUrl + scope.type +'/' + scope.slug;
             if(scope.type === 'user'){
-              scope.img = scope.media[0].secure_url;
+              if(scope.media[0]){
+                scope.img = scope.media[0].secure_url;
+              }
               scope.url =  baseUrl + scope.type +'/' + scope.user + '/' + scope.slug;
             } else {
               scope.img = scope.media[0].url;

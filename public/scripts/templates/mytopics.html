@@ -1,7 +1,7 @@
-<tc-nav-bar></tc-nav-bar>
 <div class="container-fluidr floating_panel">
-    <div class="widget-panel" masonry='{  "transitionDuration" : "0.4s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
-        <div masonry-tile ng-repeat="topic in topics track by topic.id" tc-topic-widget topic="topic" class="tile">
+    <tc-nav-bar></tc-nav-bar>
+    <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 50}'>
+        <div masonry-tile ng-repeat="topic in topics track by topic.slug" tc-topic-widget topic="topic" class="tile">
         </div>
     </div>
 </div>

@@ -21,37 +21,12 @@
       <div class="col-xs-12 col-sm-6 col-md-8 top-buffer">
         <tc-topic-details props="topic.props" category="{{topic.category}}" title="{{topic.title}}"
           description="{{topic.description}}" media="topic.mediaFiles"></tc-topic-details>
-        <ul class="list-inline" >
-          <li ng-repeat="tag in topic.tags">
-            <button type="button" class="btn btn-xs">{{tag}}</button>
-          </li>
-        </ul>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6 top-buffer" >
-        <div class="panel panel-default" ng-if="words.length > 0">
-          <div class="panel-body">
-            <ul if-user class="list-group">
-              <li class="list-group-item"  ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
-                  <span style="padding:0px 10px">  {{entry.text}}</span>
-                  <a href="#" ng-click="upVote(entry.text)" class="pull-right" ng-hide="isVoted(entry.text)">
-                    <span class="size-24 step pull-right"><i class="icon ion-android-arrow-dropup-circle"></i></span>
-                  </a>
-                  <span class="badge pull-left">{{entry.votes}}</span>
-              </li>
-            </ul>
-            <ul if-not-user class="list-group">
-              <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
-                  <span style="padding:0px 10px">  {{entry.text}}</span>
-                  <span class="badge pull-left">{{entry.votes}}</span>
-              </li>
-            </ul>
-            <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-info btn-block" role="button">{{list.text}}</a>
-          </div>
-        </div>
         <div if-user class="input-group input-group-lg">
-            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="my two centz" id="twocentz-input" >
+            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="write here" id="twocentz-input" >
             <span class="input-group-btn">
               <button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button">
                 <span class="size-24 step"><i class="icon ion-android-send"></i></span>
@@ -62,6 +37,28 @@
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
           <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
         </div>
+        <div class="panel panel-default" ng-if="words.length > 0">
+          <div class="panel-heading"><h4>Popular TwoCentz</h4></div>
+          <div class="panel-body">
+            <ul if-user class="list-group">
+              <li class="list-group-item"  ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+                  <span style="padding:0px 10px">  {{entry.text}}</span>
+                  <a href="#" ng-click="upVote(entry.text)" class="pull-right" ng-hide="isVoted(entry.text)">
+                    <span class="size-24 step pull-right"><i class="icon ion-android-arrow-dropup-circle"></i></span>
+                  </a>
+                  <span class="badge pull-left">{{getVotesinPercent(entry.votes)}}</span>
+              </li>
+            </ul>
+            <ul if-not-user class="list-group">
+              <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+                  <span style="padding:0px 10px">  {{entry.text}}</span>
+                  <span class="badge pull-left">{{getVotesinPercent(entry.votes)}}</span>
+              </li>
+            </ul>
+            <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-info btn-block" role="button">{{list.text}}</a>
+          </div>
+        </div>
+
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
         <div class="panel panel-default" ng-if="words.length > 0">
