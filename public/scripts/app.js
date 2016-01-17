@@ -47,11 +47,6 @@
           templateUrl: 'html/userTopic.html',
           controller: 'UserTopicCtrl'
         })
-        // .state('login', {
-        //   url:'/login',
-        //   templateUrl: 'html/login.html',
-        //   controller: 'LoginCtrl'
-        // })
         .state('login', {
           url:'/login',
           external: true
@@ -73,9 +68,8 @@
           }
         })
         .state('signup', {
-          url:'/signup',
-          templateUrl: 'html/signup.html',
-          controller: 'SignupCtrl'
+          url: '/signup',
+          external: true
         })
         .state('profile', {
           url: '/profile',

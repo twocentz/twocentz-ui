@@ -31,28 +31,31 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   // Optional configuration options.
-  website: true
-  // web: {
-  //   spaRoot: path.join(__dirname, '../dist', 'index.html')
-  // }
+  website: true,
+  web: {
+    register: {
+      enabled: true,   // Explicit enable, if not using { website: true }
+      uri: '/signup',  // Use a different URL
+      nextUri: '/',    // Where to send the user to, if auto login is enabled
+      fields: {
+        /* see next section for documentation */
+      },
+      fieldOrder: [ /* see next section */ ]
+    }
+  }
 }));
 
 // express serving files
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
-// console.log("***** App Path *********" + path.join( path.normalize(__dirname + '/..'), 'dist'));
-// console.log("***** ENV *********" + process.env.STORMPATH_API_KEY_ID);
-
-
-
 require('./routes')(app);
 
-app.listen(app.get('port'), function() {
-  log.info('server-'+ env +': Express server listening on port ' + app.get('port'));
-  //console.log('Express server listening on port ' + app.get('port'));
+app.on('stormpath.ready', function () {
+  app.listen(app.get('port'), function() {
+    log.info('server-'+ env +': Express server listening on port ' + app.get('port'));
+  });
 });
+
