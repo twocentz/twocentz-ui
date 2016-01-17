@@ -10,7 +10,7 @@
       rrssbInit();
 
       scope.$watch('media', function(newValue, oldValue) {
-          var baseUrl = 'https://twocentz-ui-stage.herokuapp.com/';
+          var baseUrl = 'https://twocentz.co/';
           if (newValue){
             scope.url =  baseUrl + scope.type +'/' + scope.slug;
             if(scope.type === 'user'){
