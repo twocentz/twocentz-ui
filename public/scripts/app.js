@@ -47,10 +47,14 @@
           templateUrl: 'html/userTopic.html',
           controller: 'UserTopicCtrl'
         })
+        // .state('login', {
+        //   url:'/login',
+        //   templateUrl: 'html/login.html',
+        //   controller: 'LoginCtrl'
+        // })
         .state('login', {
           url:'/login',
-          templateUrl: 'html/login.html',
-          controller: 'LoginCtrl'
+          external: true
         })
         .state('add', {
           url:'/add',
@@ -108,5 +112,15 @@
         loginState: 'login',
         defaultPostLoginState: 'home'
       });
+    })
+
+    .run(function($rootScope, $window) {
+      $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams) {
+          if (toState.external) {
+            event.preventDefault();
+            $window.open(toState.url, '_self');
+          }
+        });
     });
 })();

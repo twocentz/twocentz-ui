@@ -36,10 +36,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   // Optional configuration options.
-  website: true,
-  web: {
-    spaRoot: path.join(__dirname, '../dist', 'index.html')
-  }
+  website: true
+  // web: {
+  //   spaRoot: path.join(__dirname, '../dist', 'index.html')
+  // }
 }));
 
 // express serving files
