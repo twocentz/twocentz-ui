@@ -37,16 +37,25 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(stormpath.init(app, {
   // Optional configuration options.
   website: true,
-  web: {
-    register: {
-      enabled: true,   // Explicit enable, if not using { website: true }
-      uri: '/signup',  // Use a different URL
-      nextUri: '/',    // Where to send the user to, if auto login is enabled
-      fields: {
-        /* see next section for documentation */
-      },
-      fieldOrder: [ /* see next section */ ]
-    }
+  postLoginHandler: function (account, req, res, next) {
+    console.log('User:', account.email, 'just logged!');
+    console.dir(req.user);
+
+    req.user.givenName = 'Randall';
+    req.user.save(function (err) {
+      if (err) {
+        res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+        next();
+      }else{
+        res.end('Name was changed!');
+        next();
+      }
+    });
+  },
+  postRegistrationHandler: function (account, req, res, next) {
+   console.log('User:', account.email, 'just registered!');
+   console.dir(account);
+   next();
   }
 }));
 
@@ -60,4 +69,3 @@ app.on('stormpath.ready', function () {
     log.info('server-'+ env +': Express server listening on port ' + app.get('port'));
   });
 });
-

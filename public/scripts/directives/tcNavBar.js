@@ -33,11 +33,6 @@
         .catch(function(){
           scope.buttons = [
           {
-            label: 'Sign Up',
-            sref: 'signup',
-            icon: 'ion-compose'
-          },
-          {
             label: 'Sign in',
             sref: 'login',
             icon: 'ion-log-in'

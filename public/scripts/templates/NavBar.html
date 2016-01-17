@@ -21,9 +21,6 @@
     <ul class="nav navbar-nav pull-right">
       <li if-user ><a ui-sref="mytopics"><span class="step size-32"><i class="icon ion-person"></i></span></a></li>
       <li if-user ><a ui-sref="add"><span class="step size-32"><i class="icon ion-plus"></i></span></a></li>
-      <li if-not-user ng-class="{active: isActive('/signup')}">
-          <a ui-sref="signup"><span class="step size-32"><i class="icon ion-paper-airplane"></span></i></a>
-      </li>
       <li if-not-user ng-class="{active: isActive('/login')}">
           <a ui-sref="login"><span class="step size-32"><i class="icon ion-log-in"></i></span></a>
       </li>
