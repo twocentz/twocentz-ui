@@ -34,8 +34,8 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   debug: 'info, error',
