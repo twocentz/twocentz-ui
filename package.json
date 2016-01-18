@@ -1,6 +1,6 @@
 {
   "name": "TwoCentz",
-  "version": "0.0.99",
+  "version": "0.0.100",
   "engines": {
     "node": "5.3.x",
     "npm": "3.5.x"
