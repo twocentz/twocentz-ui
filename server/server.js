@@ -39,18 +39,17 @@ app.use(stormpath.init(app, {
   website: true,
   postLoginHandler: function (account, req, res, next) {
     console.log('User:', account.email, 'just logged!');
-    console.dir(req.user);
-
-    req.user.givenName = 'Randall';
-    req.user.save(function (err) {
-      if (err) {
-        res.status(400).end('Oops!  There was an error: ' + err.userMessage);
-        next();
-      }else{
-        res.end('Name was changed!');
-        next();
-      }
-    });
+    next();
+    // req.user.givenName = 'Randall';
+    // req.user.save(function (err) {
+    //   if (err) {
+    //     res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+    //     next();
+    //   }else{
+    //     res.end('Name was changed!');
+    //     next();
+    //   }
+    // });
   },
   postRegistrationHandler: function (account, req, res, next) {
    console.log('User:', account.email, 'just registered!');
