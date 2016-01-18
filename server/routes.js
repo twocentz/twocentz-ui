@@ -47,7 +47,7 @@ function validateEntry(text){
 }
 
 module.exports = function(app) {
-  
+
   app.get('/api/topics',  function(req, res, next) {
     rp(API_URL + "topics" + "/movies/")
       .then(function(resp){

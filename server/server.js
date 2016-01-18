@@ -34,8 +34,8 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
   debug: 'info, error',
@@ -44,6 +44,29 @@ app.use(stormpath.init(app, {
   expand: {
     customData: true,
     providerData: true
+  },
+  postRegistrationHandler: function (account, req, res, next) {
+    if(req.user.providerData.providerId !== 'stormpath') {
+      console.log("Skipping setting of username, because this is a social login");
+      return res.redirect(302, '/');
+      next();
+    }
+    var cloudUser = req.user;
+    console.log("After registering handler");
+    console.log(cloudUser);
+    milliTime = '' + new Date().getTime();
+    cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
+    cloudUser.save(function (err) {
+      if (err) {
+        console.log("ERROR");
+        return res.status(400).end('Oops!  There was an error: ' + err.userMessage);
+        next();
+      }else{
+        console.log("NAME CHANGED");
+        return res.redirect(302, '/');
+        next();
+      }
+    });
   }
 }));
 
@@ -125,6 +148,9 @@ function unify(req, res, next) {
           res.locals.user = account;
           req.user = account;
 
+          milliTime = '' + new Date().getTime();
+          req.user.username = socialUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
+
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
 
@@ -149,10 +175,6 @@ function saveProviderData(socialUser, cloudUser) {
 
     cloudUser.customData['providerLinks'] = [];
     cloudUser.customData['providerLinks'].push(fbProvider);
-
-    milliTime = '' + new Date().getTime();
-    cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
-
     cloudUser.save();
   }
 }
