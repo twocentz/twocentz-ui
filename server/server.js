@@ -101,9 +101,6 @@ function unify(req, res, next) {
           res.locals.user = cloudAccount;
           req.user = cloudAccount;
 
-          // save customData href for each social provider here if acct exists
-          saveProviderData(socialUser, req.user);
-
           helpers.createIdSiteSession(req.user, req, res);
 
           return next();

@@ -47,22 +47,7 @@ function validateEntry(text){
 }
 
 module.exports = function(app) {
-  app.get('/api/email', stormpath.loginRequired, function (req, res) {
-    req.user.givenName = 'Randall';
-    req.user.username="blah";
-    req.user.save(function (err) {
-      if (err) {
-        console.log("ERROR");
-        return res.status(400).end('Oops!  There was an error: ' + err.userMessage);
-        next();
-      }else{
-        console.log("NAME CHANGED");
-        return res.end('Name was changed!');
-        next();
-      }
-    });
-  });
-
+  
   app.get('/api/topics',  function(req, res, next) {
     rp(API_URL + "topics" + "/movies/")
       .then(function(resp){
