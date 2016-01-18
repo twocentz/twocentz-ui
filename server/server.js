@@ -48,13 +48,13 @@ app.use(stormpath.init(app, {
   postRegistrationHandler: function (account, req, res, next) {
     if(req.user.providerData.providerId !== 'stormpath') {
       console.log("Skipping setting of username, because this is a social login");
-      return res.redirect(302, '/');
+      return res.redirect(302, '/')
       next();
     }
     var cloudUser = req.user;
     console.log("After registering handler");
     console.log(cloudUser);
-    milliTime = '' + new Date().getTime();
+    var milliTime = '' + new Date().getTime();
     cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
     cloudUser.save(function (err) {
       if (err) {
@@ -124,6 +124,9 @@ function unify(req, res, next) {
           res.locals.user = cloudAccount;
           req.user = cloudAccount;
 
+          // save customData href for each social provider here if acct exists
+          saveProviderData(socialUser, req.user);
+
           helpers.createIdSiteSession(req.user, req, res);
 
           return next();
@@ -148,8 +151,8 @@ function unify(req, res, next) {
           res.locals.user = account;
           req.user = account;
 
-          milliTime = '' + new Date().getTime();
-          req.user.username = socialUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
+          var milliTime = '' + new Date().getTime();
+          req.user.username = req.user.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
 
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
