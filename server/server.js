@@ -6,6 +6,9 @@ var cookieParser = require('cookie-parser');
 var Logger = require('le_node');
 var stormpath = require('express-stormpath');
 var compress = require('compression');
+var uuid = require('node-uuid');
+var helpers = require('express-stormpath/lib/helpers');
+
 var log = new Logger({
   token:'28364857-ccad-34ad-b844-44bb3a088cf1',
   console: true
@@ -35,28 +38,129 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
+  debug: 'info, error',
   // Optional configuration options.
   website: true,
-  postLoginHandler: function (account, req, res, next) {
-    console.log('User:', account.email, 'just logged!');
-    next();
-    // req.user.givenName = 'Randall';
-    // req.user.save(function (err) {
-    //   if (err) {
-    //     res.status(400).end('Oops!  There was an error: ' + err.userMessage);
-    //     next();
-    //   }else{
-    //     res.end('Name was changed!');
-    //     next();
-    //   }
-    // });
-  },
-  postRegistrationHandler: function (account, req, res, next) {
-   console.log('User:', account.email, 'just registered!');
-   console.dir(account);
-   next();
+  expand: {
+    customData: true,
+    providerData: true
   }
 }));
+
+function unify(req, res, next) {
+  var application = app.get('stormpathApplication');
+
+  if (!req.user) {
+    return next();
+  }
+
+  req.user.getProviderData(function(err, data) {
+    if (err) {
+      return next(err);
+    }
+
+    if (data.providerId === 'stormpath') {
+      return next();
+    }
+
+    // If this user was literally logged in on this SAME request, we cannot do
+    // anything, so just continue onwards and force a page reload.
+    if (res.headerSent) {
+      return res.redirect(req.originalUrl);
+    }
+
+    // We found a social user, so we'll attempt to look up their Cloud
+    // directory account.
+    application.getAccounts({ email: req.user.email }, function(err, accounts) {
+      if (err) {
+        return next(err);
+      }
+
+      var cloudAccount;
+      accounts.each(function(account, cb) {
+        account.getProviderData(function(err, data) {
+          if (err) {
+            return cb(err);
+          }
+
+          if (data.providerId === 'stormpath') {
+            cloudAccount = account;
+          }
+
+          cb();
+        });
+      }, function(err) {
+        if (err) {
+          return next(err);
+        }
+
+        // Swap session.
+        if (cloudAccount) {
+          var socialUser = req.user;
+
+          res.locals.user = cloudAccount;
+          req.user = cloudAccount;
+
+          // save customData href for each social provider here if acct exists
+          saveProviderData(socialUser, req.user);
+
+          helpers.createIdSiteSession(req.user, req, res);
+
+          return next();
+        }
+
+        // If we get here, it means we need to create a new Cloud account for
+        // this social user -- so, let's do it!
+        application.createAccount({
+          status: req.user.status,
+          givenName: req.user.givenName,
+          surname: req.user.surname,
+          middleName: req.user.middleName,
+          email: req.user.email,
+          password: uuid.v4() + uuid.v4().toUpperCase()
+        }, { registrationWorkflowEnabled: false }, function(err, account) {
+          if (err) {
+            return next(err);
+          }
+
+          var socialUser = req.user;
+
+          res.locals.user = account;
+          req.user = account;
+
+          // save customData href for each social provider here if acct exists
+          saveProviderData(socialUser, req.user);
+
+          helpers.createIdSiteSession(account, req, res);
+
+          next();
+        });
+      });
+    });
+  });
+};
+
+function saveProviderData(socialUser, cloudUser) {
+  if(socialUser.providerData.providerId === 'facebook') {
+    var fbProvider = {
+      'href': socialUser.href,
+      'createdAt': socialUser.providerData.createdAt,
+      'modifiedAt': socialUser.providerData.modifiedAt,
+      'accessToken': socialUser.providerData.accessToken,
+      'providerId': socialUser.providerData.providerId
+    };
+
+    cloudUser.customData['providerLinks'] = [];
+    cloudUser.customData['providerLinks'].push(fbProvider);
+
+    milliTime = '' + new Date().getTime();
+    cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
+
+    cloudUser.save();
+  }
+}
+
+app.use(unify);
 
 // express serving files
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
