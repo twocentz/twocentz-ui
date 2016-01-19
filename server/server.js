@@ -30,29 +30,25 @@ if (env === 'production') {
 //prerender redirect for crawlers
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
 
-// express serving files
-app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
-
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-
 app.use(stormpath.init(app, {
   // Optional configuration options.
-  website: true,
   expand: {
     customData: true,
     providerData: true
   },
   web: {
    register: {
+     enabled: true,
+     autoLogin: true,
      nextUri: '/',
      fields: {
         username: {
+          autoLogin: true,
           enabled: true,
           required: true,
           placeholder: 'Your display name in the app'
@@ -61,6 +57,9 @@ app.use(stormpath.init(app, {
    }
   }
 }));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 function unify(req, res, next) {
   var application = app.get('stormpathApplication');
@@ -175,6 +174,9 @@ function saveProviderData(socialUser, cloudUser) {
 }
 
 app.use(unify);
+
+// express serving files
+app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 require('./routes')(app);
 
