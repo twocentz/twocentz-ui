@@ -39,14 +39,13 @@ app.use(cookieParser());
 app.use(logger('dev'));
 
 app.use(stormpath.init(app, {
-  // Optional configuration options.
+  website: true,
   expand: {
     customData: true,
     providerData: true
   },
   web: {
    register: {
-     enabled: true,
      autoLogin: true,
      nextUri: '/',
      fields: {
