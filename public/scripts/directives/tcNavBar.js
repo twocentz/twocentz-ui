@@ -28,6 +28,11 @@
               label: 'Home Page',
               sref: 'home',
               icon: 'ion-home'
+            },
+            {
+              label: 'Sign out',
+              sref: 'logout',
+              icon: 'ion-log-out'
             }]);
         })
         .catch(function(){

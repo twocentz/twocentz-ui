@@ -34,28 +34,43 @@ app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
+
+// express serving files
+app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(stormpath.init(app, {
-  debug: 'info, error',
   // Optional configuration options.
   website: true,
   expand: {
     customData: true,
     providerData: true
   },
+  web: {
+   register: {
+     autoLogin: true,
+     nextUri: '/',
+     fields: {
+        username: {
+          enabled: true,
+          required: true,
+          placeholder: 'Your display name in the app'
+        }
+     }
+   }
+  },
   postRegistrationHandler: function (account, req, res, next) {
+
     if(req.user.providerData.providerId !== 'stormpath') {
       console.log("Skipping setting of username, because this is a social login");
-      return res.redirect(302, '/')
       next();
     }
     var cloudUser = req.user;
     console.log("After registering handler");
-    console.log(cloudUser);
     var milliTime = '' + new Date().getTime();
-    cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
+    //cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
     cloudUser.save(function (err) {
       if (err) {
         console.log("ERROR");
@@ -63,7 +78,7 @@ app.use(stormpath.init(app, {
         next();
       }else{
         console.log("NAME CHANGED");
-        return res.redirect(302, '/');
+        //return res.redirect(302, '/');
         next();
       }
     });
@@ -184,8 +199,7 @@ function saveProviderData(socialUser, cloudUser) {
 
 app.use(unify);
 
-// express serving files
-app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
+
 
 require('./routes')(app);
 

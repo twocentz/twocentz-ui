@@ -32,6 +32,14 @@
       $locationProvider.html5Mode(true);
 
       $stateProvider
+        .state('login', {
+          url:'/login',
+          external: true
+        })
+        .state('logout', {
+          url:'/logout',
+          external: true
+        })
         .state('home', {
           url:'/',
           templateUrl: 'html/home.html',
@@ -46,10 +54,6 @@
           url: '/user/:username/:slug',
           templateUrl: 'html/userTopic.html',
           controller: 'UserTopicCtrl'
-        })
-        .state('login', {
-          url:'/login',
-          external: true
         })
         .state('add', {
           url:'/add',
@@ -67,10 +71,6 @@
             authenticate: true
           }
         })
-        .state('signup', {
-          url: '/signup',
-          external: true
-        })
         .state('profile', {
           url: '/profile',
           templateUrl: 'html/profile.html',
@@ -78,21 +78,6 @@
           sp: {
             authenticate: true
           }
-        })
-        .state('verify', {
-          url:'/emailVerification?sptoken',
-          templateUrl: 'html/emailVerification.html',
-          controller: 'VerifyCtrl'
-        })
-        .state('passwordResetRequest', {
-          url:'/password/requestReset?sptoken',
-          templateUrl: 'html/passwordResetRequest.html',
-          controller: 'ResetCtrl'
-        })
-        .state('reset', {
-          url:'/password/reset?sptoken',
-          templateUrl: 'html/passwordReset.html',
-          controller: 'ResetCtrl'
         });
 
         $urlRouterProvider.otherwise('/');
