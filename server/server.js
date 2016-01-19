@@ -35,9 +35,6 @@ app.use(compress());
 app.use(cookieParser());
 app.use(logger('dev'));
 
-// express serving files
-app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -177,7 +174,8 @@ function saveProviderData(socialUser, cloudUser) {
 
 app.use(unify);
 
-
+// express serving files
+app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 require('./routes')(app);
 
