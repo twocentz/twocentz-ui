@@ -33,6 +33,8 @@ app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_AP
 // express serving files
 app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
+app.set('views', __dirname+'/views');
+
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
@@ -45,23 +47,27 @@ app.use(stormpath.init(app, {
     providerData: true
   },
   web: {
-   register: {
-     autoLogin: true,
-     nextUri: '/',
-     fields: {
-        username: {
-          autoLogin: true,
-          enabled: true,
-          required: true,
-          placeholder: 'Your display name in the app'
-        }
-     }
+  login: {
+    view: path.join(__dirname,'views','login.ejs') // My custom login view
+  },
+  register: {
+   autoLogin: true,
+   nextUri: '/',
+   fields: {
+      username: {
+        autoLogin: true,
+        enabled: true,
+        required: true,
+        placeholder: 'Your display name in the app'
+      }
    }
+  }
   }
 }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.set('view engine', 'jade');
 
 function unify(req, res, next) {
   var application = app.get('stormpathApplication');
