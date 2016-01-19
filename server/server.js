@@ -30,6 +30,9 @@ if (env === 'production') {
 //prerender redirect for crawlers
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
 
+// express serving files
+app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
+
 app.set('port', process.env.PORT || 3000);
 app.use(compress());
 app.use(cookieParser());
@@ -174,9 +177,6 @@ function saveProviderData(socialUser, cloudUser) {
 }
 
 app.use(unify);
-
-// express serving files
-app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
 
 require('./routes')(app);
 

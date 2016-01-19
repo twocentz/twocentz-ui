@@ -32,10 +32,6 @@
       $locationProvider.html5Mode(true);
 
       $stateProvider
-        .state('signup', {
-          url: '/signup',
-          external: true
-        })
         .state('login', {
           url:'/login',
           external: true
