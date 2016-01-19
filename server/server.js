@@ -60,28 +60,6 @@ app.use(stormpath.init(app, {
         }
      }
    }
-  },
-  postRegistrationHandler: function (account, req, res, next) {
-
-    if(req.user.providerData.providerId !== 'stormpath') {
-      console.log("Skipping setting of username, because this is a social login");
-      next();
-    }
-    var cloudUser = req.user;
-    console.log("After registering handler");
-    var milliTime = '' + new Date().getTime();
-    //cloudUser.username = cloudUser.givenName.toLowerCase() + "_" + milliTime.slice(milliTime.length-4, milliTime.length);
-    cloudUser.save(function (err) {
-      if (err) {
-        console.log("ERROR");
-        return res.status(400).end('Oops!  There was an error: ' + err.userMessage);
-        next();
-      }else{
-        console.log("NAME CHANGED");
-        //return res.redirect(302, '/');
-        next();
-      }
-    });
   }
 }));
 
