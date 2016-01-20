@@ -101,7 +101,7 @@ gulp.task('compress', function() {
     .pipe(sourcemaps.init())
     .pipe(concat('app.js', {newLine: ';'}))
     .pipe(ngAnnotate({add:true}))
-    //.pipe(uglify({compress: {sequences: false, join_vars: false}}))
+    .pipe(uglify({compress: {sequences: false, join_vars: false}}))
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest(bases.dist));
 });

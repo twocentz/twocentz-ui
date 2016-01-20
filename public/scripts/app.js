@@ -43,7 +43,8 @@
         .state('home', {
           url:'/',
           templateUrl: 'html/home.html',
-          controller: 'HomeCtrl'
+          controller: 'HomeCtrl',
+          reloadOnSearch : false
         })
         .state('movies', {
           url:'/movies/:slug',
