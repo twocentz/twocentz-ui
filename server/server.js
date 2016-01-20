@@ -47,21 +47,21 @@ app.use(stormpath.init(app, {
     providerData: true
   },
   web: {
-  login: {
-    view: path.join(__dirname,'views','login.ejs') // My custom login view
-  },
-  register: {
-   autoLogin: true,
-   nextUri: '/',
-   fields: {
-      username: {
-        autoLogin: true,
-        enabled: true,
-        required: true,
-        placeholder: 'Your display name in the app'
-      }
-   }
-  }
+    login: {
+      view: path.join(__dirname,'views','login.ejs') // My custom login view
+    },
+    register: {
+     autoLogin: true,
+     nextUri: '/',
+     fields: {
+        username: {
+          autoLogin: true,
+          enabled: true,
+          required: true,
+          placeholder: 'Your display name'
+        }
+     }
+    }
   }
 }));
 
