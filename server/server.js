@@ -31,7 +31,8 @@ if (env === 'production') {
 app.use(require('prerender-node').set('prerenderToken', process.env.PRERENDER_APP_TOKEN));
 
 // express serving files
-app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist')));
+var oneYear = 31536000000; // in milliseconds
+app.use(express.static(path.join( path.normalize(__dirname + '/..'), 'dist'), { maxAge: oneYear }));
 
 app.set('views', __dirname+'/views');
 
