@@ -35,7 +35,7 @@
         title: '@',
         description: '@'
       },
-      templateUrl: 'html/topicDetails.html'
+      templateUrl: 'html/tcTopicDetails.html'
     };
     return directive;
   }

@@ -277,8 +277,8 @@ td { vertical-align: top; padding-right: 5px; }
 }
 
 .ribbon {
-  width: 106%;
-  margin-left: -15px;
+  width: 99%;
+  margin-left: -6px;
   position: absolute;
   text-align: center;
   font-size: 0.7em!important;
@@ -301,38 +301,22 @@ td { vertical-align: top; padding-right: 5px; }
   margin:0px;
   padding: 5px 5px;
  }
-.ribbon:before, .ribbon:after {
-   content: '';
-   position: absolute;
-   display: block;
-   bottom: -1em;
-   border: 1.5em solid #3ac24e;
-   z-index: -1;
-}
- .ribbon:before {
-    left: -2em;
-    border-right-width: 1.5em;
-    border-left-color: transparent;
-    -webkit-box-shadow: rgba(000,000,000,0.4) 0px 0px 0px;
-    -moz-box-shadow: rgba(000,000,000,0.4) 0px 0px 0px;
-    box-shadow: rgba(000,000,000,0.4) 0px 0px 0px;
-}
-  .ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
-    border-color: #1c8516 transparent transparent transparent;
-    position: absolute;
-    display: block;
-    border-style: solid;
-    bottom: -1em;
-    content: '';
-}
- .ribbon .ribbon-content:before {
-    left: 0;
-    border-width: 1em 0 0 1em;
-    }
- .ribbon .ribbon-content:after {
-    right: 0;
-    border-width: 1em 1em 0 0;
-    }
+
+.ribbon-stitches-top {
+   margin-top:2px;
+   border-top: 1px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.5);
+ }
+.ribbon-stitches-bottom {
+   margin-bottom:2px;
+   border-top: 1px dashed rgba(0, 0, 0, 0.2);
+   -moz-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   -webkit-box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+   box-shadow: 0px 0px 2px rgba(255, 255, 255, 0.3);
+ }
+
 .step {
   display: inline-block;
   line-height: 1;

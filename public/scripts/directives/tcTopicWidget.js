@@ -26,7 +26,7 @@
       scope: {
         topic: '='
       },
-      templateUrl: 'html/topicWidget.html'
+      templateUrl: 'html/tcTopicWidget.html'
     };
     return directive;
 

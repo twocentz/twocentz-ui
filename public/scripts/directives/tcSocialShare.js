@@ -62,7 +62,7 @@
         user: '@',
         topic: '='
       },
-      templateUrl: 'html/socialShare.html'
+      templateUrl: 'html/tcSocialShare.html'
     };
     return directive;
   }

@@ -59,7 +59,7 @@
         query: '=',
         page: '@'
       },
-      templateUrl: 'html/NavBar.html'
+      templateUrl: 'html/tcNavBar.html'
     };
     return directive;
   }

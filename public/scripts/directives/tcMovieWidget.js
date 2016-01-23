@@ -30,7 +30,7 @@
       scope: {
         topic: '='
       },
-      templateUrl: 'html/movieWidget.html'
+      templateUrl: 'html/tcMovieWidget.html'
     };
     return directive;
   }
