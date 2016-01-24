@@ -52,6 +52,7 @@ app.use(stormpath.init(app, {
       view: path.join(__dirname,'views','login.ejs') // My custom login view
     },
     register: {
+     view: path.join(__dirname,'views','register.ejs'),
      autoLogin: true,
      nextUri: '/',
      fields: {
