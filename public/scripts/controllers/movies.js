@@ -70,6 +70,7 @@
               HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
               $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
               $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+              $scope.topic.totalVotes++;
             }
 
             deferred.resolve(data);
