@@ -1,11 +1,13 @@
-<div>
+<div style="margin-bottom:20px;">
     <div class="thumbnail text-center widget">
         <a ui-sref="movies({slug: slug})">
             <h4 ng-bind-html="title"></h3>
             <div class="img-card">
                 <img src="{{image}}"  alt="{{slug}}"/>
             </div>
-
+            <div style="padding-top:5px">
+              <p ng-bind-html="release"></p>
+            </div>
             <div class="ribbon">
               <div class="ribbon-stitches-top"></div>
               <strong class="ribbon-content">
@@ -14,9 +16,7 @@
               <div class="ribbon-stitches-bottom"></div>
             </div>
 
-            <div style="margin-top:35px">
-              <p ng-bind-html="release"></p>
-            </div>
+
         </a>
     </div>
 </div>
