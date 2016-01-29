@@ -16,6 +16,8 @@
 
       scope.slug = topic.slug;
       scope.userName = topic.userName;
+      scope.description = topic.description;
+      scope.textArea = topic.props.textArea;
       scope.twocentz = HelperService.getTopicTwoCentz(topic.totalVotes, topic.topEntries);
 
     }

@@ -1,5 +1,5 @@
 <div>
-    <div class="thumbnail text-center widget">
+    <div class="text-center widget">
         <a ui-sref="usertopic({slug: slug, username: userName})">
             <h4 ng-bind-html="title"></h4>
             <div ng-if="image" class="img-card">
@@ -8,7 +8,13 @@
                 </cl-image>
             </div>
             <div class="img-card" ng-if="!image">
-                <img data-src="holder.js/240x280" bs-holder />
+                <p>{{description}}</p>
+                <table class="table table-condensed">
+                    <tr ng-repeat="field in textArea">
+                        <th> {{field.fieldName}} </th>
+                        <td> {{field.fieldValue}} </td>
+                    </tr>
+                </table>
             </div>
             <div class="ribbon">
               <div class="ribbon-stitches-top"></div>

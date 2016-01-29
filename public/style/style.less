@@ -206,12 +206,37 @@ td { vertical-align: top; padding-right: 5px; }
 
 
 .widget {
-	background: #fefefe;
-	border: 2px solid #fcfcfc;
-	box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-	margin: 0 2px 15px;
+  display: block;
+  padding: @thumbnail-padding;
+  border-radius: @thumbnail-border-radius;
+  background: #fefefe;
+  border: 2px solid #fcfcfc;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  margin: 0 2px 0px;
   width: 250px;
-	transition: opacity .4s ease-in-out;
+  min-height:150px;
+  transition: opacity .4s ease-in-out;
+
+  > img,
+  a > img {
+    &:extend(.img-responsive);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Add a hover state for linked versions only
+  a&:hover,
+  a&:focus,
+  a&.active {
+    border-color: @link-color;
+  }
+
+  // Image captions
+  .caption {
+    padding: @thumbnail-caption-padding;
+    color: @thumbnail-caption-color;
+  }
+
 }
 
 .widget-panel {
@@ -280,6 +305,7 @@ td { vertical-align: top; padding-right: 5px; }
   width: 99%;
   margin-left: -6px;
   position: absolute;
+  bottom:2px;
   text-align: center;
   font-size: 0.7em!important;
   background: #4cd468;
