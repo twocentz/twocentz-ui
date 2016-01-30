@@ -9,7 +9,8 @@
         <div class="img-card" ng-if="!image">
             <p>{{description}}</p>
             <table class="table table-condensed">
-                <tr ng-repeat="field in textArea">
+              <!-- show max 2 fields -->
+                <tr ng-repeat="field in textArea | limitTo:2">
                     <th> {{field.fieldName}} </th>
                     <td> {{field.fieldValue}} </td>
                 </tr>

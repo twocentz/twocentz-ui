@@ -1,6 +1,6 @@
 <div class="container-fluidr floating_panel">
     <tc-nav-bar search="search" query="query" page="home"></tc-nav-bar>
-    <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 30}'>
+    <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
         <div masonry-tile ng-repeat="topic in topics track by topic.slug" tc-movie-widget topic="topic" class="tile">
         </div>
     </div>
