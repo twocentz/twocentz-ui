@@ -32,8 +32,8 @@
       if(CachedDataService.fetchFromCache('home-query')){
         $scope.query = CachedDataService.fetchFromCache('home-query');
       } else {
-        // initial based on date
-        search(moment().format('MMMM YYYY'));
+        // initial search
+        search();
       }
     }
 

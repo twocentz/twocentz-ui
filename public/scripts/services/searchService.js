@@ -9,6 +9,9 @@
 
 
     ///////////////////
+    function isEmpty(str) {
+      return (!str || 0 === str.length);
+    }
 
     function getIndex(){
       var ALGOLIA_CLIENT_ID = '05FTLLM54V';
@@ -22,12 +25,26 @@
 
     function search(key) {
       var deferred = $q.defer();
-      getIndex().search(key)
-        .then(function searchSuccess(content) {
-            deferred.resolve(content.hits);
-        }, function searchFailure(err) {
-            deferred.reject(err);
-        });
+      //if empty string
+      var startDate = moment().subtract(2, 'months').unix() * 1000;
+      var endDate = moment().add(2, 'months').unix() * 1000;
+      if(isEmpty(key)){
+        getIndex().search('', {'numericFilters': [
+          'props.releaseDate:' + startDate + ' to ' + endDate +'']}
+        )
+          .then(function searchSuccess(content) {
+              deferred.resolve(content.hits);
+          }, function searchFailure(err) {
+              deferred.reject(err);
+          });
+      } else {
+        getIndex().search(key)
+          .then(function searchSuccess(content) {
+              deferred.resolve(content.hits);
+          }, function searchFailure(err) {
+              deferred.reject(err);
+          });
+      }
 
       return deferred.promise;
     }

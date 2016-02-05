@@ -19,13 +19,13 @@
       </table>
       <table class="table table-condensed" ng-if="category === 'MOVIES'">
         <tr>
-            <th>Release Date</th><td>{{props.releaseDate}}</td>
+            <th>Release Date</th><td>{{releaseDate}}</td>
         </tr>
         <tr>
             <th>Duration</th><td>{{props.duration}}</td>
         </tr>
         <tr>
-            <th>Genre</th><td>{{props.genre}}</td>
+            <th>Genres</th><td>{{genres}}</td>
         </tr>
         <tr>
             <th>Rating</th><td>{{props.rating}}</td>
@@ -38,7 +38,7 @@
             <td>
                 <ul class="list-inline">
                     <li ng-repeat="cast in props.cast | limitTo:5">
-                        <span>{{cast.name}}</span>
+                        <span>{{cast}}</span>
                     </li>
                 </ul>
             </td>
@@ -55,13 +55,13 @@
       </table>
       <table class="table table-condensed" ng-if="category === 'MOVIES'">
         <tr>
-            <th>Release Date</th><td>{{props.releaseDate}}</td>
+            <th>Release Date</th><td>{{releaseDate}}</td>
         </tr>
         <tr>
             <th>Duration</th><td>{{props.duration}}</td>
         </tr>
         <tr>
-            <th>Genre</th><td>{{props.genre}}</td>
+            <th>Genres</th><td>{{genres}}</td>
         </tr>
         <tr>
             <th>Rating</th><td>{{props.rating}}</td>
@@ -74,7 +74,7 @@
             <td>
                 <ul class="list-inline">
                     <li ng-repeat="cast in props.cast | limitTo:5">
-                        <span>{{cast.name}}</span>
+                        <span>{{cast}}</span>
                     </li>
                 </ul>
             </td>

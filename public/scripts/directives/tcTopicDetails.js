@@ -20,7 +20,11 @@
               if(scope.props.hasOwnProperty('textArea')){
                 scope.textArea = scope.props.textArea;
               }
+            } else if(scope.category === 'MOVIES'){
+              scope.releaseDate = moment(scope.props.releaseDate).format('MMM DD, YYYY');
+              scope.genres = scope.props.genres.join(', ');
             }
+
           }
       });
     }

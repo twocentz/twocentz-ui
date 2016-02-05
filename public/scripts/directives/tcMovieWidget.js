@@ -12,14 +12,14 @@
         scope.image = topic.mediaFiles[0].url;
         scope.release = topic._highlightResult.props.releaseDate.value;
         scope.slug = topic.slug;
-        scope.genre = topic._highlightResult.props.genre.value;
+        scope.genre = topic._highlightResult.props.genres.join(', ');
         scope.twocentz = HelperService.getTopicTwoCentz(topic.totalVotes, topic.topEntries);
       } else {
         scope.title = topic.title;
         scope.image = topic.mediaFiles[0].url;
         scope.release = topic.props.releaseDate;
         scope.slug = topic.slug;
-        scope.genre = topic.props.genre;
+        scope.genre = topic.props.genres.join(', ');
         scope.twocentz = HelperService.getTopicTwoCentz(topic.totalVotes, topic.topEntries);
       }
     }
