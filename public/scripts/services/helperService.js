@@ -59,10 +59,13 @@
 
     function getTopicTwoCentz(totalVotes, topEntries){
       if(totalVotes>0){
-        var percent = Math.round(100 * parseInt(topEntries[0].votes) / parseInt(totalVotes));
-        return percent + '% ' + topEntries[0].text;
+        var topCents = [];
+        for(var i = 0; i < 1; i++){
+          topCents.push(Math.round(100 * parseInt(topEntries[i].votes) / parseInt(totalVotes)) + '%');
+        }
+        return topCents;
       } else {
-        return 'No Votes Yet';
+        return 'N/A';
       }
 
     }

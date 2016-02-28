@@ -4,15 +4,33 @@
             <div class="img-card">
                 <img src="{{image}}"  alt="{{slug}}"/>
             </div>
-            <div style="padding-top:5px">
-              <p ng-bind-html="release"></p>
+            
+            <div class="row" ng-if="topic.totalVotes > 0" style="margin-top: 10px">
+              <div class="col-xs-6 col-md-6">{{topic.topEntries[0].text}}</div>
+              <div class="col-xs-6 col-md-6">
+                <div class="progress" style="margin-bottom: 5px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{twocentz[0]}};">{{twocentz[0]}}
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="ribbon">
-              <div class="ribbon-stitches-top"></div>
-              <strong class="ribbon-content">
-                <h1>{{twocentz}}</h1>
-              </strong>
-              <div class="ribbon-stitches-bottom"></div>
+            <!-- <div class="row" ng-if="topic.totalVotes > 0">
+              <div class="col-xs-6 col-md-6">{{topic.topEntries[1].text}}</div>
+              <div class="col-xs-6 col-md-6">
+                <div class="progress" style="margin-bottom: 5px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{twocentz[1]}};">{{twocentz[1]}}
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="row" ng-if="topic.totalVotes > 0">
+              <div class="col-xs-6 col-md-6">{{topic.topEntries[2].text}}</div>
+              <div class="col-xs-6 col-md-6">
+                <div class="progress" style="margin-bottom: 5px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: {{twocentz[2]}};">{{twocentz[2]}}
+                  </div>
+                </div>
+              </div>
+            </div> -->
         </a>
     </div>
