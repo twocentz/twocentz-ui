@@ -2,7 +2,7 @@
     <tc-nav-bar search="search" query="query" page="home"></tc-nav-bar>
     <p class="lead" style="margin:20px;text-align: center;">Find or create any topic and share your opinion with just two words!</p>
     <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
-        <div masonry-tile ng-repeat="topic in topics track by topic.slug" tc-movie-widget topic="topic" class="tile">
+        <div masonry-tile ng-repeat="topic in topics track by topic.objectID" tc-topic-widget topic="topic" class="tile">
         </div>
     </div>
 </div>

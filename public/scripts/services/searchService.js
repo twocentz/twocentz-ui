@@ -16,31 +16,30 @@
     function getIndex(){
       var ALGOLIA_CLIENT_ID = '05FTLLM54V';
       var ALGOLIA_SEARCH_KEY = '657c40e74e8a05261076878c1d08d093';
-      var ALGOLIA_INDEX_NAME = 'twocentz_movies';
-
-
       var client = algolia.Client(ALGOLIA_CLIENT_ID, ALGOLIA_SEARCH_KEY);
-      return client.initIndex(ALGOLIA_INDEX_NAME);
+      return client;
     }
 
     function search(key) {
+      var ALGOLIA_INDEX_MOVIES = 'twocentz_movies';
+      var ALGOLIA_INDEX_TOPICS = 'twocentz_topics';
       var deferred = $q.defer();
       //if empty string
       var startDate = moment().subtract(2, 'months').unix() * 1000;
       var endDate = moment().add(2, 'months').unix() * 1000;
       if(isEmpty(key)){
-        getIndex().search('', {'numericFilters': [
-          'props.releaseDate:' + startDate + ' to ' + endDate +'']}
+        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:'',params: {hitsPerPage: 5}},{indexName:ALGOLIA_INDEX_MOVIES, query:'', params:{'numericFilters': [
+          'props.releaseDate:' + startDate + ' to ' + endDate +'']}}] 
         )
           .then(function searchSuccess(content) {
-              deferred.resolve(content.hits);
+              deferred.resolve(content.results[0].hits.concat(content.results[1].hits));
           }, function searchFailure(err) {
               deferred.reject(err);
           });
       } else {
-        getIndex().search(key)
+        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:key},{indexName:ALGOLIA_INDEX_MOVIES, query:key}])
           .then(function searchSuccess(content) {
-              deferred.resolve(content.hits);
+              deferred.resolve(content.results[0].hits.concat(content.results[1].hits));
           }, function searchFailure(err) {
               deferred.reject(err);
           });
