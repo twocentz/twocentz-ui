@@ -182,7 +182,7 @@ module.exports = function(app) {
 
   app.get('/api/topics/users/:userName/:slug', function(req, res, next) {
     request({
-      url: API_URL + "topics/s/" + req.params.slug + "?" + "username=" + req.params.userName,
+      url: API_URL + "topics/user/" + req.params.userName + "?slug=" + req.params.slug,
       method: "GET",
       headers: {
         "Content-Type": "application/json"

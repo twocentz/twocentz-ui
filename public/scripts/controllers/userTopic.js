@@ -40,11 +40,11 @@
             $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
 
           }else{
-            if(data === null){
+            if(data.content.length === 0){
               $scope.error = true;
               $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
             } else {
-              $scope.topic = data;
+              $scope.topic = data.content[0];
               $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
               $scope.userVoted = [];
               $scope.userName = $stateParams.username;
