@@ -24,7 +24,7 @@
             }
             var title = scope.title;
             scope.title = HelperService.encode(scope.title);
-            var entries = HelperService.getTopicTwoCentz(scope.topic.totalVotes, scope.entries);
+            var entries = HelperService.getTopPercentange(scope.topic.totalVotes, scope.entries)[0] + scope.topic.topEntries[0].text;
             //var entries = HelperService.getSocialShareDescription(scope.entries);
             scope.desc = HelperService.encode(entries);
 

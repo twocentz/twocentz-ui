@@ -57,10 +57,10 @@
       return result;
     }
 
-    function getTopicTwoCentz(totalVotes, topEntries){
+    function getTopPercentage(totalVotes, topEntries){
       if(totalVotes>0){
         var topCents = [];
-        for(var i = 0; i < 1; i++){
+        for(var i = 0; i < topEntries.length; i++){ 
           topCents.push(Math.round(100 * parseInt(topEntries[i].votes) / parseInt(totalVotes)) + '%');
         }
         return topCents;
@@ -106,7 +106,7 @@
       addEntryToLocalCache: addEntryToLocalCache,
       getUrlParam: getURLParameter,
       getTopEntriesString: getTopEntriesString,
-      getTopicTwoCentz: getTopicTwoCentz,
+      getTopPercentage: getTopPercentage,
       getSocialShareDescription: getSocialShareDescription,
       getVotesinPercent: getVotesinPercent,
       encode: encode

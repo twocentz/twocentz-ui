@@ -13,7 +13,7 @@
       scope.title = topic.title;
       scope.slug = topic.slug;
       scope.category = topic.category;
-      scope.twocentz = HelperService.getTopicTwoCentz(topic.totalVotes, topic.topEntries);
+      scope.twocentz = HelperService.getTopPercentage(topic.totalVotes, topic.topEntries);
 
       if(topic.category === 'USERS'){
         if(topic.mediaFiles.length){
