@@ -21,7 +21,7 @@ var xml2js = require('xml2js');
 var API_VERSION = "1.0";
 var API_URL = "https://twocentz-svc-stage.herokuapp.com/" + API_VERSION + "/";
 
-function geUserID(req){
+function getUserID(req){
   return req.user.href.slice(req.user.href.lastIndexOf("/")+1);
 }
 
@@ -48,7 +48,7 @@ function validateEntry(text){
 
 module.exports = function(app) {
   app.get('/api/topics',  function(req, res, next) {
-    rp(API_URL + "topics" + "/movies/")
+    rp(API_URL + "topics")
       .then(function(resp){
         res.status(200).json(JSON.parse(resp));
       })
@@ -61,9 +61,9 @@ module.exports = function(app) {
   app.get('/api/user/entries/:topicId?', stormpath.loginRequired, function(req, res, next) {
     var full_URL;
     if(req.params.topicId){
-      full_URL = API_URL + "user/" +  geUserID(req) + "/entries?topicId=" + req.params.topicId;
+      full_URL = API_URL + "user/" +  getUserID(req) + "/entries?topicId=" + req.params.topicId;
     } else{
-      full_URL = API_URL + "user/" + geUserID(req) + "/entries/";
+      full_URL = API_URL + "user/" + getUserID(req) + "/entries";
     }
 
     rp(full_URL)
@@ -78,7 +78,7 @@ module.exports = function(app) {
 
   app.get('/api/movies/s/:slug',  function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/movies/" + "s" + "/" + req.params.slug,
+      url: API_URL + "topics/s/" + req.params.slug,
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -95,7 +95,7 @@ module.exports = function(app) {
 
   app.get('/api/movies/entries/:id',  function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/movies/" + req.params.id + "/entries",
+      url: API_URL + "topics" + req.params.id + "/entries",
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -115,11 +115,12 @@ module.exports = function(app) {
       var formObj = {
         text: entry.join(" "),
         topicId: req.body.topicId,
-        userId: geUserID(req)
+        userId: getUserID(req),
+        category: "movies"
       }
 
       var options = {
-          uri : API_URL + "entries/movies",
+          uri : API_URL + "entries/",
           method : 'POST',
           json: true,
           body: formObj
@@ -151,11 +152,13 @@ module.exports = function(app) {
       var formObj = {
         text: entry.join(" "),
         topicId: req.body.topicId,
-        userId: geUserID(req)
+        userId: getUserID(req),
+        votes: '1',
+        category: 'users'
       }
 
       var options = {
-          uri : API_URL + "entries/usertopics",
+          uri : API_URL + "entries",
           method : 'POST',
           json: true,
           body: formObj
@@ -179,7 +182,7 @@ module.exports = function(app) {
 
   app.get('/api/topics/users/:userName/:slug', function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/users/" + req.params.userName + "?" +"slug=" + req.params.slug,
+      url: API_URL + "topics/s/" + req.params.slug + "?" + "username=" + req.params.userName,
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -196,7 +199,7 @@ module.exports = function(app) {
 
   app.get('/api/usertopics',  stormpath.loginRequired, function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/users/" + getUserName(req),
+      url: API_URL + "topics" + "/" + getUserName(req),
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -225,15 +228,16 @@ module.exports = function(app) {
 
       var formObj = {
         title: _.trim(req.body.title),
+        category: 'users',
         description: req.body.description,
         props: req.body.props,
         mediaFiles: req.body.mediaFiles,
-        userId: geUserID(req),
+        userId: getUserID(req),
         userName: getUserName(req)
       }
 
       var options = {
-        uri : API_URL + "topics/users",
+        uri : API_URL + "topics",
         method : 'POST',
         json: true,
         body: formObj
