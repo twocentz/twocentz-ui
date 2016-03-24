@@ -199,7 +199,7 @@ module.exports = function(app) {
 
   app.get('/api/usertopics',  stormpath.loginRequired, function(req, res, next) {
     request({
-      url: API_URL + "topics" + "/" + getUserName(req),
+      url: API_URL + "topics/user/" + getUserName(req),
       method: "GET",
       headers: {
         "Content-Type": "application/json"

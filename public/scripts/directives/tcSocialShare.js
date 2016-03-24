@@ -10,7 +10,9 @@
       rrssbInit();
 
       scope.$watch('media', function(newValue, oldValue) {
+
           var baseUrl = 'https://twocentz.co/';
+          var entries, title;
           if (newValue){
             scope.url =  baseUrl + scope.type +'/' + scope.slug;
             if(scope.type === 'user'){
@@ -22,9 +24,14 @@
               scope.img = scope.media[0].url;
               scope.url =  baseUrl + scope.type +'/' + scope.slug;
             }
-            var title = scope.title;
+            title = scope.title;
             scope.title = HelperService.encode(scope.title);
-            var entries = HelperService.getTopPercentage(scope.topic.totalVotes, scope.entries)[0] + scope.topic.topEntries[0].text;
+            if(scope.topic.totalVotes > 0){
+              entries = HelperService.getTopPercentage(scope.topic.totalVotes, scope.entries)[0] + ' ' + scope.topic.topEntries[0].text;
+            } else {
+              entries = '';
+            }
+            
             //var entries = HelperService.getSocialShareDescription(scope.entries);
             scope.desc = HelperService.encode(entries);
 
