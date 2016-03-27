@@ -27,15 +27,26 @@
 
       function postUserTopic(topicObj){
 
-        var props = _.merge({}, _.pick(topicObj, 'textArea'),_.pick(topicObj, 'textField'));
+        var postObject = {
+          title: topicObj.title,
+          category: 'users',
+          mediaFiles: topicObj.mediaFiles
+        }
+
+        return CachedDataService.postValue('api/topics', postObject);
+      }
+
+      function postCustomTopic(topicObj){
+
+        var props = _.merge({}, _.pick(topicObj, 'fields'));
         var postObject = {
           title: topicObj.title,
           description: topicObj.description,
           props: props,
+          category: topicObj.category,
           mediaFiles: topicObj.mediaFiles
         }
-
-        return CachedDataService.postValue('api/topics/users', postObject);
+        return CachedDataService.postValue('api/admin/topics', postObject);
       }
       ///////////////////////
 
@@ -44,6 +55,7 @@
         getTopicBySlug: getTopicBySlug,
         getMovieBySlug: getMovieBySlug,
         postUserTopic: postUserTopic,
+        postCustomTopic: postCustomTopic,
         getUserTopicBySlug: getUserTopicBySlug,
         getAllUserTopics:  getAllUserTopics
       }

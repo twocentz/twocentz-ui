@@ -45,7 +45,8 @@ app.use(stormpath.init(app, {
   website: true,
   expand: {
     customData: true,
-    providerData: true
+    providerData: true,
+    groups: true
   },
   web: {
     login: {
@@ -55,14 +56,17 @@ app.use(stormpath.init(app, {
      view: path.join(__dirname,'views','register.ejs'),
      autoLogin: true,
      nextUri: '/',
-     fields: {
+     form:{
+      fields: {
         username: {
           autoLogin: true,
           enabled: true,
           required: true,
           placeholder: 'Your display name'
         }
-     }
+      }
+    }
+     
     }
   }
 }));

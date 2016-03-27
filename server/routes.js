@@ -58,6 +58,114 @@ module.exports = function(app) {
       })
   });
 
+
+  app.post('/api/topics', stormpath.loginRequired,  function(req, res, next) {
+    var error, formObj;
+    if(req.body.title){
+
+      if(_.trim(req.body.title) < 3){
+        error = "title should be at least 3 letter long";
+      }
+      if(error){
+        return res.status(400).send({'error': error, 'status': 400});
+      }
+
+      formObj = {
+        title: _.trim(req.body.title),
+        category: 'users',
+        mediaFiles: req.body.mediaFiles,
+        userId: getUserID(req),
+        userName: getUserName(req)
+      }
+
+      var options = {
+        uri : API_URL + "topics",
+        method : 'POST',
+        json: true,
+        body: formObj
+      };
+
+      rp(options)
+          .then(function(resp){
+            res.status(200).json(resp);
+          })
+          .catch(function(err){
+            res.status(400).send({'error': 'server error', 'status': 400})
+            console.error(err);
+          });
+
+
+    } else {
+      return res.status(400).send({'error': 'title missing', 'status': 400});
+    }
+
+  });
+
+  app.post('/api/admin/topics', stormpath.groupsRequired(['admins']),  function(req, res, next) {
+    var error, formObj;
+    if(req.body.title){
+
+      if(_.trim(req.body.title) < 3){
+        error = "title should be at least 3 letter long";
+      }
+      if(error){
+        return res.status(400).send({'error': error, 'status': 400});
+      }
+
+      
+      formObj = {
+        title: _.trim(req.body.title),
+        category: req.body.category,
+        description: req.body.description,
+        props: req.body.props,
+        mediaFiles: req.body.mediaFiles,
+        userId: getUserID(req),
+        userName: getUserName(req)
+      }
+
+      
+
+      var options = {
+        uri : API_URL + "topics",
+        method : 'POST',
+        json: true,
+        body: formObj
+      };
+
+      rp(options)
+          .then(function(resp){
+            res.status(200).json(resp);
+          })
+          .catch(function(err){
+            res.status(400).send({'error': 'server error', 'status': 400})
+            console.error(err);
+          });
+
+
+    } else {
+      return res.status(400).send({'error': 'title missing', 'status': 400});
+    }
+
+  });
+
+  app.get('/api/usertopics',  stormpath.loginRequired, function(req, res, next) {
+    request({
+      url: API_URL + "topics/user/" + getUserName(req),
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }, function(error, response, body) {
+      if(body){
+        res.status(200).json(JSON.parse(body));
+      }else{
+        res.status(404).json({error:"Topics not found"});
+        console.error("topics not found");
+      }
+    });
+  });
+
+
   app.get('/api/user/entries/:topicId?', stormpath.loginRequired, function(req, res, next) {
     var full_URL;
     if(req.params.topicId){
@@ -197,67 +305,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/api/usertopics',  stormpath.loginRequired, function(req, res, next) {
-    request({
-      url: API_URL + "topics/user/" + getUserName(req),
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    }, function(error, response, body) {
-      if(body){
-        res.status(200).json(JSON.parse(body));
-      }else{
-        res.status(404).json({error:"Topics not found"});
-        console.error("topics not found");
-      }
-    });
-  });
-
-  app.post('/api/topics/users', stormpath.loginRequired,  function(req, res, next) {
-    var error;
-    if(req.body.title){
-
-      if(_.trim(req.body.title) < 3){
-        error = "title should be at least 3 letter long";
-      }
-      if(error){
-        return res.status(400).send({'error': error, 'status': 400});
-      }
-
-
-      var formObj = {
-        title: _.trim(req.body.title),
-        category: 'users',
-        description: req.body.description,
-        props: req.body.props,
-        mediaFiles: req.body.mediaFiles,
-        userId: getUserID(req),
-        userName: getUserName(req)
-      }
-
-      var options = {
-        uri : API_URL + "topics",
-        method : 'POST',
-        json: true,
-        body: formObj
-      };
-
-      rp(options)
-          .then(function(resp){
-            res.status(200).json(resp);
-          })
-          .catch(function(err){
-            res.status(400).send({'error': 'server error', 'status': 400})
-            console.error(err);
-          });
-
-
-    } else {
-      return res.status(400).send({'error': 'title missing', 'status': 400});
-    }
-
-  });
+  
 
   /*
    * Ensure this route is last.

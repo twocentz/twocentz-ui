@@ -21,25 +21,19 @@
     }
 
     function search(key) {
-      var ALGOLIA_INDEX_MOVIES = 'twocentz_movies';
       var ALGOLIA_INDEX_TOPICS = 'twocentz_topics';
       var deferred = $q.defer();
-      //if empty string
-      var startDate = moment().subtract(2, 'months').unix() * 1000;
-      var endDate = moment().add(2, 'months').unix() * 1000;
       if(isEmpty(key)){
-        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:'',params: {hitsPerPage: 5}},{indexName:ALGOLIA_INDEX_MOVIES, query:'', params:{'numericFilters': [
-          'props.releaseDate:' + startDate + ' to ' + endDate +'']}}] 
-        )
+        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:'',params: {hitsPerPage: 25}}])
           .then(function searchSuccess(content) {
-              deferred.resolve(content.results[0].hits.concat(content.results[1].hits));
+              deferred.resolve(content.results[0].hits);
           }, function searchFailure(err) {
               deferred.reject(err);
           });
       } else {
-        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:key},{indexName:ALGOLIA_INDEX_MOVIES, query:key}])
+        getIndex().search([{indexName:ALGOLIA_INDEX_TOPICS, query:key, params: {hitsPerPage: 15}}])
           .then(function searchSuccess(content) {
-              deferred.resolve(content.results[0].hits.concat(content.results[1].hits));
+              deferred.resolve(content.results[0].hits);
           }, function searchFailure(err) {
               deferred.reject(err);
           });

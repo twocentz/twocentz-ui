@@ -4,8 +4,8 @@ block vars
   - var title = 'Log In'
   - var description = 'Log into your account!'
   - var bodytag = 'login'
-  - var socialProviders = stormpathConfig.socialProviders
-  - var registerFields = stormpathConfig.web.register.fields
+  - var socialProviders = stormpathConfig.web.social
+  - var registerFields = stormpathConfig.web.register.form.fields
 
 block body
 
@@ -126,8 +126,7 @@ block body
                 include facebook_login_form.jade
               if socialProviders.google && socialProviders.google.enabled
                 include google_login_form.jade
-              if socialProviders.linkedin && socialProviders.linkedin.enabled
-                include linkedin_login_form.jade
+              
 
         if stormpathConfig.web.verifyEmail.enabled
           a.forgot(style="float:left", href="#{stormpathConfig.web.verifyEmail.uri}") Resend Verification Email?
