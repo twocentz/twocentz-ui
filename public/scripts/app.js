@@ -94,9 +94,7 @@
           templateUrl: 'html/adminCreate.html',
           controller: 'AdminCreateCtrl',
           sp: {
-            authorize: {
-              group: 'admins'
-            }
+            authenticate: true
           }
         });
 

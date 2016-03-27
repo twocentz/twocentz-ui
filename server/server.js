@@ -132,7 +132,7 @@ function unify(req, res, next) {
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
 
-          helpers.createIdSiteSession(req.user, req, res);
+          helpers.createStormpathSession(req.user, req, res);
 
           return next();
         }
@@ -162,7 +162,7 @@ function unify(req, res, next) {
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
 
-          helpers.createIdSiteSession(account, req, res);
+          helpers.createStormpathSession(account, req, res);
 
           next();
         });
