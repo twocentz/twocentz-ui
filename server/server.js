@@ -43,20 +43,25 @@ app.use(logger('dev'));
 
 app.use(stormpath.init(app, {
   website: true,
+  logger: logger,
   expand: {
     customData: true,
-    providerData: true,
     groups: true
   },
   web: {
+    me: {
+      expand: {
+        customData: true,
+        groups: true
+      }
+    },
     login: {
       view: path.join(__dirname,'views','login.ejs') // My custom login view
     },
     register: {
-     view: path.join(__dirname,'views','register.ejs'),
-     autoLogin: true,
-     nextUri: '/',
-     form:{
+      view: path.join(__dirname,'views','register.ejs'),
+      autoLogin: true,
+      nextUri: '/',
       fields: {
         username: {
           autoLogin: true,
@@ -64,9 +69,7 @@ app.use(stormpath.init(app, {
           required: true,
           placeholder: 'Your display name'
         }
-      }
-    }
-     
+      } 
     }
   }
 }));
@@ -132,8 +135,12 @@ function unify(req, res, next) {
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
 
-          helpers.createStormpathSession(req.user, req, res);
-
+          // seems not needed - will remove after making sure
+          // if(helper.createIdSiteSession){
+          //   helpers.createIdSiteSession(req.user, req, res);
+          // } else {
+          //   helpers.createStormpathSession(req.user, req, res);
+          // }
           return next();
         }
 
@@ -162,7 +169,11 @@ function unify(req, res, next) {
           // save customData href for each social provider here if acct exists
           saveProviderData(socialUser, req.user);
 
-          helpers.createStormpathSession(account, req, res);
+          if(helper.createIdSiteSession){
+            helpers.createIdSiteSession(account, req, res);
+          } else {
+            elpers.createStormpathSession(account, req, res);
+          }
 
           next();
         });

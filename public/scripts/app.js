@@ -38,7 +38,7 @@
         })
         .state('logout', {
           url:'/logout',
-          controller: 'LogoutCtrl'
+          external: true
         })
         .state('home', {
           url:'/',
@@ -94,7 +94,9 @@
           templateUrl: 'html/adminCreate.html',
           controller: 'AdminCreateCtrl',
           sp: {
-            authenticate: true
+            authorize: {
+              group: 'admins'
+            }
           }
         });
 
