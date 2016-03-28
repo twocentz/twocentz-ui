@@ -1,0 +1,40 @@
+<tc-nav-bar></tc-nav-bar>
+<div class="col-md-12 floating_panel" ng-controller="AdminCreateCtrl as vm">
+    <div cg-busy="vm.uploadFile">
+    <div id="direct_upload"
+        ngf-drop="setFiles($files)"
+        ngf-drag-over-class="dragOverClass($event)"
+        ng-model="files">
+        <form>
+            <div class="hidden-xs">
+                <div href="#" class="btn btn-info" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >
+                  <span class="size-18" style="vertical-align:middle"><i class="icon ion-camera"></i></span> Upload
+                </div>
+                <label> |   Drag & Drop an image  </label>
+            </div>
+            <div class="visible-xs-block">
+                <div href="#" class="btn btn-info btn-block" ngf-select="setFiles($files)" title="upload" resetOnClick="true" >
+                  <span class="step size-32"><i class="icon ion-camera"></i></span>
+                </div>
+            </div>
+        </form>
+        <div class="file" ng-repeat="file in files">
+            <!-- <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3> -->
+            <div class="status">{{file.status}}</div>
+            <div class="progress-bar">
+              <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+            </div>
+            <hr>
+            <div class="preview">
+                <img ngf-src="file.result.url || file">
+            </div>
+        </div>
+    </div>
+    <form ng-submit="vm.onSubmit()" novalidate>
+        <formly-form model="vm.model" fields="vm.fields" form="vm.form" options="vm.options">
+            <button type="submit" class="btn btn-success btn-lg submit-button hidden-xs" ng-disabled="vm.form.$invalid">Submit</button>
+            <button type="submit" class="btn btn-success btn-lg submit-button btn-block visible-xs-block" ng-disabled="vm.form.$invalid">Submit</button>
+        </formly-form>
+    </form>
+    </div>
+</div>

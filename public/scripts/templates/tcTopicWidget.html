@@ -1,6 +1,7 @@
 <div class="text-center widget">
-    <a ng-if="category === 'USERS'" ui-sref="usertopic({slug: slug, username: userName})">
-        <span class="label label-info">{{userName}}</span>
+    <a ui-sref="usertopic({slug: slug, username: userName})">
+        <span ng-if="category === 'USERS'" class="label label-info">{{userName}}</span>
+        <span ng-if="category !== 'USERS'" class="label label-warning">{{category}}</span>
         <h4 ng-bind-html="title"></h4>
         <div ng-if="image_id" class="img-card">
             <cl-image public-id="{{image_id}}">
@@ -19,8 +20,9 @@
             </div>
           </div>
         </div>
+        
     </a>
-    <a ng-if="category === 'MOVIES'" ui-sref="movies({slug: slug})">
+    <!-- <a ng-if="category === 'MOVIES'" ui-sref="movies({slug: slug})">
             <span class="label label-warning">MOVIE</span>
             <h4 ng-bind-html="title"></h4>
             <div class="img-card">
@@ -36,7 +38,7 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row" ng-if="topic.totalVotes > 0">
+            <div class="row" ng-if="topic.totalVotes > 0">
               <div class="col-xs-6 col-md-6">{{topic.topEntries[1].text}}</div>
               <div class="col-xs-6 col-md-6">
                 <div class="progress" style="margin-bottom: 5px;">
@@ -53,6 +55,6 @@
                   </div>
                 </div>
               </div>
-            </div> -->
-        </a>
+            </div> 
+        </a>-->
 </div>

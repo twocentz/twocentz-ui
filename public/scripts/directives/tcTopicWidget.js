@@ -15,18 +15,13 @@
       scope.category = topic.category;
       scope.twocentz = HelperService.getTopPercentage(topic.totalVotes, topic.topEntries);
 
-      if(topic.category === 'USERS'){
+      if(topic.category !== null){
         if(topic.mediaFiles.length){
           scope.image_id = topic.mediaFiles[0].public_id;
         }
         scope.userName = topic.userName;
         scope.userId = topic.userId;
-      } else if (topic.category === 'MOVIES' && topic.mediaFiles.length){
-        scope.image = topic.mediaFiles[0].url;
-      }
-      
-      
-
+      } 
     }
 
     var directive = {

@@ -44,17 +44,26 @@
           url:'/',
           templateUrl: 'html/home.html',
           controller: 'HomeCtrl',
-          reloadOnSearch : false
+          reloadOnSearch : false,
+          sp: {
+            waitForUser: true
+          }
         })
         .state('movies', {
           url:'/movies/:slug',
           templateUrl: 'html/movies.html',
-          controller: 'MovieCtrl'
+          controller: 'MovieCtrl',
+          sp: {
+            waitForUser: true
+          }
         })
         .state('usertopic', {
           url: '/user/:username/:slug',
           templateUrl: 'html/userTopic.html',
-          controller: 'UserTopicCtrl'
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
         })
         .state('add', {
           url:'/add',
@@ -79,6 +88,16 @@
           sp: {
             authenticate: true
           }
+        })
+        .state('admincreate', {
+          url: '/admin/create',
+          templateUrl: 'html/adminCreate.html',
+          controller: 'AdminCreateCtrl',
+          sp: {
+            authorize: {
+              group: 'admins'
+            }
+          }
         });
 
         $urlRouterProvider.otherwise('/');
@@ -90,11 +109,12 @@
     .run(function($stormpath){
       $stormpath.uiRouter({
         loginState: 'login',
+        forbiddenState: 'home',
         defaultPostLoginState: 'home'
       });
     })
 
-    .run(function($rootScope, $window) {
+    .run(function($rootScope, $window, $state) {
       $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams) {
           if (toState.external) {
@@ -102,5 +122,9 @@
             $window.open(toState.url, '_self');
           }
         });
+
+      $rootScope.$on('$sessionEnd',function () {
+        $state.transitionTo('home');
+      });
     });
 })();
