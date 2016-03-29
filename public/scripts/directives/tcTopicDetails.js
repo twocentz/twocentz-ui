@@ -14,7 +14,7 @@
       scope.$watch('category', function(newValue, oldValue) {
           if (newValue){
             if(scope.props.hasOwnProperty('fields')){
-              scope.textField = scope.props.textField;
+              scope.fields = scope.props.fields;
             }
           }
       });

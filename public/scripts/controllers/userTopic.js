@@ -5,7 +5,8 @@
   'use strict';
 
   /* @ngInject */
-  function UserTopicController($rootScope, $scope, $user, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
+  function UserTopicController($rootScope, $scope, $user, $state, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
+    var username;
     $scope.error = false;
     $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
@@ -29,11 +30,15 @@
     };
 
 
-
+    if($state.$current.name === 'usertopic'){
+      username = $stateParams.username;
+    } else {
+      username = 'ilyas';
+    }
     /**
-     * Get movie detail.
+     * Get Topic detail
      */
-    Topic.getUserTopicBySlug($stateParams.username, $stateParams.slug)
+    Topic.getUserTopicBySlug(username, $stateParams.slug)
         .then(function(data) {
           if(data.error){
             $scope.error = true;

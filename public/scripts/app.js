@@ -51,8 +51,56 @@
         })
         .state('movies', {
           url:'/movies/:slug',
-          templateUrl: 'html/movies.html',
-          controller: 'MovieCtrl',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('places', {
+          url:'/places/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('people', {
+          url:'/people/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('products', {
+          url:'/products/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('restaurants', {
+          url:'/restaurants/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('general', {
+          url:'/general/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
+          sp: {
+            waitForUser: true
+          }
+        })
+        .state('other', {
+          url:'/other/:slug',
+          templateUrl: 'html/userTopic.html',
+          controller: 'UserTopicCtrl',
           sp: {
             waitForUser: true
           }

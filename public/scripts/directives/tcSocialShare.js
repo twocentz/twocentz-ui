@@ -14,15 +14,13 @@
           var baseUrl = 'https://twocentz.co/';
           var entries, title;
           if (newValue){
-            scope.url =  baseUrl + scope.type +'/' + scope.slug;
-            if(scope.type === 'user'){
-              if(scope.media[0]){
+            if(scope.media[0]){
                 scope.img = scope.media[0].secure_url;
               }
-              scope.url =  baseUrl + scope.type +'/' + scope.user + '/' + scope.slug;
+            if(scope.type === 'USERS'){
+              scope.url =  baseUrl + 'user' +'/' + scope.user + '/' + scope.slug;
             } else {
-              scope.img = scope.media[0].url;
-              scope.url =  baseUrl + scope.type +'/' + scope.slug;
+              scope.url =  baseUrl + scope.type.toLowerCase() +'/' + scope.slug;
             }
             title = scope.title;
             scope.title = HelperService.encode(scope.title);
