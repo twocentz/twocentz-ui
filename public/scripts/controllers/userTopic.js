@@ -6,7 +6,7 @@
 
   /* @ngInject */
   function UserTopicController($rootScope, $scope, $user, $state, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
-    var username;
+    var promise;
     $scope.error = false;
     $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
@@ -31,49 +31,52 @@
 
 
     if($state.$current.name === 'usertopic'){
-      username = $stateParams.username;
+      promise = Topic.getUserTopicBySlug($stateParams.username, $stateParams.slug);
     } else {
-      username = 'ilyas';
+      promise = Topic.getTopicByCategoryAndSlug($state.$current.name, $stateParams.slug);
     }
+
     /**
      * Get Topic detail
      */
-    Topic.getUserTopicBySlug(username, $stateParams.slug)
-        .then(function(data) {
+
+    promise
+      .then(function(data) {
           if(data.error){
             $scope.error = true;
             $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
 
           }else{
-            if(data.content.length === 0){
-              $scope.error = true;
-              $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
-            } else {
+
+            if(data.content){
               $scope.topic = data.content[0];
-              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-              $scope.userVoted = [];
-              $scope.userName = $stateParams.username;
-
-              document.title = $scope.topic.title + ' - TwoCentz';
-
-              //check to see if user is logged in
-              $user.get()
-                 .then(function(){
-
-                   User.getUserEntriesByTopicId($scope.topic.id)
-                       .then(function (data){
-                         if(data.error){
-                           toastr.error('Could not fetch user entries', 'Warning');
-                         } else {
-                           $scope.userVoted = _.pluck(data.content, 'text');
-                         }
-
-                       });
-                 })
-                 .catch(function(){
-                   //user not logged in
-                 })
+            } else {
+              $scope.topic = data;
             }
+
+            $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+            $scope.userVoted = [];
+            $scope.userName = $stateParams.username;
+
+            document.title = $scope.topic.title + ' - TwoCentz';
+
+            //check to see if user is logged in
+            $user.get()
+             .then(function(){
+
+               User.getUserEntriesByTopicId($scope.topic.id)
+                   .then(function (data){
+                     if(data.error){
+                       toastr.error('Could not fetch user entries', 'Warning');
+                     } else {
+                       $scope.userVoted = _.pluck(data.content, 'text');
+                     }
+
+                   });
+             })
+             .catch(function(){
+               //user not logged in
+             })
           }
         });
 

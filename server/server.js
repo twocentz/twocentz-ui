@@ -43,7 +43,6 @@ app.use(logger('dev'));
 
 app.use(stormpath.init(app, {
   website: true,
-  logger: logger,
   expand: {
     customData: true,
     groups: true

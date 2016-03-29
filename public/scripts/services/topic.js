@@ -9,8 +9,8 @@
         return CachedDataService.getValue('/api/topics');
       }
 
-      function getTopicBySlug(slug) {
-        return CachedDataService.getValue('/api/topics/s/' + slug);
+      function getTopicByCategoryAndSlug(category, slug) {
+        return CachedDataService.getValue('/api/topics/' + category + '/' + slug);
       }
 
       function getMovieBySlug(slug) {
@@ -52,7 +52,7 @@
 
       var service = {
         getAll : getAll,
-        getTopicBySlug: getTopicBySlug,
+        getTopicByCategoryAndSlug: getTopicByCategoryAndSlug,
         getMovieBySlug: getMovieBySlug,
         postUserTopic: postUserTopic,
         postCustomTopic: postCustomTopic,
