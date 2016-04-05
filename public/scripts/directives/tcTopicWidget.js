@@ -27,21 +27,9 @@
       scope.gotoTopic = function(slug){
         if(topic.category === 'USERS'){
           $state.transitionTo('usertopic', { username: topic.userName, slug: topic.slug });
-        } else if (topic.category === 'MOVIES') {
-          $state.transitionTo('movies', { slug: topic.slug });
-        } else if (topic.category === 'PEOPLE') {
-          $state.transitionTo('people', { slug: topic.slug });
-        } else if (topic.category === 'PLACES') {
-          $state.transitionTo('places', { slug: topic.slug });
-        } else if (topic.category === 'OTHER') {
-          $state.transitionTo('other', { slug: topic.slug });
-        } else if (topic.category === 'GENERAL') {
-          $state.transitionTo('general', { slug: topic.slug });
-        } else if (topic.category === 'PRODUCTS') {
-          $state.transitionTo('products', { slug: topic.slug });
-        } else if (topic.category === 'RESTAURANTS') {
-          $state.transitionTo('restaurants', { slug: topic.slug });
-        }
+        } else {
+          $state.transitionTo(topic.category.toLowerCase(), { slug: topic.slug });
+        } 
       }
     }
 

@@ -54,29 +54,34 @@
               $scope.topic = data;
             }
 
-            $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-            $scope.userVoted = [];
-            $scope.userName = $stateParams.username;
+            if(!$scope.topic){
+              $scope.error = true;
+              $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
+            } else {
+              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
+              $scope.userVoted = [];
+              $scope.userName = $stateParams.username;
 
-            document.title = $scope.topic.title + ' - TwoCentz';
+              document.title = $scope.topic.title + ' - TwoCentz';
 
-            //check to see if user is logged in
-            $user.get()
-             .then(function(){
+              //check to see if user is logged in
+              $user.get()
+               .then(function(){
 
-               User.getUserEntriesByTopicId($scope.topic.id)
-                   .then(function (data){
-                     if(data.error){
-                       toastr.error('Could not fetch user entries', 'Warning');
-                     } else {
-                       $scope.userVoted = _.pluck(data.content, 'text');
-                     }
+                 User.getUserEntriesByTopicId($scope.topic.id)
+                     .then(function (data){
+                       if(data.error){
+                         toastr.error('Could not fetch user entries', 'Warning');
+                       } else {
+                         $scope.userVoted = _.pluck(data.content, 'text');
+                       }
 
-                   });
-             })
-             .catch(function(){
-               //user not logged in
-             })
+                     });
+               })
+               .catch(function(){
+                 //user not logged in
+               })
+             }
           }
         });
 
