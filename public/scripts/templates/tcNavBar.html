@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top ng-cloak row" role="navigation" style="margin-right:10px">
+<div class="navbar navbar-default navbar-fixed-top ng-cloak row" role="navigation" style="margin-right:10px" ng-if="search">
   <div class="navbar-header hidden-xs col-sm-3 col-md-3">
     <a ui-sref="home">
       <img class="brand-img" src="tc-logo.png" alt="TwoCentz">
@@ -11,7 +11,7 @@
       </a>
 
   </div>
-  <div class="custom-search-input col-xs-9 col-sm-6 col-md-6" ng-if="search">
+  <div class="custom-search-input col-xs-9 col-sm-6 col-md-6">
        <div class="input-group">
          <span class="input-group-addon size-18"><i class="icon ion-ios-search-strong"></i></span>
          <input type="text" class="form-control" ng-model="query" ng-change="search(query)" placeholder="Search..." />
@@ -34,7 +34,7 @@
 
 <nav mfb-menu position="br" effect="zoomin" label="Close"
      active-icon="ion-close-round" resting-icon="ion-navicon-round"
-     toggling-method="click" class="visible-xs-block" menu-state="floatingButtonState">
+     toggling-method="click"  menu-state="floatingButtonState" ng-if="!search">
 
      <button if-user mfb-button mfb-button-close icon="ion-edit" label="write twocentz"
       event-focus="click" event-focus-id="twocentz-input" ng-if="editable"></button>
