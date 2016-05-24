@@ -6,7 +6,9 @@
 
   /* @ngInject */
   function UserTopicController($rootScope, $scope, $user, $state, $stateParams, $q, $modal, Topic, Entries, toastr, User, HelperService) {
+    var _this = this;
     var promise;
+    this.imageTranformation = 'w_1000,c_fit';
     $scope.error = false;
     $scope.colors = ['#ddd', '#ccc', '#bbb', '#aaa', '#999', '#888', '#777', '#666', '#555', '#444', '#333', '#222'];
 
@@ -62,6 +64,12 @@
               $scope.userVoted = [];
               $scope.userName = $stateParams.username;
 
+              if($scope.topic.mediaFiles && $scope.topic.mediaFiles.length > 0) {
+                $scope.image = 'http://res.cloudinary.com/twocentz/image/upload/' + _this.imageTranformation + '/' + $scope.topic.mediaFiles[0].public_id + '.' + $scope.topic.mediaFiles[0].format; 
+              } else {
+                $scope.image = null;
+              }
+              
               document.title = $scope.topic.title + ' - TwoCentz';
 
               //check to see if user is logged in

@@ -10,13 +10,9 @@
              title="{{topic.title}}" type="{{topic.category}}" user="{{userName}}" topic="topic"></tc-social-share>
         </div>
     </div>
-    <div class="row" style="margin-bottom:10px">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <a href="#" data-animation="am-fade-and-scale"  ng-click="showModal()" >
-          <cl-image public-id="{{topic.mediaFiles[0].public_id}}">
-            <cl-transformation  width="300" crop="fit"/>
-          </cl-image>
-        </a>
+    <div class="row center-elements" style="margin-bottom:10px">
+      <div class="col-xs-12 col-sm-12 col-md-12" ng-if="image">
+          <img src="{{image}}" width="460" height="345" style="width: 100%; height:auto">
       </div>
       <div class="col-xs-12 col-sm-12 col-md-12 top-buffer">
         <tc-topic-details props="topic.props" category="{{topic.category}}" title="{{topic.title}}"
