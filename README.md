@@ -67,8 +67,6 @@ http://localhost:3000
 * Add more pages
 * need to write test and implement Jasmine and Karma
 
-
-
 [mongodb]:https://www.mongodb.org/
 [mongoose]:http://mongoosejs.com/
 [node.js]:http://nodejs.org
