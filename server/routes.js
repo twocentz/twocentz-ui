@@ -18,8 +18,9 @@ var request = require('request');
 var rp = require('request-promise');
 var xml2js = require('xml2js');
 
-var API_VERSION = "1.0";
-var API_URL = "https://twocentz-svc-stage.herokuapp.com/" + API_VERSION + "/";
+
+var API_URL = process.env.TWOCENTZ_SVC_URL;
+var AUTH_STRING = "Basic " + new Buffer(process.env.TWOCENTZ_AUTH_USER + ":" + process.env.TWOCENTZ_AUTH_PASSWORD).toString("base64");
 
 function getUserID(req){
   return req.user.href.slice(req.user.href.lastIndexOf("/")+1);
@@ -49,9 +50,17 @@ function validateEntry(text){
 module.exports = function(app) {
 
   app.get('/api/topics',  function(req, res, next) {
-    rp(API_URL + "topics")
+    var options = {
+      uri : API_URL + "topics",
+      json: true,
+      headers: {
+        "User-Agent": "Request-Promise",
+        "Authorization" : AUTH_STRING
+      }
+    };
+    rp(options)
       .then(function(resp){
-        res.status(200).json(JSON.parse(resp));
+        res.status(200).json(resp);
       })
       .catch(function(error){
         res.status(404).json({error:"failed to get topics"});
@@ -64,7 +73,8 @@ module.exports = function(app) {
       url: API_URL + "topics/user/" + req.params.userName + "?slug=" + req.params.slug,
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization" : AUTH_STRING
       },
     }, function(error, response, body) {
       if(body){
@@ -81,7 +91,8 @@ module.exports = function(app) {
       url: API_URL + "topics/s/" + req.params.slug + "?category=" + req.params.category.toUpperCase(),
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization" : AUTH_STRING
       },
     }, function(error, response, body) {
       if(body){
@@ -117,6 +128,10 @@ module.exports = function(app) {
         uri : API_URL + "topics",
         method : 'POST',
         json: true,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : AUTH_STRING
+        },
         body: formObj
       };
 
@@ -164,7 +179,11 @@ module.exports = function(app) {
         uri : API_URL + "topics",
         method : 'POST',
         json: true,
-        body: formObj
+        body: formObj,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization" : AUTH_STRING
+        },
       };
 
       rp(options)
@@ -188,7 +207,8 @@ module.exports = function(app) {
       url: API_URL + "topics/user/" + getUserName(req),
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization" : AUTH_STRING
       },
     }, function(error, response, body) {
       if(body){
@@ -203,15 +223,24 @@ module.exports = function(app) {
 
   app.get('/api/user/entries/:topicId?', stormpath.loginRequired, function(req, res, next) {
     var full_URL;
+
     if(req.params.topicId){
       full_URL = API_URL + "user/" +  getUserID(req) + "/entries?topicId=" + req.params.topicId;
     } else{
       full_URL = API_URL + "user/" + getUserID(req) + "/entries";
     }
+    var options = {
+      uri : full_URL,
+      json: true,
+      headers: {
+        "User-Agent": "Request-Promise",
+        "Authorization" : AUTH_STRING
+      }
+    };
 
-    rp(full_URL)
+    rp(options)
       .then(function(resp){
-        res.status(200).json(JSON.parse(resp));
+        res.status(200).json(resp);
       })
       .catch(function(error){
         res.status(404).json({error:"failed to get user entries for topicId: " + req.params.topicId});
@@ -240,7 +269,11 @@ module.exports = function(app) {
           uri : API_URL + "entries",
           method : 'POST',
           json: true,
-          body: formObj
+          body: formObj,
+          headers: {
+            "User-Agent": "Request-Promise",
+            "Authorization" : AUTH_STRING
+          }
       };
 
       rp(options)

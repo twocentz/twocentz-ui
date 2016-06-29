@@ -23,6 +23,7 @@
       scope.userName = topic.userName;
       scope.userId = topic.userId;
       scope.twocentz = HelperService.getTopPercentage(topic.totalVotes, topic.topEntries);
+      scope.entries = getTopEntriesLimit(topic.topEntries, 40);
 
       scope.gotoTopic = function(slug){
         if(topic.category === 'USERS'){
@@ -31,6 +32,20 @@
           $state.transitionTo(topic.category.toLowerCase(), { slug: topic.slug });
         } 
       }
+    }
+
+    function getTopEntriesLimit(entries, maxLength){
+      var results = [];
+      var result = '';
+      _.each(entries, function(item){
+        result += ' "' + item.text + '"';
+        results.push(item.text);
+        if(result.length >= maxLength){
+           return false;
+        }
+      });
+      console.log(results.length);
+      return results;
     }
 
     var directive = {

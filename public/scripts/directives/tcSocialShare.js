@@ -43,14 +43,14 @@
             $('head').append('<meta class="tc_meta_tags" property="og:title" content="'+title+'" />');
             $('head').append('<meta class="tc_meta_tags" property="og:url" content="'+scope.url+'" />');
             $('head').append('<meta class="tc_meta_tags" property="og:image" content="'+scope.img+'" />');
-            $('head').append('<meta class="tc_meta_tags" property="og:description" content="'+entries+'" />');
+            // $('head').append('<meta class="tc_meta_tags" property="og:description" content="'+entries+'" />');
 
             //adding twitter meta tags
             $('head').append('<meta class="tc_meta_tags" name="twitter:card" content="summary" />');
             $('head').append('<meta class="tc_meta_tags" name="twitter:site" content="@twocentz" />');
             $('head').append('<meta class="tc_meta_tags" name="twitter:title" content="'+title+'" />');
             $('head').append('<meta class="tc_meta_tags" name="twitter:image" content="'+scope.img+'" />');
-            $('head').append('<meta class="tc_meta_tags" property="twitter:description" content="'+entries+'" />');
+            // $('head').append('<meta class="tc_meta_tags" property="twitter:description" content="'+entries+'" />');
           }
       });
     }

@@ -42,13 +42,13 @@
                   <a href="#" ng-click="upVote(entry.text)" class="pull-right" ng-hide="isVoted(entry.text)">
                     <span class="size-24 step pull-right"><i class="icon ion-android-arrow-dropup-circle"></i></span>
                   </a>
-                  <span class="badge pull-left">{{getVotesinPercent(entry.votes)}}</span>
+                  <span class="badge pull-left">{{entry.votes}}</span>
               </li>
             </ul>
             <ul if-not-user class="list-group">
               <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
                   <span style="padding:0px 10px">  {{entry.text}}</span>
-                  <span class="badge pull-left">{{getVotesinPercent(entry.votes)}}</span>
+                  <span class="badge pull-left">{{entry.votes}}</span>
               </li>
             </ul>
             <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-info btn-block" role="button">{{list.text}}</a>
