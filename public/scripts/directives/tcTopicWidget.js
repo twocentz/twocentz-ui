@@ -4,6 +4,19 @@
 
 
   function tcTopicWidget(HelperService, $state) {
+    
+    function getTopEntriesLimit(entries, maxLength){
+      var results = [];
+      var result = '';
+      _.each(entries, function(item){
+        result += ' "' + item.text + '"';
+        results.push(item.text);
+        if(result.length >= maxLength){
+           return false;
+        }
+      });
+      return results;
+    }
 
     function link(scope, element, attrs) {
       var topic = scope.topic;
@@ -23,7 +36,7 @@
       scope.userName = topic.userName;
       scope.userId = topic.userId;
       scope.twocentz = HelperService.getTopPercentage(topic.totalVotes, topic.topEntries);
-      scope.entries = getTopEntriesLimit(topic.topEntries, 40);
+      scope.entries = getTopEntriesLimit(topic.topEntries, 30);
 
       scope.gotoTopic = function(slug){
         if(topic.category === 'USERS'){
@@ -34,19 +47,7 @@
       }
     }
 
-    function getTopEntriesLimit(entries, maxLength){
-      var results = [];
-      var result = '';
-      _.each(entries, function(item){
-        result += ' "' + item.text + '"';
-        results.push(item.text);
-        if(result.length >= maxLength){
-           return false;
-        }
-      });
-      console.log(results.length);
-      return results;
-    }
+    
 
     var directive = {
       restrict: 'EA',

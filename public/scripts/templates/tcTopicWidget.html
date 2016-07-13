@@ -8,9 +8,9 @@
             </cl-image>
         </div>
         <div class="container-fluid" ng-if="topic.totalVotes > 0" style="margin-top: 10px; margin-bottom: 10px">
-          <div ng-repeat="value in entries" class="col-xs-4 col-sm-4 col-md-4">
+          <span ng-repeat="value in entries" style = "margin:5px">
             <span class="label label-info">{{value}}</span>
-          </div>
+          </span>
           
         </div>
     </a>
