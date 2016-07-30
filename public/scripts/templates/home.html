@@ -1,6 +1,6 @@
 <div class="container-fluidr floating_panel">
     <tc-nav-bar search="search" query="query" page="home"></tc-nav-bar>
-    <p class="lead" style="margin:20px;text-align: center;">Find or create any topic and share your opinion with just two words!</p>
+    <p class="lead" style="margin:20px;text-align: center;">Find any topic and share your opinion with just two words!</p>
     <div class="widget-panel" masonry='{  "transitionDuration" : "0.2s"  , "itemSelector" : ".tile", "columnWidth": ".tile", "isFitWidth": true, "gutter": 20}'>
         <div masonry-tile ng-repeat="topic in topics track by topic.objectID" tc-topic-widget topic="topic" class="tile">
         </div>
