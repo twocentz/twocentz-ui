@@ -14,8 +14,8 @@
     }
 
     function getIndex(){
-      var ALGOLIA_CLIENT_ID = '05FTLLM54V';
-      var ALGOLIA_SEARCH_KEY = '657c40e74e8a05261076878c1d08d093';
+      var ALGOLIA_CLIENT_ID = 'KBGORFRS8S';
+      var ALGOLIA_SEARCH_KEY = '38943c3ec00930360d1bb11a33dba29d';
       var client = algolia.Client(ALGOLIA_CLIENT_ID, ALGOLIA_SEARCH_KEY);
       return client;
     }

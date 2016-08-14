@@ -65,7 +65,7 @@
               $scope.userName = $stateParams.username;
 
               if($scope.topic.mediaFiles && $scope.topic.mediaFiles.length > 0) {
-                $scope.image = 'http://res.cloudinary.com/twocentz/image/upload/' + _this.imageTranformation + '/' + $scope.topic.mediaFiles[0].public_id + '.' + $scope.topic.mediaFiles[0].format; 
+                $scope.image = 'http://res.cloudinary.com/twocentz-app/image/upload/' + _this.imageTranformation + '/' + $scope.topic.mediaFiles[0].public_id + '.' + $scope.topic.mediaFiles[0].format; 
               } else {
                 $scope.image = null;
               }
