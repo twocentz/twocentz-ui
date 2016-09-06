@@ -128,7 +128,10 @@ gulp.task('copy', ['clean', 'compress', 'less', 'templates'], function() {
   var img = gulp.src('*.png', {cwd: bases.app})
     .pipe(gulp.dest(bases.dist));
 
-  return merge(style, libs, css, img);
+  var html = gulp.src('*.html', {cwd: bases.app})
+    .pipe(gulp.dest(bases.dist));
+
+  return merge(style, libs, css, img, html);
 });
 
 
