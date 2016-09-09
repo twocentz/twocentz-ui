@@ -70,7 +70,7 @@
               HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
               $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
               $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-              $scope.topic.totalVotes++;
+              $scope.topic.total_votes++;
             }
 
             deferred.resolve(data);
@@ -112,7 +112,7 @@
     };
 
     $scope.getVotesinPercent = function(votes) {
-      return HelperService.getVotesinPercent($scope.topic.totalVotes, votes);
+      return HelperService.getVotesinPercent($scope.topic.total_votes, votes);
     };
 
     $scope.toggleEntries = function(){

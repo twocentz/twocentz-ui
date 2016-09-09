@@ -60,12 +60,12 @@
               $scope.error = true;
               $scope.errorMessage = 'Could not find information for topic : ' + $stateParams.slug;
             } else {
-              $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-              $scope.userVoted = [];
+              $scope.words = HelperService.populateWordCloud($scope.topic.top_entries);
+              $scope.user_voted = [];
               $scope.userName = $stateParams.username;
 
-              if($scope.topic.mediaFiles && $scope.topic.mediaFiles.length > 0) {
-                $scope.image = 'http://res.cloudinary.com/twocentz-app/image/upload/' + _this.imageTranformation + '/' + $scope.topic.mediaFiles[0].public_id + '.' + $scope.topic.mediaFiles[0].format; 
+              if($scope.topic.media_files && $scope.topic.media_files.length > 0) {
+                $scope.image = 'http://res.cloudinary.com/twocentz-app/image/upload/' + _this.imageTranformation + '/' + $scope.topic.media_files[0].public_id + '.' + $scope.topic.media_files[0].format; 
               } else {
                 $scope.image = null;
               }
@@ -81,7 +81,7 @@
                        if(data.error){
                          toastr.error('Could not fetch user entries', 'Warning');
                        } else {
-                         $scope.userVoted = _.pluck(data.content, 'text');
+                         $scope.user_voted = _.pluck(data.content, 'text');
                        }
 
                      });
@@ -118,10 +118,10 @@
         Entries.postUserTopicEntriesByTopicId(entry, $scope.topic.id)
             .then(function(data){
               if(data.created === 'true'){
-                HelperService.addEntryToLocalCache(entry, $scope.topic.topEntries, $scope.userVoted);
-                $scope.topic.topEntries = HelperService.descSort($scope.topic.topEntries);
-                $scope.words = HelperService.populateWordCloud($scope.topic.topEntries);
-                $scope.topic.totalVotes++;
+                HelperService.addEntryToLocalCache(entry, $scope.topic.top_entries, $scope.user_voted);
+                $scope.topic.top_entries = HelperService.descSort($scope.topic.top_entries);
+                $scope.words = HelperService.populateWordCloud($scope.topic.top_entries);
+                $scope.topic.total_votes++;
               }
 
               deferred.resolve(data);
@@ -143,7 +143,7 @@
     };
 
     $scope.isVoted = function(entryText) {
-      if(_.indexOf($scope.userVoted, entryText) > -1){
+      if(_.indexOf($scope.user_voted, entryText) > -1){
         return true;
       }else{
         return false;
@@ -163,7 +163,7 @@
     };
 
     $scope.getVotesinPercent = function(votes) {
-      return HelperService.getVotesinPercent($scope.topic.totalVotes, votes);
+      return HelperService.getVotesinPercent($scope.topic.total_votes, votes);
     };
 
     $scope.toggleEntries = function(){

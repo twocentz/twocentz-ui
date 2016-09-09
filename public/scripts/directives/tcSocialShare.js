@@ -24,8 +24,8 @@
             }
             title = scope.title;
             scope.title = HelperService.encode(scope.title);
-            if(scope.topic.totalVotes > 0){
-              entries = HelperService.getTopPercentage(scope.topic.totalVotes, scope.entries)[0] + ' ' + scope.topic.topEntries[0].text;
+            if(scope.topic.total_votes > 0){
+              entries = HelperService.getTopPercentage(scope.topic.total_votes, scope.entries)[0] + ' ' + scope.topic.top_entries[0].text;
             } else {
               entries = '';
             }

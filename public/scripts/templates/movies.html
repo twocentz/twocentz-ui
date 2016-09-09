@@ -6,7 +6,7 @@
   <div ng-if="!error">
     <div class="row" style="margin-bottom:10px">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <tc-social-share slug="{{topic.slug}}" media="topic.mediaFiles" entries="topic.topEntries"
+            <tc-social-share slug="{{topic.slug}}" media="topic.mediaFiles" entries="topic.top_entries"
               title="{{topic.title}}" type="movies" topic="topic"></tc-social-share>
         </div>
     </div>
@@ -32,7 +32,7 @@
           <div class="panel-heading"><h4>Popular TwoCentz</h4></div>
           <div class="panel-body">
             <ul if-user class="list-group">
-              <li class="list-group-item"  ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+              <li class="list-group-item"  ng-class="[{'list-group-item-success' : isVoted(entry.text)}]" ng-repeat="entry in topic.top_entries | limitTo:list.limit">
                   <span style="padding:0px 10px">  {{entry.text}}</span>
                   <a href="#" ng-click="upVote(entry.text)" class="pull-right" ng-hide="isVoted(entry.text)">
                     <span class="size-24 step pull-right"><i class="icon ion-android-arrow-dropup-circle"></i></span>
@@ -41,12 +41,12 @@
               </li>
             </ul>
             <ul if-not-user class="list-group">
-              <li class="list-group-item"  ng-repeat="entry in topic.topEntries | limitTo:list.limit">
+              <li class="list-group-item"  ng-repeat="entry in topic.top_entries | limitTo:list.limit">
                   <span style="padding:0px 10px">  {{entry.text}}</span>
                   <span class="badge pull-left">{{getVotesinPercent(entry.votes)}}</span>
               </li>
             </ul>
-            <a ng-click="toggleEntries()" ng-if="topic.topEntries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
+            <a ng-click="toggleEntries()" ng-if="topic.top_entries.length > list.default" class="btn btn-primary btn-block" role="button">{{list.text}}</a>
           </div>
         </div>
 

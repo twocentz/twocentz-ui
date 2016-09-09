@@ -57,11 +57,11 @@
       return result;
     }
 
-    function getTopPercentage(totalVotes, topEntries){
-      if(totalVotes>0){
+    function getTopPercentage(total_votes, topEntries){
+      if(total_votes>0){
         var topCents = [];
         for(var i = 0; i < topEntries.length; i++){ 
-          topCents.push(Math.round(100 * parseInt(topEntries[i].votes) / parseInt(totalVotes)) + '%');
+          topCents.push(Math.round(100 * parseInt(topEntries[i].votes) / parseInt(total_votes)) + '%');
         }
         return topCents;
       } else {
@@ -81,9 +81,9 @@
       return result.slice(0, -2);
     }
 
-    function getVotesinPercent(totalVotes, votes) {
-      if(totalVotes>0){
-        var percent = Math.round(100 * votes / totalVotes);
+    function getVotesinPercent(total_votes, votes) {
+      if(total_votes>0){
+        var percent = Math.round(100 * votes / total_votes);
         return percent;
       } else {
         return 0;

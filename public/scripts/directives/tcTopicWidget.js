@@ -26,21 +26,21 @@
       } else {
         scope.title = topic.title;
       }
-      if(topic.mediaFiles.length){
-        scope.image_id = topic.mediaFiles[0].public_id;
+      if(topic.media_files.length){
+        scope.image_id = topic.media_files[0].public_id;
       }
     
 
       scope.slug = topic.slug;
       scope.category = topic.category;
-      scope.userName = topic.userName;
-      scope.userId = topic.userId;
-      scope.twocentz = HelperService.getTopPercentage(topic.totalVotes, topic.topEntries);
-      scope.entries = getTopEntriesLimit(topic.topEntries, 30);
+      scope.userName = topic.username;
+      scope.userId = topic.user_id;
+      scope.twocentz = HelperService.getTopPercentage(topic.total_votes, topic.top_entries);
+      scope.entries = getTopEntriesLimit(topic.top_entries, 30);
 
       scope.gotoTopic = function(slug){
         if(topic.category === 'USERS'){
-          $state.transitionTo('usertopic', { username: topic.userName, slug: topic.slug });
+          $state.transitionTo('usertopic', { username: topic.username, slug: topic.slug });
         } else {
           $state.transitionTo(topic.category.toLowerCase(), { slug: topic.slug });
         } 
