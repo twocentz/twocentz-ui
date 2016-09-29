@@ -21,8 +21,8 @@ block body
               .alert.alert-danger
                 each error in errors
                   p #{error.message}
-
-            form.registration-form.form-horizontal.sp-form(method='post', role='form')
+            //- commenting out
+            //-form.registration-form.form-horizontal.sp-form(method='post', role='form')
               each field in formModel.fields
                 div(form-group='true', class='form-group group-#{field.name}')
                   label.col-sm-4 #{field.label}

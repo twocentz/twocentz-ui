@@ -15,8 +15,8 @@
               topicModel.mediaFiles = mediaFiles;
               Topic.postUserTopic(topicModel)
                 .then(function(respose){
-                  if(respose.userName){
-                    $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
+                  if(respose.username){
+                    toastr.success('post created successfully');
                   } else if (respose.exists){
                     toastr.error('title already exist, try another name.', 'Error');
                   }
@@ -27,8 +27,8 @@
         } else {
           Topic.postUserTopic(topicModel)
             .then(function(respose){
-              if(respose.userName){
-                $state.transitionTo('usertopic', { username: respose.userName, slug: respose.slug });
+              if(respose.username){
+                toastr.success('post created successfully');
               } else if (respose.exists){
                 toastr.error('title already exist, try another name.', 'Error');
               }
@@ -97,6 +97,15 @@
       function init() {
         vm.model = {};
         vm.fields = [
+          {
+            key: 'user',
+            type: 'input',
+            templateOptions: {
+              label: 'User',
+              placeholder: 'Type USER ID',
+              required: true
+            }
+          },
           {
             key: 'title',
             type: 'textarea',

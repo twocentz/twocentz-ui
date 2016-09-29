@@ -58,7 +58,7 @@ block body
             .header
               img(src="tc-logo-lg.png", style="max-width:100%; height:auto; padding-bottom:10px;")
               if stormpathConfig.web.register.enabled
-                span.
+                //-span.
                   Log In or <a href="#{stormpathConfig.web.register.uri}">Create Account</a>
               else
                 span.
@@ -118,7 +118,7 @@ block body
               div
                 button.login.btn.btn-login.btn-sp-green(type='submit') Log In
 
-          if hasSocialProviders
+          //-if hasSocialProviders
             .social-area.col-xs-12.col-sm-4
               .header &nbsp;
               label Easy 1-click login:

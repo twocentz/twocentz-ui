@@ -119,9 +119,9 @@ module.exports = function(app) {
       formObj = {
         title: _.trim(req.body.title),
         category: 'users',
-        mediaFiles: req.body.mediaFiles,
-        userId: getUserID(req),
-        userName: getUserName(req)
+        media_files: req.body.mediaFiles,
+        user_id: req.body.user,
+        username: 'userX'
       }
 
       var options = {

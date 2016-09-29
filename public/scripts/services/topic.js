@@ -28,6 +28,7 @@
       function postUserTopic(topicObj){
 
         var postObject = {
+          user: topicObj.user,
           title: topicObj.title,
           category: 'users',
           mediaFiles: topicObj.mediaFiles
