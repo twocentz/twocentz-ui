@@ -1,6 +1,6 @@
 # TwoCentz UI
 
-twocentz-ui is an Angular-Express application. 
+twocentz-ui is an Angular-Express application!
 
 ### Version
 0.0.1
