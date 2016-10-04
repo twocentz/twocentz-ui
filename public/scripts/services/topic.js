@@ -33,7 +33,7 @@
           category: 'users',
           mediaFiles: topicObj.mediaFiles
         }
-
+        
         return CachedDataService.postValue('api/topics', postObject);
       }
 

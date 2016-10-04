@@ -99,11 +99,24 @@
         vm.fields = [
           {
             key: 'user',
-            type: 'input',
+            type: 'select',
             templateOptions: {
-              label: 'User',
-              placeholder: 'Type USER ID',
-              required: true
+                label: 'Users',
+                required: true,
+                options: [
+                    {
+                        'name'  : 'Restaurants & Cafe',
+                        'value' : '57eafde9bdb0f2000382932b'
+                    },
+                    {
+                        'name'  : 'New Movies',
+                        'value' : '57eb03bebdb0f2000382932e'
+                    },              
+                    {
+                        'name'  : 'Things To Do',
+                        'value' : '57ed64d3112ece0003779d26'
+                    },
+                ]
             }
           },
           {
