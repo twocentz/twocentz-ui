@@ -21,6 +21,13 @@
       }
     }
 
+    function linkify(text) {
+        var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+        return text.replace(urlRegex, function(url) {
+            return '<a href="' + url + '">' + url + '</a>';
+        });
+    }
+
     $scope.$on('$locationChangeStart', routeChange);
 
     // Show when some event occurs (use $promise property to ensure the template has been loaded)
@@ -63,6 +70,7 @@
               $scope.words = HelperService.populateWordCloud($scope.topic.top_entries);
               $scope.user_voted = [];
               $scope.userName = $stateParams.username;
+              $scope.topic.title = linkify($scope.topic.title);
 
               if($scope.topic.media_files && $scope.topic.media_files.length > 0) {
                 $scope.image = 'http://res.cloudinary.com/twocentz-app/image/upload/' + _this.imageTranformation + '/' + $scope.topic.media_files[0].public_id + '.' + $scope.topic.media_files[0].format; 
@@ -131,6 +139,8 @@
       }
       return deferred.promise;
     }
+
+    
 
     $scope.keySubmit = function(keyEvent){
       if (keyEvent.which === 13){
