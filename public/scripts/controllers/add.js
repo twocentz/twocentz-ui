@@ -116,6 +116,18 @@
                         'name'  : 'Things To Do',
                         'value' : '57ed64d3112ece0003779d26'
                     },
+                    {
+                        'name'  : 'Tech News',
+                        'value' : '581bf3ccbd381800034c6827'
+                    },
+                    {
+                        'name'  : 'Entrepreneur',
+                        'value' : '581bf6cebd381800034c6829'
+                    },              
+                    {
+                        'name'  : 'Gadgets',
+                        'value' : '581de21815843d0003918d9d'
+                    }
                 ]
             }
           },

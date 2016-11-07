@@ -121,6 +121,14 @@
             authenticate: true
           }
         })
+        .state('votes', {
+          url:'/votes',
+          templateUrl: 'html/votes.html',
+          controller: 'VotesCtrl',
+          sp: {
+            authenticate: true
+          }
+        })
         .state('mytopics', {
           url:'/mytopics',
           templateUrl: 'html/mytopics.html',

@@ -1,0 +1,50 @@
+<tc-nav-bar page="topic"></tc-nav-bar>
+<div class="container-fluid floating_panel">
+  <div ng-if="error">
+    <div class="alert alert-danger col-md-12" role="alert">{{errorMessage}}</div>
+  </div>
+  <div ng-if="!error">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 top-buffer" >
+        <div class="input-group input-group-lg">
+            <input class="form-control" type="text" ng-model="tc.text" ng-keydown="keySubmit($event)" placeholder="write two words" id="twocentz-input" >
+            <span class="input-group-btn">
+              <button ng-click="postTwoCentz()" ng-disabled="tc.submited" class="btn btn-success" role="button">
+                <span class="size-24 step"><i class="icon ion-android-send"></i></span>
+              </button>
+            </span>
+        </div>
+        <div if-user style="padding-top:10px">
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-success">entry sent!</span>
+          <span  style="font-size: 1.4em; width: 100%; display: none" class="label label-danger">entry rejected!</span>
+        </div>
+        
+      </div>
+    </div>
+    <div class="row">
+      
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h4>Select Topic</h4></div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <select name="singleSelect" id="singleSelect" style='width: 100%' ng-options="topic.title in topics track by topic.objectID" ng-model="multipleSelect">
+              </select><br>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 top-buffer">
+        <div class="panel panel-default" style="height: 400px">
+          <div class="panel-heading"><h4>Select Users</h4></div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <select name="multipleSelect" id="multipleSelect" style='height: 300px; width: 100%' ng-options="user.name for user in users track by user.value" ng-model="multipleSelect" multiple>
+              </select><br>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
